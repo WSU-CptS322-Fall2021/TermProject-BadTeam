@@ -251,7 +251,7 @@ This document contains the required specifications including the Customer, User 
 
 “A host a creates a challenge in a create/edit state. They then save this challenge. They can then either go back to editing the challenge, or initiate it. An initiated challenge can be stopped at any point. While initiated, competitors can join and take the challenge.”
 
-![img](https://cdn.discordapp.com/attachments/701565926100959345/897692366301982780/image.png)
+![Swimlane Diagram](https://github.com/WSU-CptS322-Fall2021/TermProject-BadTeam/blob/7b3258e0975e5646e74ad104814646e48ab0e96d/Documents/swimlaneDiagram.png)
 
 ----
 ## 2.4 Non-Functional Requirements
@@ -278,15 +278,15 @@ You may use the following template for non-functional requirements.
 
 1. **Log In/Join Challenge Page Mock Up**
 
-![img](https://cdn.discordapp.com/attachments/701565926100959345/897663146276315177/image2.png)
+![Login Mockup](https://github.com/WSU-CptS322-Fall2021/TermProject-BadTeam/blob/7b3258e0975e5646e74ad104814646e48ab0e96d/Documents/loginMockup.jfif)
 
 2. **Take Challenge Page Mock Up**
 
-![img](https://cdn.discordapp.com/attachments/701565926100959345/897663146003677304/image1.png)
+![Take Challenge Mockup](https://github.com/WSU-CptS322-Fall2021/TermProject-BadTeam/blob/7b3258e0975e5646e74ad104814646e48ab0e96d/Documents/takeChallengeMockup.jfif)
 
 3. **View Challenges Page Mock Up**
 
-![img](https://cdn.discordapp.com/attachments/701565926100959345/897663145768788058/image0.png)
+![View Challenge Mockup](https://github.com/WSU-CptS322-Fall2021/TermProject-BadTeam/blob/7b3258e0975e5646e74ad104814646e48ab0e96d/Documents/viewChallengeMockup.jfif)
 
 ----
 # 4. References
