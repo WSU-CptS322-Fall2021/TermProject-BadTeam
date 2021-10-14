@@ -33,7 +33,7 @@ Prepared by:
   - [2.4 Non-Functional Requirements](#24-non-functional-requirements)
 - [3. User Interface](#3-user-interface)
 - [4. References](#4-references)
-- [Appendix: Grading Rubric](#appendix-grading-rubric)
+- [5. Glossary of Terms](#5-glossary-of-terms)
 
 <a name="revision-history"> </a>
 
@@ -43,6 +43,7 @@ Prepared by:
 | ---------- | ---------- | ------------------ | ------- |
 | Revision 1 | 2021-10-05 | Initial draft      | 1.0     |
 | Revision 2 | 2021-10-12 | Filled Out Details | 1.1     |
+| Revision 3 | 2021-10-13 | Fix Small Mistakes | 1.2     |
 
 ----
 # 1. Introduction
@@ -91,7 +92,7 @@ This document contains the required specifications including the Customer, User 
 
 ## 2.3 Use Cases
 
-| Name              | Register                                                     |
+| Name              | Register Host                                                     |
 | ----------------- | ------------------------------------------------------------ |
 | Users             | All Users                                                  |
 | Rationale         | In order to be able to use Host features, it is necessary to allow users to create a new Host account with which to authenticate and access Host functionality. |
@@ -103,7 +104,7 @@ This document contains the required specifications including the Customer, User 
 | Acceptance tests  | Using register functionality, create new mock user. Confirm the creation of a user with the given details. |
 | Iteration         | 1                                                            |
 - - -
-| Name              | Log In                                                       |
+| Name              | Log In Host                                                      |
 | ----------------- | ------------------------------------------------------------ |
 | Users             | Host                                            |
 | Rationale         | In order to be able to access host features after creating a Host account, one needs to be able to authenticate and log in with that account. |
@@ -217,7 +218,7 @@ This document contains the required specifications including the Customer, User 
 | Rationale         | Once the user has indicated that they want to take a challenge and a have a valid room identifier, they actually need to be able to test themselves in the challenge itself. |
 | Triggers          | The user is redirected to this functionality from the Join Challenge functionality (see Use Case #18) |
 | Preconditions     | The user has satisfied the conditions of the Join Challenge Functionality. |
-| Actions           | 1. The User is presented with a prompt, which they attempt to copy type as quickly as possible.<br />2. Upon completing each prompt, if there is another prompt, it is presented to the User.<br />3. While the user types, the software tracks their speed, and mistakes<br />4. When they have completed all of the prompts, they are redirected to the view results functionality (see Use Case #16) |
+| Actions           | 1. The software presents the Competitor with a prompt to copy.<br />2. The Competitor copies this prompt as quickly as possible, and the indicates they would like to move to the next prompt <br />3. If there is another prompt to display return to Step 2<br>4.Otherwise the software present the show results functionality (see Use Case 'View Results') |
 | Alternative Paths | During the challenge(Steps 1-3), the User leaves the test. If they do this the software stops tracking their challenge and disposes of the incomplete information. It is not recorded to the results of the challenge. |
 | Postconditions    | The User is viewing the View Results functionality (see Use Case #16). Their results have been recorded to the challenge records. |
 | Acceptance Tests  | Create a mock challenge. Mock up the taking of that challenge. Confirm that the results are stored to the challenge records. |
@@ -264,6 +265,7 @@ You may use the following template for non-functional requirements.
 2. **UX Ease of Use:** In order to ensure that our user interface is easy and straightforward to use, we will impose a rule that from any point in the software, one should require a **maximum** of 4 clicks to reach any other functionality in the software.
 3. **Minimized Page Reloads:** Within time-sensitive parts of the application, (most obviously the timed challenge portion, this principle could apply elsewhere as well) the user should not experience **any** full page reloads to minimize the delay to users in time critical moments.
 4. **English Localization:** Our typing interface, regardless of the method that we use, should support all valid English language characters and punctuation, both during challenge creation and challenge taking.
+5. **Web Application:** As per the assignment requirements, the project will be devloped as a web application using web-development frameworks.
 
 ----
 # 3. User Interface
@@ -299,7 +301,7 @@ You may use the following template for non-functional requirements.
 
 ----
 
-# Glossary of Terms
+# 5. Glossary of Terms
 
 **Challenge:** A *challenge* is a series of user created prompts. These are presented to a given *challenger* in a preset order. The goal of the *challenger* is to copy the prompts in the interface as quickly and accurately as they can, and their stats are cached and marked as related to the challenge.
 
