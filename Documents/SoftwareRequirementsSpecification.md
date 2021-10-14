@@ -252,7 +252,7 @@ This document contains the required specifications including the Customer, User 
 
 “A host a creates a challenge in a create/edit state. They then save this challenge. They can then either go back to editing the challenge, or initiate it. An initiated challenge can be stopped at any point. While initiated, competitors can join and take the challenge.”
 
-![Swimlane Diagram](https://github.com/WSU-CptS322-Fall2021/TermProject-BadTeam/blob/7b3258e0975e5646e74ad104814646e48ab0e96d/Documents/swimlaneDiagram.png)
+![Swimlane Diagram](https://github.com/WSU-CptS322-Fall2021/TermProject-BadTeam/blob/main/Documents/swimlaneDiagram.png?raw=true)
 
 ----
 ## 2.4 Non-Functional Requirements
