@@ -1,0 +1,2 @@
+FLASK_APP=poly_type.py
+FLASK_DEBUG=1
