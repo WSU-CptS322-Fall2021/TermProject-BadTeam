@@ -1,11 +1,11 @@
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
-from app import db, login
+from app import db
 from flask_login import UserMixin
 
-@login.user_loader
-def load_user(id):
-    return Host.query.get(int(id))
+# @login.user_loader
+# def load_user(id):
+#     return Host.query.get(int(id))
 
 class Host(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -22,9 +22,9 @@ class Host(UserMixin, db.Model):
     def get_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    @login.user_loader
-    def load_user(id):
-        return Host.query.get(int(id))
+    # @login.user_loader
+    # def load_user(id):
+    #     return Host.query.get(int(id))
     
     def get_host_challenges(self):
         return self.challenges
