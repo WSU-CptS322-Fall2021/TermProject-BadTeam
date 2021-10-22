@@ -24,9 +24,9 @@ class Host(UserMixin, db.Model):
 
     @login.user_loader
     def load_user(id):
-        return User.query.get(int(id))
+        return Host.query.get(int(id))
     
-    def get_user_challenges(self):
+    def get_host_challenges(self):
         return self.challenges
 
 class Challenge(db.Model):
@@ -44,7 +44,7 @@ class Prompt(db.Model):
 class Result(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     challenger = db.Column(db.String(64))
-    wpm = db.Column(db.Integer)
+    elapsedTime = db.Column(db.Integer)
     correct = db.Column(db.Integer)
     incorrect = db.Column(db.Integer)
     #challenge exists as a backref to its challenge object
