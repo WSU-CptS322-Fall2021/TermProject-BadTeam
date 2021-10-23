@@ -4,19 +4,37 @@
 
 <h1>[Poly_Type]</h1>
 
-    {% if form %}
+    {% if challengeform %}
         <form action="" method="post">
-            {{ form.hidden_tag() }}
+            {{ challengeform.hidden_tag() }}
             <div>
-                {{ form.title.label }}
-                {{ form.title }}
-                {% for nested in form.prompts %}
+                {{ challengeform.title.label }}
+                {{ challengeform.title }}
+                {% for nested in challengeform.prompts %}
                     <div style="visibility: visible;">
                         {{ nested.prompt.label }} {{ nested.prompt }}
                     </div>
                 {% endfor %}
-                {{ form.submit }}
+                {{ challengeform.submit }}
             </div>
         </form>
+    {% endif %}
+
+    {% if hostform %}
+    <form action="" method="post">
+        {{ hostform.hidden_tag() }}
+        <div>
+            {{ hostform.username.label }}
+            {{ hostform.username }}
+
+            {{ hostform.password.label }}
+            {{ hostform.password }}
+
+            {{ hostform.password2.label }}
+            {{ hostform.password2 }}
+
+            {{ hostform.submit }}
+        </div>
+    </form>
     {% endif %}
 {% endblock %}
