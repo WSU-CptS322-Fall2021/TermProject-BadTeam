@@ -3,14 +3,91 @@
 {% block content %}
 
 <div id="homepage-header">
-    <h3 class="logo">[Poly_Type]</h3>
-    <p class="header-text"> log_in</p>
+    <h3 class="logo">[poly_type]</h3>
+    <div id = "login-container">
+        <p class="header-text"> log_in</p>
+
+        <!--Display the login form in the hidden window-->
+        <form action="" method="post">
+            {{ loginForm.hidden_tag() }}
+            <div id="login-form-container" style="top: 40px;">
+
+                <!--If else structure adds error class to forms if errors are present-->
+                {%if loginForm%}
+                    {% if loginForm.username.errors | length > 0%}
+                        {{ loginForm.username(class=("login-input error"), placeholder="[ username ]", autocomplete="off") }}
+                    {%else%}
+                        {{ loginForm.username(class=("login-input"), placeholder="[ username ]", autocomplete="off") }}
+                    {%endif%}    
+
+                     {% if loginForm.password.errors | length > 0%}
+                        {{ loginForm.password(class="login-input error", placeholder="[ password ]", autocomplete="off") }}
+                    {%else%}
+                        {{ loginForm.password(class="login-input", placeholder="[ password ]", autocomplete="off") }}
+                    {%endif%}
+
+                    {{ loginForm.submit(class="login-submit") }}
+                {%endif%}
+            </div>
+        </form>
+
+        <!--Label for the registration form-->
+        <p class="header-text hidden" style="top: 175px">register</p>
+
+        <!--Display the register form in the hidden window-->
+        <form action="" method="post">
+            {{ registrationForm.hidden_tag() }}
+            <div id="login-form-container" style="top: 200px;">
+
+                <!--If else structure adds error class to forms if errors are present-->
+                {%if registrationForm%}
+                    {% if registrationForm.reg_username.errors | length > 0%}
+                        {{ registrationForm.reg_username(class=("login-input error"), placeholder="[ username ]", autocomplete="off") }}
+                    {%else%}
+                        {{ registrationForm.reg_username(class=("login-input"), placeholder="[ username ]", autocomplete="off") }}
+                    {%endif%}    
+
+                     {% if registrationForm.reg_password.errors | length > 0%}
+                        {{ registrationForm.reg_password(class="login-input error", placeholder="[ password ]", autocomplete="off") }}
+                    {%else%}
+                        {{ registrationForm.reg_password(class="login-input", placeholder="[ password ]", autocomplete="off") }}
+                    {%endif%}
+
+                    {% if registrationForm.reg_password2.errors | length > 0%}
+                        {{ registrationForm.reg_password2(class="login-input error", placeholder="[ repeat_password ]", autocomplete="off") }}
+                    {%else%}
+                        {{ registrationForm.reg_password2(class="login-input", placeholder="[ repeat_password ]", autocomplete="off") }}
+                    {%endif%}
+
+                    {{ registrationForm.submit(class="login-submit") }}
+                {%endif%}
+            </div>
+        </form>
+    </div>
 </div>
 
-<div id="homepage-body">
-    <!--Replace this with join challenge form when available.-->
-    <input type="text" placeholder="room-code" class="join-challenge-input">
-    <input type="text" placeholder="nickname" class="join-challenge-input">
-</div>
+<!--Display the Join Challenge Form-->
+<form action="" method="post">
+    {{ joinForm.hidden_tag() }}
+    <div id="homepage-body">
+
+        <!--If else structure adds error class to forms if errors are present-->
+        {%if joinForm%}
+            {% if joinForm.joincode.errors | length > 0%}
+                {{ joinForm.joincode(class=("join-challenge-input error"), placeholder="[ join_code ]", autocomplete="off", maxlength="6", style="text-transform: uppercase") }}
+            {%else%}
+                {{ joinForm.joincode(class=("join-challenge-input"), placeholder="[ join_code ]", autocomplete="off", maxlength="6", style="text-transform: uppercase") }}
+            {%endif%}    
+
+             {% if joinForm.nickname.errors | length > 0%}
+                {{ joinForm.nickname(class="join-challenge-input error", placeholder="[ nickname ]", autocomplete="off") }}
+            {%else%}
+                {{ joinForm.nickname(class="join-challenge-input", placeholder="[ nickname ]", autocomplete="off") }}
+            {%endif%}
+
+            {{ joinForm.submit(class="join-challenge-submit") }}
+        {%endif%}
+    </div>
+</form>
     
 {% endblock %}

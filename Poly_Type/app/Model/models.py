@@ -15,7 +15,7 @@ class Host(UserMixin, db.Model):
     challenges = db.relationship('Challenge', backref='host', lazy='dynamic')
 
     def __repr__(self):
-        return f'<Tag {self.id} - {self.username}>'
+        return '<Tag {self.id} - {self.username}>'
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
