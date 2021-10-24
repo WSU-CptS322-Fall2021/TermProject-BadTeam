@@ -13,6 +13,7 @@
 	left: 0px;
 	top: 0px;
 	margin-top: 0;
+	color: var(--contrast);
 }
 
 #homepage-header .header-text{
@@ -21,6 +22,7 @@
 	right: 0px;
 	top: 0px;
 	margin-top: 0;
+	color: var(--subtle);
 }
 
 #homepage-body{
@@ -35,4 +37,34 @@
 	width: 400px;
 	height: 40px;
 	margin: 10px;
+	background: transparent;
+	border: none;
+	outline: none;
+	border-bottom: 1px solid var(--subtle);
+	color: var(--subtle);
+	font-size: 20px;
+	text-align: center;
+}
+
+#homepage-body .join-challenge-input:hover{
+	background: rgba(255, 255, 255, 0.05);
+}
+
+#homepage-body .join-challenge-input:active{
+	background: rgba(0, 0, 0, 0.05);
+}
+
+#homepage-body .join-challenge-input:focus{
+	background: rgba(0, 0, 0, 0.05);
+	border-bottom: 1px solid var(--primary);
+	color: var(--primary);
+}
+
+#homepage-body .join-challenge-input::placeholder{
+	text-align: center;
+	opacity: 0.3;
+}
+
+#homepage-body .join-challenge-input:focus::placeholder{
+	opacity: 0;
 }

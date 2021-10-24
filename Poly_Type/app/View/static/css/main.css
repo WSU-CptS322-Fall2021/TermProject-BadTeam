@@ -1,0 +1,15 @@
+body.solarized-dark{
+	--background: rgb(5, 42, 50);
+	--primary: rgb(48, 128, 199);
+	--subtle: rgb(80, 99, 106);
+	--contrast: rgb(179, 205, 78);
+	--error: orange;
+}
+
+body{
+	padding: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
+	font-family: 'Trebuchet MS', sans-serif;
+	background: var(--background);
+}
