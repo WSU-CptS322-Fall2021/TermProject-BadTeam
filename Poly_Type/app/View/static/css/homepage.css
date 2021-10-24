@@ -80,6 +80,7 @@
 	text-align: center;
 	opacity: 0.3;
 	text-transform: none;
+	user-select: none;
 }
 
 #homepage-body .join-challenge-input:focus::placeholder{
@@ -178,6 +179,7 @@
 	text-transform: none;
 	color: transparent;
 	transition: var(--login-transition);
+	user-select: none;
 }
 
 #login-container:hover .login-input::placeholder, #login-container:focus-within .login-input::placeholder{
