@@ -18,7 +18,7 @@ from app.Model.models import Prompt
 class PromptForm(Form):
     prompt = TextAreaField('Prompt', [Length(min=1, max=3000)])
 
-class ChallengeForm(FlaskForm):
+class CreateChallengeForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     prompts = FieldList(FormField(PromptForm), min_entries=5, max_entries=5)
     submit = SubmitField('Post')
@@ -33,4 +33,11 @@ class RegistrationForm(FlaskForm):
         user = Host.query.filter_by(username=username.data).first()
         if user is not None:
             raise ValidationError('The username already exists! Please use a different username')
+
+class TakeChallengeForm(FlaskForm):
+        username = StringField('Username', validators=[Length(min=3, max=100)])
+        joincode = StringField('Join Code', validators=[Length(min=6, max=6)])
+        submit = SubmitField('Join')
+
+
 
