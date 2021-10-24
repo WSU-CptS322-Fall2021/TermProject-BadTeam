@@ -1,0 +1,38 @@
+/*HOMEPAGE STYLINGS*/
+
+#homepage-header{
+	align-items: flex-start;
+	height: 32px;
+	width: 100%;
+	position: relative;
+}
+
+#homepage-header .logo{
+	display: inline;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	margin-top: 0;
+}
+
+#homepage-header .header-text{
+	display: inline;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	margin-top: 0;
+}
+
+#homepage-body{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: calc(100% - 32px);
+}
+
+#homepage-body .join-challenge-input{
+	width: 400px;
+	height: 40px;
+	margin: 10px;
+}
