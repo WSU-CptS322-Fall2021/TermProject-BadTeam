@@ -3,5 +3,38 @@
 {% block content %}
 
 <h1>[Poly_Type]</h1>
-    
+
+    {% if challengeform %}
+        <form action="" method="post">
+            {{ challengeform.hidden_tag() }}
+            <div>
+                {{ challengeform.title.label }}
+                {{ challengeform.title }}
+                {% for nested in challengeform.prompts %}
+                    <div style="visibility: visible;">
+                        {{ nested.prompt.label }} {{ nested.prompt }}
+                    </div>
+                {% endfor %}
+                {{ challengeform.submit }}
+            </div>
+        </form>
+    {% endif %}
+
+    {% if hostform %}
+    <form action="" method="post">
+        {{ hostform.hidden_tag() }}
+        <div>
+            {{ hostform.username.label }}
+            {{ hostform.username }}
+
+            {{ hostform.password.label }}
+            {{ hostform.password }}
+
+            {{ hostform.password2.label }}
+            {{ hostform.password2 }}
+
+            {{ hostform.submit }}
+        </div>
+    </form>
+    {% endif %}
 {% endblock %}
