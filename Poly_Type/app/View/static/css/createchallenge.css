@@ -28,6 +28,10 @@
 	opacity: 1;
 }
 
+#createpage-header .header-text:hover{
+	color: var(--primary);
+}
+
 /*PAGE BODY STYLINGS*/
 #createpage-body{
 	display: flex;
@@ -41,12 +45,72 @@
 /*CREATE FORM STYLINGS*/
 #createpage-body .createform-title{
 	width: 400px;
-	margin-bottom: 60px;
+	height: 30px;
+	margin-bottom: 10px;
 	text-align: center;
 	background: transparent;
 	border: none;
 	outline: none;
-	border-bottom: 1px solid var(--subtle);
+	border-bottom: 1px solid var(--primary);
+	color: var(--primary);
+	font-size: 25px;
+	padding: 10px;
+}
+
+#createpage-body .createform-title::placeholder{
+	text-align: center;
 	color: var(--subtle);
-	font-size: 20px;
+	opacity: 0.3;
+}
+
+#createpage-body .createform-title:focus::placeholder{
+	opacity: 0;
+}
+
+#createpage-body .createform-prompt{
+	background: transparent;
+	width: 600px;
+	height: 100px;
+	margin: 10px;
+	border: none;
+	outline: none;
+	resize: none;
+	color: var(--subtle);
+	padding: 10px;
+	font-family: 'Trebuchet MS', sans-serif;
+	border-left: 1px solid var(--subtle);
+}
+
+#createpage-body .createform-prompt:hover{
+	background: rgba(255, 255, 255, 0.05);
+}
+
+#createpage-body .createform-prompt:focus, #createpage-body .createform-prompt:active{
+	background: rgba(0, 0, 0, 0.05);
+}
+
+#createpage-body .createform-prompt::placeholder{
+	color: var(--subtle);
+	opacity: 0.3;
+}
+
+#createpage-body .createform-prompt:focus::placeholder{
+	opacity: 0;
+}
+
+#createpage-body .create-challenge-submit{
+	border: 1px solid var(--primary);
+	border-radius: 10px;
+	height: 30px;
+	width: 75px;
+	background: transparent;
+	color: var(--primary);
+}
+
+#createpage-body .create-challenge-submit:hover{
+	background: rgba(255, 255, 255, 0.05);
+}
+
+#createpage-body .create-challenge-submit:active{
+	background: rgba(0, 0, 0, 0.05);
 }

@@ -12,13 +12,13 @@
     <form action="" method="post">
         <div id="createpage-body">
         {{ challengeForm.hidden_tag() }}
-        {{ challengeForm.title(class="createform-title", autocomplete="off") }}
+        {{ challengeForm.title(class="createform-title", autocomplete="off", placeholder="Challenge Title") }}
         {% for nested in challengeForm.prompts %}
             <div style="visibility: visible;">
-                {{ nested.prompt }}
+                {{ nested.prompt(class="createform-prompt", placeholder="Enter your prompt text here...", spellcheck="false") }}
             </div>
         {% endfor %}
-        {{ challengeForm.submit }}
+        {{ challengeForm.submit(class="create-challenge-submit") }}
         </div>
     </form>
 {% endif %}

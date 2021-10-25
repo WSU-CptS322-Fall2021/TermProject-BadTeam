@@ -12,5 +12,13 @@ body{
 	padding-right: 20px;
 	font-family: 'Trebuchet MS', sans-serif;
 	background: var(--background);
-	overflow: hidden;
+	overflow: auto;
+}
+
+body::-webkit-scrollbar{
+	display: none;
+}
+
+body::-webkit-scrollbar-track {
+	display: none;
 }
