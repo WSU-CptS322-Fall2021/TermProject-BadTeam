@@ -3,14 +3,12 @@
     "",
     "\\app",
     "\\app\\Controller",
-    "\\app\\Model",
     "\\app\\View",
     "\\app\\View\\static",
     "\\app\\View\\static\\css",
     "\\app\\View\\static\\img",
-    "\\app\\View\\templates",
-    "\\tests"
+    "\\app\\View\\templates"
   ],
-  "SelectedNode": "\\app\\__init__.py",
+  "SelectedNode": "\\app\\View\\static\\css\\homepage.css",
   "PreviewInSolutionExplorer": false
 }

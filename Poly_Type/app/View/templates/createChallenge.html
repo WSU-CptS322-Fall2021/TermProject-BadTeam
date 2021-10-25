@@ -1,0 +1,26 @@
+﻿{% extends "base.html" %}
+
+{% block content %}
+
+<div id="createpage-header">
+    <h3 class="logo">[poly_type]</h3>
+    <p class="header-text">log_out</p>
+</div>
+
+
+{% if challengeForm %}
+    <form action="" method="post">
+        <div id="createpage-body">
+        {{ challengeForm.hidden_tag() }}
+        {{ challengeForm.title(class="createform-title", autocomplete="off") }}
+        {% for nested in challengeForm.prompts %}
+            <div style="visibility: visible;">
+                {{ nested.prompt }}
+            </div>
+        {% endfor %}
+        {{ challengeForm.submit }}
+        </div>
+    </form>
+{% endif %}
+    
+{% endblock %}
