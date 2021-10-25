@@ -1,8 +1,10 @@
 <html>
     <head>  
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/homepage.css') }}">
     </head>
 
-    <body>
+    <body class="solarized-dark">
         {% block content %} {% endblock %}
     </body>
 </html>

@@ -1,0 +1,216 @@
+/*HOMEPAGE STYLINGS*/
+#homepage-header{
+	align-items: flex-start;
+	height: 32px;
+	width: 100%;
+	position: relative;
+	--login-transition: border 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+#homepage-header .logo{
+	display: inline;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	margin-top: 0;
+	color: var(--contrast);
+	user-select: none;
+}
+
+#homepage-header .header-text{
+	display: inline;
+	position: absolute;
+	right: 10px;
+	top: 5px;
+	margin-top: 0;
+	color: var(--subtle);
+	user-select: none;
+	opacity: 1;
+	transition: var(--login-transition);
+}
+
+
+#homepage-header .header-text.hidden{
+	color: transparent;
+}
+
+
+#homepage-body{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: calc(100% - 32px);
+}
+
+/*JOIN CHALLENGE FORM STYLINGS*/
+#homepage-body .join-challenge-input{
+	width: 400px;
+	height: 40px;
+	margin: 10px;
+	background: transparent;
+	border: none;
+	outline: none;
+	border-bottom: 1px solid var(--subtle);
+	color: var(--subtle);
+	font-size: 20px;
+	text-align: center;
+}
+
+#homepage-body .join-challenge-input.error{
+	border-bottom: 1px solid var(--error) !important;
+	color : var(--error) !important;
+}
+
+#homepage-body .join-challenge-input:hover{
+	background: rgba(255, 255, 255, 0.05);
+}
+
+#homepage-body .join-challenge-input:active{
+	background: rgba(0, 0, 0, 0.05);
+}
+
+#homepage-body .join-challenge-input:focus{
+	background: rgba(0, 0, 0, 0.05);
+	border-bottom: 1px solid var(--primary);
+	color: var(--primary);
+}
+
+#homepage-body .join-challenge-input::placeholder{
+	text-align: center;
+	opacity: 0.3;
+	text-transform: none;
+	user-select: none;
+}
+
+#homepage-body .join-challenge-input:focus::placeholder{
+	opacity: 0;
+}
+
+#homepage-body .join-challenge-submit{
+	border: 1px solid var(--primary);
+	border-radius: 10px;
+	height: 30px;
+	width: 75px;
+	background: transparent;
+	color: var(--primary);
+}
+
+#homepage-body .join-challenge-submit:hover{
+	background: rgba(255, 255, 255, 0.05);
+}
+
+#homepage-body .join-challenge-submit:active{
+	background: rgba(0, 0, 0, 0.05);
+}
+
+/*LOGIN FORM STLYINGS*/
+
+#login-container{
+	transition: var(--login-transition), background 0.2s ease-in-out;
+	border: 1px solid transparent;
+	position: absolute;
+	top: -4px;
+	right: -10px;
+	height: 400px;
+	width: 200px;
+	border-radius: 10px;
+}
+
+#login-container:hover, #login-container:focus-within{
+	border-color: var(--primary);
+	background: rgba(0,0,0,0.05);
+}
+
+#login-container:hover .header-text, #login-container:focus-within .header-text{
+	color: var(--primary);
+}
+
+#login-form-container{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	height: 40%;
+	position: absolute;
+}
+
+#login-container .login-input{
+	width: 150px;
+	height: 20px;
+	margin: 10px;
+	background: transparent;
+	border: none;
+	outline: none;
+	border-bottom: 1px solid transparent;
+	color: transparent;
+	font-size: 12px;
+	text-align: center;
+	transition: var(--login-transition);
+}
+
+#login-container:hover .login-input, #login-container:focus-within .login-input{
+	border-bottom: 1px solid var(--subtle);
+	color: var(--subtle);
+}
+
+#login-container:hover .login-input.error, #login-container:focus-within .login-input.error{
+	border-bottom: 1px solid var(--error) !important;
+	color : var(--error) !important;
+}
+
+#login-container .login-input:hover{
+	background: rgba(255, 255, 255, 0.05);
+}
+
+#login-container .login-input:active{
+	background: rgba(0, 0, 0, 0.05);
+}
+
+#login-container .login-input:focus{
+	background: rgba(0, 0, 0, 0.05);
+	border-bottom: 1px solid var(--primary);
+	color: var(--primary);
+}
+
+#login-container .login-input::placeholder{
+	text-align: center;
+	opacity: 0.3;
+	text-transform: none;
+	color: transparent;
+	transition: var(--login-transition);
+	user-select: none;
+}
+
+#login-container:hover .login-input::placeholder, #login-container:focus-within .login-input::placeholder{
+	color: var(--subtle);
+}
+
+#login-container .login-input:focus::placeholder{
+	opacity: 0;
+}
+
+#login-container .login-submit{
+	border none;
+	outline: none;
+	border: 1px solid transparent;
+	border-radius: 7px;
+	height: 25px;
+	width: 75px;
+	background: transparent;
+	color: transparent;
+	transition: var(--login-transition);
+}
+
+#login-container .login-submit:hover{
+	background: rgba(255, 255, 255, 0.05);
+}
+
+#login-container .login-submit:active{
+	background: rgba(0, 0, 0, 0.05);
+}
+
+#login-container:hover .login-submit, #login-container:focus-within .login-submit{
+	border-color: var(--primary);
+	color: var(--primary);
+}

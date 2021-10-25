@@ -24,9 +24,9 @@ class CreateChallengeForm(FlaskForm):
     submit = SubmitField('Post')
 
 class RegistrationForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])
+    reg_username = StringField('Username', validators=[DataRequired()])
+    reg_password = PasswordField('Password', validators=[DataRequired()])
+    reg_password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Register')
 
     def validate_username(self, username):
@@ -34,10 +34,15 @@ class RegistrationForm(FlaskForm):
         if user is not None:
             raise ValidationError('The username already exists! Please use a different username')
 
+class LoginForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    submit = SubmitField('Login')
+
 class TakeChallengeForm(FlaskForm):
-        username = StringField('Username', validators=[Length(min=3, max=100)])
-        joincode = StringField('Join Code', validators=[Length(min=6, max=6)])
-        submit = SubmitField('Join')
+    nickname = StringField('Nickname', validators=[Length(min=3, max=100)])
+    joincode = StringField('Join Code', validators=[Length(min=6, max=6)])
+    submit = SubmitField('Join')
 
 
 
