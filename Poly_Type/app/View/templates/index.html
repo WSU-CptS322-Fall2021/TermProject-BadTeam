@@ -8,6 +8,7 @@
         <p class="header-text"> log_in</p>
 
         <!--Display the login form in the hidden window-->
+        {%if loginForm%}
         <form action="" method="post">
             {{ loginForm.hidden_tag() }}
             <div id="login-form-container" style="top: 40px;">
@@ -30,11 +31,13 @@
                 {%endif%}
             </div>
         </form>
+        {%endif%}
 
         <!--Label for the registration form-->
         <p class="header-text hidden" style="top: 175px">register</p>
 
         <!--Display the register form in the hidden window-->
+        {%if registrationForm%}
         <form action="" method="post">
             {{ registrationForm.hidden_tag() }}
             <div id="login-form-container" style="top: 200px;">
@@ -63,10 +66,12 @@
                 {%endif%}
             </div>
         </form>
+        {%endif%}
     </div>
 </div>
 
 <!--Display the Join Challenge Form-->
+{% if joinForm %}
 <form action="" method="post">
     {{ joinForm.hidden_tag() }}
     <div id="homepage-body">
@@ -89,5 +94,6 @@
         {%endif%}
     </div>
 </form>
+{%endif%}
     
 {% endblock %}

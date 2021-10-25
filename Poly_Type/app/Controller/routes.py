@@ -18,8 +18,8 @@ def index():
     loginForm = LoginForm()
     registrationForm = RegistrationForm()
 
-    #If statements confirm the form that was submitted, and then validate it. Redirect behavior is temporary until routes are further developed. 
     if request.method == 'POST':
+        #If statements confirm the form that was submitted, and then validate it. Redirect behavior is temporary until routes are further developed. 
         if request.form["submit"] == "Join" and joinForm.validate_on_submit():
             print("Joined Challenge {} with nickname {}".format(joinForm.joincode.data, joinForm.nickname.data))
             redirect(url_for('routes.index'))
@@ -29,5 +29,10 @@ def index():
             redirect(url_for('routes.index'))
 
     return render_template('index.html', joinForm = joinForm, loginForm = loginForm, registrationForm = registrationForm)
+
+@bp_routes.route('/createchallenge', methods=['GET', 'POST'])
+def createChallenge():
+    challengeForm = CreateChallengeForm()
+    return render_template('createChallenge.html', challengeForm = challengeForm)
     
 
