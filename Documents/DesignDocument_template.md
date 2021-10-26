@@ -4,10 +4,10 @@
 --------
 Prepared by:
 
-* `<author1>`,`<organization>`
-* `<author1>`,`<organization>`
-* `<author1>`,`<organization>`
-* `<author1>`,`<organization>`
+* `Collin Nelson`,`Bad Team`
+* `Anna Ueti`,`Bad Team`
+* `Brandon Cook`,`Bad Team`
+* `Tyler Jones`,`Bad Team`
 
 ---
 
@@ -42,7 +42,7 @@ Prepared by:
 | ------ | ------ | --------- | --------- |
 |Revision 1 |2021-10-05 |Initial draft | 1.0        |
 |Database Model |2021-10-26 | Creation of the Database model entry |1.1 |
-|      |      |         |         |
+| View Section | 2021-10-26 | Added info on the view | 1.2 |
 
 
 # 1. Introduction
@@ -145,10 +145,39 @@ You can use the following table template to list your route specifications.
 
 ### 2.2.3 View and User Interface Design 
 
-Briefly explain the role of the view. Explain how you will build the user interfaces. Mention the frameworks or the libraries you plan to use.  
+**Role of the View:** The view is designed to facilitate user interaction with the functionality of our system. Specific to this project, the view is what allows users to initiate the actions in the controller which handle the management of their challenges. The view is also largely responsible for the functionality of the typing test itself in this particular software, as by nature a typing test is little more than an assessment of how quickly and efficiently you can use the user interface.
 
-Provide a detailed description of user interface you have built so far. The information in this section should be accompanied with proper images of your screenshots.  Make sure to mention which use-cases in your “Requirements Specification” document will utilize these interfaces for user interaction. 
+**How the View is Constructed:** Our view is being written in standard HTML and CSS. As of right now, we have no plans to integrate any external libraries or systems into the software, as our assessment is that the UI is easy enough to accomplish without bulky external libraries. As of iteration 2 there will also be the inclusion of some javascript for page dynamics not able to be accomplished with only HTML and CSS, but for the time being the view does not include any JS. 
 
+In our application specifically we are also setting up the CSS to enable the later addition of additional themes. To enable this all the colors are stored in CSS variables tied to a single class selector that can be changed later on for the implementation of additional themes. The current color theme is referred to as "solarized dark" and consists of five colors designated *primary, subtle, contrast, background,* and *error* 
+
+**Current UI Overview:** Below are the pages included in the current build of the UI, including their screenshots, descriptions, and the use cases which they enable the user to engage with.
+
+**Homepage**
+
+![](C:\Users\colli\Desktop\CPTS-322\Poly_Type\repo\TermProject-BadTeam\Documents\HomepageImage1.png)
+
+![](C:\Users\colli\Desktop\CPTS-322\Poly_Type\repo\TermProject-BadTeam\Documents\HomepageImage2.png)
+
+*The Homepage:* The homepage is the first page that the average first-time user will see upon using the application. It is an intentionally versatile view layout. The first screenshot is the default view that the player will see, with a minimalist design that highlights the join functionality. If one hovers towards the login button, however, a login/register window will appear to allow for a user to authenticate. **This multi-functional design is intentional,** as one of our non-functional design goals is to minimize page reloads.
+
+*Use Cases:* The homepage UI allows access to the use cases; *Register Host, Log in Host,* and *Join Challenge*
+
+**Create Challenge Page**
+
+![](C:\Users\colli\Desktop\CPTS-322\Poly_Type\repo\TermProject-BadTeam\Documents\CreateChallengeImage.png)
+
+*The Create Challenge Page:* The Create Challenge page has only a single major functionality, which is that it allows the user to create a challenge, with a title and a series of prompts that the challengers will have to copy. After entering at least one prompt and a title at the top, the user can post their challenge, and it will open that new challenge for challengers to join.
+
+*Use Cases:* The Create Challenge UI allows access the Use Case *Create Challenge* and *Update Challenge*
+
+**Take Challenge Page:**
+
+![](C:\Users\colli\Desktop\CPTS-322\Poly_Type\repo\TermProject-BadTeam\Documents\TakeChallengeImage.png)
+
+*The Take Challenge Page:* The take challenge page will as of the later iterations become the main meat of our application. For now it allows you to type, and displays the first prompt of whatever challenge you've joined, as well as your chosen nickname in the top right corner. The original prompt is displayed in the *subtle* color and the letters you type are overlaid over this in the *primary* color.
+
+*Use Cases:* This page specifically enables access to the *Take Challenge* Use Case.
 
 # 3. Progress Report
 
