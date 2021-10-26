@@ -15,11 +15,11 @@ from app.Model.models import Host
 
 from app.Model.models import Prompt
 
-class PromptForm(Form):
-    prompt = TextAreaField('Prompt', [Length(min=1, max=3000)])
+class PromptForm(FlaskForm):
+    prompt = TextAreaField('Prompt', [Length(min=0, max=3000)])
 
 class CreateChallengeForm(FlaskForm):
-    title = StringField('Title', validators=[DataRequired()])
+    title = StringField('title', validators=[DataRequired()])
     prompts = FieldList(FormField(PromptForm), min_entries=5, max_entries=5)
     submit = SubmitField('Post')
 
