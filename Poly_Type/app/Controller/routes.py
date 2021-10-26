@@ -7,7 +7,7 @@ from flask_login import current_user, login_required
 from app.Model.models import Challenge, Host, Prompt
 from app import db
 from config import Config
-from app.Controller.forms import CreateChallengeForm, RegistrationForm, TakeChallengeForm, LoginForm
+from app.Controller.forms import CreateChallengeForm, RegistrationForm, JoinChallengeForm, LoginForm
 import random
 import string
 import uuid
@@ -18,7 +18,7 @@ bp_routes.template_folder = Config.TEMPLATE_FOLDER #'..\\View\\templates'
 @bp_routes.route('/', methods=['GET', 'POST'])
 @bp_routes.route('/index', methods=['GET', 'POST'])
 def index():
-    joinForm = TakeChallengeForm()
+    joinForm = JoinChallengeForm()
     loginForm = LoginForm()
     registrationForm = RegistrationForm()
 
@@ -73,7 +73,7 @@ def createChallenge():
         #Create a new challenge with the random code
         #TODO: The value of the host is currently hardcoded because we do not have a currently logged in user to set the value of host id to
         #TODO: Currently, we are allowing for individuals to make challenges with the same name, we should fix this when we have the user logged in
-        newChallenge = Challenge(joincode=code, open=False, host_id=1, title=form.title.data)
+        newChallenge = Challenge(joincode=code, open=True, host_id=1, title=form.title.data)
         
         # Scan through all prompts and append them if there is text
         for promptForm in form.prompts.data:
@@ -81,6 +81,7 @@ def createChallenge():
                 prompt = Prompt(text=promptForm["prompt"])
                 newChallenge.prompts.append(prompt)
 
+        print("Created Challenge: Room Code {}".format(newChallenge.joincode))
         db.session.add(newChallenge)
         db.session.commit()
         #TODO: This is currently not going to be displayed in the UI, some thought should go into how we want this to look
@@ -88,11 +89,9 @@ def createChallenge():
         return redirect(url_for('routes.index'))
     return render_template('createChallenge.html', challengeForm = form)
     
-
 @bp_routes.route('/takechallenge/<guid>', methods=['GET', 'POST'])
 def takechallenge(guid):
     challengeId = session[guid][0]
     challenge = Challenge.query.filter_by(id=challengeId).first()
     nickname = session[guid][1]
-    return render_template("testParticipateChallenge.html", challenge=challenge, nickname=nickname)
-
+    return render_template("takechallenge.html", challenge=challenge, nickname=nickname)

@@ -1,0 +1,60 @@
+/*HEADER STYLINGS*/
+
+#takechallenge-header{
+	align-items: flex-start;
+	height: 32px;
+	width: 100%;
+	position: relative;
+	--login-transition: border 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+#takechallenge-header .logo{
+	display: inline;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	margin-top: 0;
+	color: var(--contrast);
+	user-select: none;
+}
+
+#takechallenge-header .header-text{
+	display: inline;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	margin-top: 0;
+	color: var(--subtle);
+	user-select: none;
+	opacity: 1;
+}
+
+#takechallenge-body{
+	width: 100%;
+	height: calc(100% - 32px);
+	margin-top: 50px;
+}
+
+/*TAKE CHALLENGE TEXT STYLINGS*/
+.takechallenge-text{
+	position: absolute;
+	top: calc(60% - 200px);
+	left: calc(50% - 400px);
+	height: 400px;
+	width: 800px;
+	font-size: 30px;
+	font-family: 'Trebuchet MS', sans-serif;
+	font-weight: bold;
+	background: transparent;
+	border: none;
+	outline: none;
+	resize: none;
+}
+
+.takechallenge-text.prompt{
+	color: var(--subtle);
+}
+
+.takechallenge-text.input{
+	color: var(--primary);
+}

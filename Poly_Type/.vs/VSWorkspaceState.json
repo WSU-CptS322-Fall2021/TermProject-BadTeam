@@ -3,12 +3,13 @@
     "",
     "\\app",
     "\\app\\Controller",
+    "\\app\\Model",
     "\\app\\View",
     "\\app\\View\\static",
     "\\app\\View\\static\\css",
     "\\app\\View\\static\\img",
     "\\app\\View\\templates"
   ],
-  "SelectedNode": "\\app\\View\\static\\css\\homepage.css",
+  "SelectedNode": "\\app\\Controller\\routes.py",
   "PreviewInSolutionExplorer": false
 }

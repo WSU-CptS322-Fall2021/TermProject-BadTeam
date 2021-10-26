@@ -13,7 +13,7 @@ challenge = Challenge(host_id=1, joincode="AAAAAA", open = True, title="really c
 host.challenges.append(challenge)
 db.session.add(challenge)
 db.session.commit()
-prompt = Prompt(text="Test Prompt 1", challenge_id=1)
+prompt = Prompt(text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", challenge_id=1)
 challenge.prompts.append(prompt)
 db.session.add(prompt)
 prompt = Prompt(text="Test Prompt 2", challenge_id=1)
