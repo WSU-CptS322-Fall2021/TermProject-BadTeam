@@ -20,6 +20,7 @@
         {{ challengeForm.title(class="createform-title", autocomplete="off", placeholder="Challenge Title") }}
         {% for nested in challengeForm.prompts %}
             <div style="visibility: visible;">
+                {{ nested.hidden_tag() }}
                 {{ nested.prompt(class="createform-prompt", placeholder="Enter your prompt text here...", spellcheck="false") }}
             </div>
         {% endfor %}

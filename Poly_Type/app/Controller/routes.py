@@ -4,8 +4,7 @@ from flask import Blueprint
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_required
 #from Poly_Type.app.Model.models import Challenge
-from app.Model.models import Challenge
-from app.Model.models import Host
+from app.Model.models import Challenge, Host, Prompt
 from app import db
 from config import Config
 from app.Controller.forms import CreateChallengeForm, RegistrationForm, TakeChallengeForm, LoginForm
@@ -37,7 +36,7 @@ def index():
 
 def createCode():
     code = ''
-    for i in range(0, 5):
+    for i in range(0, 6):
         randChar = random.choice(string.ascii_uppercase)#Create a random capital letter
         if((random.randint(0, 1) == 1) and (randChar != 'I') and (randChar != 'O')):#if the random int is 1 and not 'O' or 'I' add it
             code += randChar
@@ -50,22 +49,26 @@ def createCode():
 #@login_required
 def createChallenge():
     challengeForm = CreateChallengeForm()
-    print("Creating Challenge")
     if challengeForm.validate_on_submit():
-        print("Validated")
-        code = createCode()#Creates a random code
+        #Creates a random join code
+        code = createCode()
         
-        while(Challenge.query.filter_by(joincode=code).first() != None):#If random code is already used keep looping until it finds one that is not used
+        #If random code is already used keep looping until it finds one that is not used
+        while(Challenge.query.filter_by(joincode=code).first() != None):
             code = createCode()
         
-        newChallenge = Challenge(joincode = code, open=False, host_id= 1)#Create a new challenge with the random code
-        for t in challengeForm.challenge.data:
-            if t.prompt is not None:
-                newChallenge.challenges.append(t)
+        #Create a new challenge with the random code
+        newChallenge = Challenge(joincode=code, open=False, host_id=1, title=challengeForm.title.data)
+        
+        # Scan through all prompts and append them if there is text
+        for promptForm in challengeForm.prompts.data:
+            if promptForm["prompt"] is not None:
+                prompt = Prompt(text=promptForm["prompt"])
+                newChallenge.prompts.append(prompt)
+
         db.session.add(newChallenge)
         db.session.commit()
         flash('Challenge created!')
-        print("Challenge created with code {}".format(code))
         return redirect(url_for('routes.index'))
     return render_template('createChallenge.html', challengeForm = challengeForm)
     
