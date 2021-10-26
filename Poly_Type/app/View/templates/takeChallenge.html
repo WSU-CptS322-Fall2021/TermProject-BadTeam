@@ -4,11 +4,11 @@
 
 <div id="takechallenge-header">
     <h3 class="logo">[poly_type]</h3>
+    <p class="header-text">{{ nickname }}</p>
 </div>
 
 <div id="takechallenge-body">
-    <!--Dummy text areas to stand in for real form.-->
-    <textarea class="takechallenge-text prompt" readonly = "true" spellcheck="false">{{ prompt }}</textarea>
+    <textarea class="takechallenge-text prompt" readonly = "true" spellcheck="false">{{ challenge.prompts[0].text }}</textarea>
     <textarea class="takechallenge-text input" spellcheck="false"></textarea>
 </div>
 {% endblock %}

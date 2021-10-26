@@ -15,7 +15,7 @@ class Host(UserMixin, db.Model):
     challenges = db.relationship('Challenge', backref='host', lazy='dynamic')
 
     def __repr__(self):
-        return '<Tag {self.id} - {self.username}>'
+        return f'<Host {self.id} - {self.username}>'
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -33,17 +33,24 @@ class Host(UserMixin, db.Model):
 class Challenge(db.Model):
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     host_id = db.Column(db.Integer, db.ForeignKey('host.id'))
+    title = db.Column(db.String(64))
     joincode = db.Column(db.String(6))
     prompts = db.relationship('Prompt', backref='challenge', lazy='dynamic')
     results = db.relationship('Result', backref='challenge', lazy='dynamic')
     open = db.Column(db.Boolean)
     #host exists as a backref to its host object
 
+    def __repr__(self):
+        return f'<Challenge {self.id} - Title: {self.title} - JoinCode: {self.joincode} - Open: {self.open}>'
+
 class Prompt(db.Model):
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     text = db.Column(db.String(3000))
     challenge_id =db.Column(db.Integer, db.ForeignKey('challenge.id'))
     #challenge exists as a backref to its challenge object
+
+    def __repr__(self):
+        return f'<Prompt {self.id} - Text: {self.text} - ChallengeId: {self.challenge_id}>'
 
 class Result(db.Model):
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
@@ -53,6 +60,9 @@ class Result(db.Model):
     incorrect = db.Column(db.Integer)
     challenge_id =db.Column(db.Integer, db.ForeignKey('challenge.id'))
     #challenge exists as a backref to its challenge object
+
+    def __repr__(self):
+        return f'<Result {self.id} - Challenger: {self.challenger} - ElapsedTime: {self.elapsedTime} - #Correct: {self.correct} - #Inorrect: {self.incorrect}>'
 
 
 

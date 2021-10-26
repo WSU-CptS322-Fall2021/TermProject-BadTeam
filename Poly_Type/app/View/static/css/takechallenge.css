@@ -18,6 +18,17 @@
 	user-select: none;
 }
 
+#takechallenge-header .header-text{
+	display: inline;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	margin-top: 0;
+	color: var(--subtle);
+	user-select: none;
+	opacity: 1;
+}
+
 #takechallenge-body{
 	width: 100%;
 	height: calc(100% - 32px);
