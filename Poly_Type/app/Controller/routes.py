@@ -50,17 +50,19 @@ def createCode():
 #@login_required
 def createChallenge():
     challengeForm = CreateChallengeForm()
-
+    print("Creating Challenge")
     if challengeForm.validate_on_submit():
+        print("Validated")
         code = createCode()#Creates a random code
-        while((db.session.query.filter_by(joincode=code).first()) != None):#If random code is already used keep looping until it finds one that is not used
+        
+        while(Challenge.query.filter_by(joincode=code).first() != None):#If random code is already used keep looping until it finds one that is not used
             code = createCode()
         
-        challenge = Challenge(joincode = code, open=False, host_id= Host.id)#Create a new challenge with the random code
+        newChallenge = Challenge(joincode = code, open=False, host_id= 1)#Create a new challenge with the random code
         for t in challengeForm.challenge.data:
             if t.prompt is not None:
-                challenge.challenges.append(t)
-        db.session.add(challenge)
+                newChallenge.challenges.append(t)
+        db.session.add(newChallenge)
         db.session.commit()
         flash('Challenge created!')
         print("Challenge created with code {}".format(code))
