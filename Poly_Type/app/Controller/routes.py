@@ -37,10 +37,13 @@ def index():
 def createCode():
     code = ''
     for i in range(0, 6):
-        randChar = random.choice(string.ascii_uppercase)#Create a random capital letter
-        if((random.randint(0, 1) == 1) and (randChar != 'I') and (randChar != 'O')):#if the random int is 1 and not 'O' or 'I' add it
+        #Create a random capital letter
+        randChar = random.choice(string.ascii_uppercase)
+        #if the random int is 1 and not 'O' or 'I' add it
+        if (random.randint(0, 1) == 1) and (randChar != 'I') and (randChar != 'O'):
             code += randChar
-        else:#add a random digit if random int is 0
+        else:
+            #add a random digit if random int is 0
             code += random.choice(string.digits)
 
     return code
@@ -48,20 +51,21 @@ def createCode():
 @bp_routes.route('/createchallenge', methods=['GET', 'POST'])
 #@login_required
 def createChallenge():
-    challengeForm = CreateChallengeForm()
-    if challengeForm.validate_on_submit():
+    form = CreateChallengeForm()
+    if form.validate_on_submit():
         #Creates a random join code
         code = createCode()
         
         #If random code is already used keep looping until it finds one that is not used
-        while(Challenge.query.filter_by(joincode=code).first() != None):
+        while Challenge.query.filter_by(joincode=code).first() != None:
             code = createCode()
         
         #Create a new challenge with the random code
-        newChallenge = Challenge(joincode=code, open=False, host_id=1, title=challengeForm.title.data)
+        #TODO: The value of the host is currently hardcoded because we do not have a currently logged in user to set the value of host id to
+        newChallenge = Challenge(joincode=code, open=False, host_id=1, title=form.title.data)
         
         # Scan through all prompts and append them if there is text
-        for promptForm in challengeForm.prompts.data:
+        for promptForm in form.prompts.data:
             if promptForm["prompt"] is not None:
                 prompt = Prompt(text=promptForm["prompt"])
                 newChallenge.prompts.append(prompt)
@@ -70,6 +74,6 @@ def createChallenge():
         db.session.commit()
         flash('Challenge created!')
         return redirect(url_for('routes.index'))
-    return render_template('createChallenge.html', challengeForm = challengeForm)
+    return render_template('createChallenge.html', challengeForm = form)
     
 
