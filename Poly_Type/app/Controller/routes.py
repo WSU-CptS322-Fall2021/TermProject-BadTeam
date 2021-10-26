@@ -62,6 +62,7 @@ def createChallenge():
         
         #Create a new challenge with the random code
         #TODO: The value of the host is currently hardcoded because we do not have a currently logged in user to set the value of host id to
+        #TODO: Currently, we are allowing for individuals to make challenges with the same name, we should fix this when we have the user logged in
         newChallenge = Challenge(joincode=code, open=False, host_id=1, title=form.title.data)
         
         # Scan through all prompts and append them if there is text
@@ -72,6 +73,7 @@ def createChallenge():
 
         db.session.add(newChallenge)
         db.session.commit()
+        #TODO: This is currently not going to be displayed in the UI, some thought should go into how we want this to look
         flash('Challenge created!')
         return redirect(url_for('routes.index'))
     return render_template('createChallenge.html', challengeForm = form)
