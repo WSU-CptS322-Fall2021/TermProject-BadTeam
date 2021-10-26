@@ -41,7 +41,7 @@ Prepared by:
 | Name | Date | Changes | Version |
 | ------ | ------ | --------- | --------- |
 |Revision 1 |2021-10-05 |Initial draft | 1.0        |
-|      |      |         |         |
+|Database Model |2021-10-26 | Creation of the Database model entry |1.1 |
 |      |      |         |         |
 
 
@@ -74,11 +74,47 @@ In this section:
 
 ### 2.2.1 Model
 
-Briefly explain the role of the model.  
+The model defines the schema for our database and the 'plain old python objects' we are going to be using throughout our application
+In our database we are going to have 4 main tables:
+#### Host
 
-(***in iteration-1***) Include a list of the tables (models) in your database and explain the role of each table. Provide the attributes of the tables and briefly explain each attribute. 
+| Field | Description |
+| ------ | ------ |
+| **Id** | Primary key for the host entry |
+| **Username** | Username that is associated with the host (used for logging in) |
+| **PasswordHash** | Password hash that is associated with the host (also used for loggin in) | 
+| **Challenges** | Relationship between a host and the challenges associated with their account</br>One to many relationship (1 -> *) | 
 
-(***in iteration -2***) Revise the database model. Provide a UML diagram of your database model showing the associations and relationships among tables. Your UML diagram should also show the methods of your models.
+#### Challenge
+
+| Field | Description |
+| ------ | ------ |
+| **Id** | Primary key for the challenge entry |
+| **HostId** | Foreign key that links a challenge back to its host |
+| **Title** | Name/title that is associated with a challenge |
+| **JoinCode** | 6 character alpha-numeric code that is going to be used as the way for a challenger to join a specific challenge  |
+| **Prompts** | Relationship between a challenge and the prompts associated with that specific challenge </br> One to many relationship, at least one prompt is required (1 -> 1*)|
+| **Results** |Relationship between a challenge and the results of all of the challengers that have taken this specific challenge</br> One to many relationship (1 -> *)|
+| **Open** | Boolean value that stores whether or not the challenge is able to be taken currently |
+
+#### Prompt
+
+| Field | Description |
+| ------ | ------ |
+| **Id** | Primary key for the prompt entry |
+| **ChallengeId** | Foreign key that links a prompt back to its challenge |
+| **Text** | Text that is associated with a given prompt</br>This is what a challenger will actually be typing out when they are participating in a challenge |
+
+#### Result
+
+| Field | Description |
+| ------ | ------ |
+| **Id** | Primary key for the result entry |
+| **ChallengeId** | Foreign key that links a result back to its challenge |
+| **Challenger** | Username of challenger who took the challenge linked to this result |
+| **ElapsedTime** | Total elapsed time that it took for the challenger to complete all prompts in the linked challenge |
+| **Correct** | Total number of correct characters that the challenger typed while completing all prompts in the linked challenge |
+| **Incorrect** | Total number of incorrect characters that the challenger typed while completing all prompts in the linked challenge |
 
 ### 2.2.2 Controller
 
