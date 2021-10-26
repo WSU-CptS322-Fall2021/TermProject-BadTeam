@@ -39,7 +39,7 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
 
-class TakeChallengeForm(FlaskForm):
+class JoinChallengeForm(FlaskForm):
     nickname = StringField('Nickname', validators=[Length(min=3, max=100)])
     joincode = StringField('Join Code', validators=[Length(min=6, max=6)])
     submit = SubmitField('Join')

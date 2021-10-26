@@ -1,0 +1,14 @@
+﻿{% extends "base.html" %}
+
+{% block content %}
+
+<div id="takechallenge-header">
+    <h3 class="logo">[poly_type]</h3>
+</div>
+
+<div id="takechallenge-body">
+    <!--Dummy text areas to stand in for real form.-->
+    <textarea class="takechallenge-text prompt" readonly = "true">{{ prompt }}</textarea>
+    <textarea class="takechallenge-text input"></textarea>
+</div>
+{% endblock %}
