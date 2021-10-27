@@ -2,7 +2,7 @@ from __future__ import print_function
 import sys
 from flask import Blueprint
 from flask import render_template, flash, redirect, url_for, request, session
-from flask_login import current_user, login_required
+from flask_login import current_user, login_user, login_required
 #from Poly_Type.app.Model.models import Challenge
 from app.Model.models import Challenge, Host, Prompt
 from app import db
@@ -37,9 +37,15 @@ def index():
             print(f'The room {joinForm.joincode.data} is not open or does not exist')
         
         if request.form["submit"] == "Login" and loginForm.validate_on_submit():
+            user = Host.query.filter_by(username=loginForm.username.data).first()
+            if user is None or not user.check_password(loginForm.password.data):
+                flash('Invalid username or password')
+                return redirect(url_for('routes.index'))
+            login_user(user, remember=loginForm.remember_me.data)
             return redirect(url_for('routes.index'))
         
         if request.form["submit"] == "Register" and registrationForm.validate_on_submit():
+            #TODO Fix login, not fully working
             host = Host(username = registrationForm.username.data)
             host.set_password(registrationForm.password.data)
             db.session.add(host)
