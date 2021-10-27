@@ -86,7 +86,7 @@ def createChallenge():
         db.session.commit()
         #TODO: Consider whether flash messages are desire or needed at all.
         #flash('Challenge created!')
-        return redirect(url_for('routes.index'))
+        return redirect(url_for('routes.viewchallenges'))
     return render_template('createChallenge.html', challengeForm = form)
     
 @bp_routes.route('/takechallenge/<guid>', methods=['GET', 'POST'])
@@ -101,3 +101,21 @@ def viewchallenges():
     #TODO: Once we have authentication we need to integrate it in here to load in only current use
     challenges = Challenge.query.all()
     return render_template("viewchallenges.html", challenges=challenges)
+
+@bp_routes.route('/openchallenge/<challengeid>', methods=['POST'])
+def openChallenge(challengeid):
+    challenge = Challenge.query.filter_by(id = challengeid).first()
+    if not challenge == None:
+        challenge.open = True;
+        db.session.add(challenge)
+        db.session.commit()
+        return redirect(url_for('routes.viewchallenges'))
+
+@bp_routes.route('/closeChallenge/<challengeid>', methods=['POST'])
+def closeChallenge(challengeid):
+    challenge = Challenge.query.filter_by(id = challengeid).first()
+    if not challenge == None:
+        challenge.open = False;
+        db.session.add(challenge)
+        db.session.commit()
+        return redirect(url_for('routes.viewchallenges'))

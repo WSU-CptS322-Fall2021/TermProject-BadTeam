@@ -87,11 +87,14 @@
 	position: relative;
 	height: 30px;
 	width: 30px;
-	margin-left: calc(4% - 15px);
-	margin-right: calc(4% - 15px);
 	color: var(--subtle);
 	font: bold 20px 'Trebuchet MS', sans-serif;
 	transition: color 0.2s ease-in-out;
+}
+
+.challenge-iconbutton.margin{
+	margin-left: calc(4% - 15px);
+	margin-right: calc(4% - 15px);
 }
 
 .challenge-iconbutton:hover{
@@ -99,14 +102,27 @@
 }
 
 .challenge-iconbutton.stopbutton{
-	position: absolute;
-	right: 28px;
 	display: none;
 }
 
 .challenge-iconbutton.deletebutton:hover{
 	color: var(--error);
 }
+
+.challenge-iconbuttonform{
+	position: relative;
+	height: 30px;
+	width: 30px;
+	margin-left: calc(4% - 15px);
+	margin-right: calc(4% - 15px);
+	display: flex;
+	justify-content: center;
+}
+
+.challenge-iconbuttonform.stopbutton{
+	display: none;
+}
+
 
 /*ACTIVE CHALLENGE ENTRY*/
 
@@ -116,6 +132,14 @@
 
 .isactive .challenge-iconbutton{
 	display: none;
+}
+
+.isactive .challenge-iconbuttonform{
+	display: none;
+}
+
+.isactive .challenge-iconbuttonform.stopbutton{
+	display: initial;
 }
 
 .isactive .challenge-iconbutton.stopbutton{
