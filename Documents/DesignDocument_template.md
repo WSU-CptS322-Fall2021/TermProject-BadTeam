@@ -46,7 +46,7 @@ Prepared by:
 | View Section | 2021-10-26 | Added info on the view | 1.2 |
 | General Information | 2021-10-26 | Added general information for the document | 1.3 |
 | Initial Controller Specification | 2021-10-26 | Inital information regarding the controller | 1.4 |
-
+| Updated Controller Specification | 2021-10-26 | Rewrote the controller section to add more specific implementation details | 1.5 |
 
 # 1. Introduction
 
@@ -60,10 +60,6 @@ In the rest of this document...
 | Section II | In-Depth descriptions of the architecture, subsystems, and components</br>Most importantly we dissect the specific design pattern that we are following (MVC). In the discussion around our choice it is mentioned why this is an appropraite design pattern and we further delve into the subsystems in our architecture. |
 | Section III | Report of the current progess that is and has been made in iteration 1</br>Here is our current discussion of the processes that we have been using and our current thoughts on what has been effective so far.| 
 
-**Section II** includes in-depth descriptions of the the architecture and component designs.
-
-**Section III** includes a report of our progress for Iteration 1.
-
 # 2.	Architectural and Component-level Design
 ## 2.1 System Structure
 
@@ -76,8 +72,6 @@ In the rest of this document...
 **Controller:** The Controller provides a layer of separation between the front end and the back end, handles complex business logic for the functionalities of the application, and facilitates communication between the View and the Model. The Controller is dependent on the Model for providing the data for authenticating hosts, accurately populating the Host's list of challenges, and displaying the prompts of an open challenge.
 
 **Model:** The Model stores raw data for hosts, challenges, prompts, and results, as well as handles database operations.
-
-
 
 **Rationale:** We chose to use MVC in order to create a clear distinction between the front end (View) and the back end (Model) to decrease coupling. Only the Controller has access to the Model so if the View needs data from the Model it must request it from the Controller. This architecture naturally groups elements that are similar in functionality together - for example, all the .html files for the website are contained within the View system - which encourages and enhances cohesion. Additionally, it allows us to easily update or modify the View without needing to change the Model. 
 
@@ -132,21 +126,38 @@ In our database we are going to have 4 main tables:
 
 ### 2.2.2 Controller
 
-
 Initialize App:
-  * Creates a Flask Instance and configures the folder locations.
-  * Initializes the database.
-  * Register Blueprints.
+  * Creates an Instance of a Flask Web Server 
+  * Configures the connection between our code and our MVC file strucutre
+  * In the instance in which a database is not already created, initalizes an empty database
+  * Registers the blueprints for the routes we are using to divide up and organize our application
 
 Host Manager:
-  * Directs the host to the Host Management UI
-  * Manages the Host Log in operations.
-  * Manages the Host Operations.
+  * Directs the flow of information between the Host UI and the Host related entities in the database
+  * Manages the numerous host-only functionalities
+    * Create Challenge
+    * Edit Challenge
+    * Delete Challenge
+    * Start Challenge
+    * End Challenge
+    * Edit Account Information
+    * Logout
+  * This component interacts with...
+    * Host Management (UI), this provides the relevant interfaces required
+    * Host Log In Operations, this component relies upon this system to make sure that the correct user is able to log in
+    * Host Operations, this component relies upon this system to access the relevant operations related to a given host
 
 Challenge Manager:
-  * Directs the host to the Challenge Participation UI
-    * Located in View/Templates/createChallenge.html
-  * Manages the Challenge Operations. 
+  * Directs the flow of information between the Challenger UI and the Challenger related entities in the database
+  * Manages the functionalities only given to challengers (non-logged in users)
+    * Login
+    * Register
+    * Join Challenge
+    * Participate in Challenge
+    * View Challenger Specific Results
+  * This component interacts with...
+    * Challenge Participation (UI), this component provides the relevant interfaces required
+    * Challenge Operations, this component relies upon the information and functionalities found within this given system
 
 |   | Methods           | URL Path   | Description  |
 |:--|:------------------|:-----------|:-------------|
@@ -159,8 +170,6 @@ Challenge Manager:
 |7. | GET | /result/guid?&lt;guid&gt; | GET: This is the **result** page associated with a specific **challenger** after they finish their **challenge**</br>Guid: This is the same guid that is assigned to the **challenger** when they initially join the **challenge** |
 |8. | GET | /result/join_code?&lt;join_code&gt; | GET: On retrieval of the **result**, the information associated will be used to populate the page with relevant information allowing for both **hosts** and **challengers** to see the relevant rankings and results</br>Join Code: This is the join code of the **challenge** and will be used to query the database to know the exact enetity that needs to be pulled to get the relevant information |
 |9. | POST | /logout | POST: In hopes of following MVC the logout button will be implemented as a form to keep separation between the view and the model. On form submission the current **host** will be logged out and will be redirected back to the index page. |
-
-
 
 
 ### 2.2.3 View and User Interface Design 
@@ -202,3 +211,4 @@ In our application specifically we are also setting up the CSS to enable the lat
 # 3. Progress Report
 
 In iteration one, for the Model, we implemented all the required database models for general functionality, for the Controller, we established basic routing, and for the View, we set up basic pages for user interaction.  
+**IM TOO TIRED TO WRITE MORE RIGHT NOW** if someone sees this in the morning can they go and add more words to this section, probably about 2-3 more sentences would make it look better. 
