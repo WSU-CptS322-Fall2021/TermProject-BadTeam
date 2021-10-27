@@ -41,33 +41,28 @@ Prepared by:
 
 | Name | Date | Changes | Version |
 | ------ | ------ | --------- | --------- |
-|Revision 1 |2021-10-05 |Initial draft | 1.0        |
-|Database Model |2021-10-26 | Creation of the Database model entry |1.1 |
+| System Desgin | 2021-10-21 | Initial Meeting and intial draft of UML architecture diagram | 1.0 |
+| Database Model Specification | 2021-10-26 | Creation of the Database model entry |1.1 |
 | View Section | 2021-10-26 | Added info on the view | 1.2 |
 | General Information | 2021-10-26 | Added general information for the document | 1.3 |
+| Initial Controller Specification | 2021-10-26 | Inital information regarding the controller | 1.4 |
 
 
 # 1. Introduction
 
 The over arching goal of this design document is not only to promote organization and communication between developers but with stakeholders as well, in a manor that is easy to understand regardless of background. Within the design process, gaining the stakeholder's approval - Professor Ay, and TAs - for the design implementation plans is crucial, using a design document helps clearly illustrate the thoughts and goals that the developers have for the project in order to fulfill the needs of the user and the goals of the business. Having a design document also serves as a universal design baseline for team members and allows for isolated and collaborative member(s) to align around the same goals.
 
-
-
 Our project, Poly type, is an interactive typing challenge application that allows for players to participate in challenges that hosts create. For players, they can enter a room code and username to join a typing challenge, participate in the pre-established challenges, and view their typing results (words per minutes, incorrect characters, rank).  For hosts, they can log in to their account and access their challenges (create, delete, modify, publish, review results). Our goal is to create a fun, easy to use, and collaborative way to learn and practice typing skills.
 
-
+In the rest of this document...
+| Section | Content |
+| ------- | ------- |
+| Section II | In-Depth descriptions of the architecture, subsystems, and components</br>Most importantly we dissect the specific design pattern that we are following (MVC). In the discussion around our choice it is mentioned why this is an appropraite design pattern and we further delve into the subsystems in our architecture. |
+| Section III | Report of the current progess that is and has been made in iteration 1</br>Here is our current discussion of the processes that we have been using and our current thoughts on what has been effective so far.| 
 
 **Section II** includes in-depth descriptions of the the architecture and component designs.
 
 **Section III** includes a report of our progress for Iteration 1.
-
-**Section IV** includes our plans for testing our designs.
-
-**Section V** includes our references.
-
-
-
-If this is a revision of an earlier document, please make sure to summarize what changes have been made during the revision (keep this discussion brief).
 
 # 2.	Architectural and Component-level Design
 ## 2.1 System Structure
@@ -151,23 +146,21 @@ Host Manager:
 Challenge Manager:
   * Directs the host to the Challenge Participation UI
     * Located in View/Templates/createChallenge.html
-  * Manages the Challenge Operations.
-
-For each subsystem:
- * Explain the role of the subsystem (component) and its responsibilities.
- * 	Provide a detailed description of the subsystem interface, i.e., 
-    * which other subsystems does it interact with?  
-    * what are the interdependencies between them? 
-
-(***in iteration-2***) Revise your route specifications, add the missing routes to your list, and update the routes you modified. Make sure to provide sufficient detail for each route. In iteration-2, you will be deducted points if you don’t include all major routes needed for implementing the required use-cases or if you haven’t described them in detail.
+  * Manages the Challenge Operations. 
 
 |   | Methods           | URL Path   | Description  |
 |:--|:------------------|:-----------|:-------------|
-|1. | createChallenge   | /createChallenge.html | Allows the host to create a challenge with up to 5 specified prompts. Then generates a code for users to join challenge with. |
-|2. | takeChallenge     | /takeChallenge.html | Allows the user to take a challenge by inputing a 6 string code. |
-|3. | index             | /index.html | Default login page. Page where Words Per Minute test is timed. Holds login form and holds register form. |
-|4. | editChallenge     | N/A        | Page for editing challenges. |
-|5. | editHost          | N/A        | Page for editing host settings. |
+|1. | GET, POST | /create_challenge | GET: This will load an empty form for a host to then fill out with all of the necessary info to create a **challenge**, which they can then press the submit button to post the form.</br>POST: This is trigged on the completion of the create challenge form. After submitted a new **challenge** will be entered into the database with the current **host** associated. Additionally, during this process a random join code will be generated and given to the **challenge** |  
+|2. | GET, POST | /take_challenge/&lt;guid&gt; | GET: This will be triggered after the **challenger** enters in a valid join code for a **challenge**. This page will then load with the given **challenge** that the **challenger** is participating in with its associated **prompts** being displayed for the **challenger** to type</br>POST: This post is going to collect the data associated with the **challenger** as they are participating in the **challenge**. After the **challenger** finishes typing in the final **prompt** a collection of information (elapsed time, # of correct characters, # of incorrect characters) will be sent to the result route to create a result.</br>Guid: This guid is a random identifier assigned to a **challenger** when they intially try to participate in a **challenge**. This guid will be used to access relevant information throughout the session. | 
+|3. | GET, POST | /index | GET: Load the JoinChallenge form. This is the form a **challenger** can enter their username and join code into to then join a **challenge**</br>POST: After a JoinChallenge form is posted the **challenger** is routed to the take challenge route where they can participate in their **challenge**.</br>GET: Load the Login form. This is the form a **host** can enter their username and password into to login to their account.</br>POST: After a Login form is posted, assuming valid login information, the **host** will be redirected to their view challenges route where they can perform a myriad of **host** related operations.</br>GET: Load the registration form. This is the form where someone who does not have an account can enter a username and password to then create a **host** account.</br>POST: After a Registration form is posted, assuming valid input, a new **host** will be created and the newly created account will be redirected to the view challenges route similar to the login.</br>**IMPORTANT NOTE:** We intentionally include login and registration in this route to help acheive our design philosophy of reducing page redirects. This is not an attempt to reduce the overall work of routing our application. It should be noted that this change increased the overall complexity of our main page as we still needed to make it look nice |
+|4. | GET, POST | /edit_challenge/&lt;post_id&gt;| GET: After getting to this route a single **challenge** will be loaded allowing for a **host** to change the content of the title or the prompts of this given **challenge**.</br>POST: On submission of the form, the new content will replace the old content from the original **challenge** updating this entity.</br>PostId: This is going to be used to route the challenges so that the correct challenge gets updated. | 
+|5. | POST | /delete_challenge/&lt;post_id&gt; | POST: On submission of this form the **host** will have deleted the relevant **challenge**</br>PostId: This is going to be used to route the challenges so that the correct challenge gets deleted. 
+|6. | GET, POST | /edit_host       | GET: This will load all of the currently known information for the give **host** onto the page where the logged in user can then update it</br>POST: On submission of the form, the new information will then be used to update the information currently associated with the current **host** |
+|7. | GET | /result/guid?&lt;guid&gt; | GET: This is the **result** page associated with a specific **challenger** after they finish their **challenge**</br>Guid: This is the same guid that is assigned to the **challenger** when they initially join the **challenge** |
+|8. | GET | /result/join_code?&lt;join_code&gt; | GET: On retrieval of the **result**, the information associated will be used to populate the page with relevant information allowing for both **hosts** and **challengers** to see the relevant rankings and results</br>Join Code: This is the join code of the **challenge** and will be used to query the database to know the exact enetity that needs to be pulled to get the relevant information |
+|9. | POST | /logout | POST: In hopes of following MVC the logout button will be implemented as a form to keep separation between the view and the model. On form submission the current **host** will be logged out and will be redirected back to the index page. |
+
+
 
 
 ### 2.2.3 View and User Interface Design 
@@ -209,51 +202,3 @@ In our application specifically we are also setting up the CSS to enable the lat
 # 3. Progress Report
 
 In iteration one, for the Model, we implemented all the required database models for general functionality, for the Controller, we established basic routing, and for the View, we set up basic pages for user interaction.  
-
-# 4. Testing Plan
-
-(***in iteration 1***)
-Don't include this section.
-
-(***in iteration 2***)
-In this section , provide a brief description of how you plan to test the system. Thought should be given to  mostly how automatic testing can be carried out, so as to maximize the limited number of human hours you will have for testing your system. Consider the following kinds of testing:
-  * *Unit Testing*: Explain for what modules you plan to write unit tests, and what framework you plan to use.  (Each team should write automated tests (at least) for testing the API routes)
-  * *Functional Testing*: How will you test your system to verify that the use cases are implemented correctly? (Manual tests are OK)
-  * *UI Testing*: How do you plan to test the user interface?  (Manual tests are OK)
-
-
-
-# 5. References
-
-Cite your references here.
-
-For the papers you cite give the authors, the title of the article, the journal name, journal volume number, date of publication and inclusive page numbers. Giving only the URL for the journal is not appropriate.
-
-For the websites, give the title, author (if applicable) and the website URL.
-
-
-----
-# Appendix: Grading Rubric
-(Please remove this part in your final submission)
-
-These is the grading rubric that we will use to evaluate your document. 
-
-
-|**MaxPoints**| **Design** |
-|:---------:|:-------------------------------------------------------------------------|
-|           | Are all parts of the document in agreement with the product requirements? |
-| 10        | Is the architecture of the system described well, with the major components and their interfaces?  Is the rationale for the proposed decomposition in terms of cohesion and coupling explained well? |
-| 15        | Is the document making good use of semi-formal notation (i.e., UML diagrams)? Does the document provide a clear and complete UML component diagram illustrating the architecture of the system? |
-| 15        | Is the model (i.e., “database model”) explained well with sufficient detail? | 
-| 10        | Is the controller explained in sufficient detail?  |
-| 20        | Are all major interfaces (i.e., the routes) listed? Are the routes explained in sufficient detail? |
-| 10        | Is the view and the user interfaces explained well? Did the team provide the screenshots of the interfaces they built so far.   |
-| 5         | Is there sufficient detail in the design to start Iteration 2?   |
-| 5         | Progress report  |
-|           |   |
-|           | **Clarity** |
-| 5         | Is the solution at a fairly consistent and appropriate level of detail? Is the solution clear enough to be turned over to an independent group for implementation and still be understood? |
-| 5         | Is the document carefully written, without typos and grammatical errors?  |
-|           |  |
-|           | **Total** |
-|           |  |
