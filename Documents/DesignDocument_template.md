@@ -172,6 +172,8 @@ Challenge Manager:
 |7. | GET | /result/guid?&lt;guid&gt; | GET: This is the *result* page associated with a specific *challenger* after they finish their *challenge*</br>Guid: This is the same guid that is assigned to the *challenger* when they initially join the *challenge* |
 |8. | GET | /result/join_code?&lt;join_code&gt; | GET: On retrieval of the *result*, the information associated will be used to populate the page with relevant information allowing for both *hosts* and *challengers* to see the relevant rankings and results</br>Join Code: This is the join code of the *challenge* and will be used to query the database to know the exact enetity that needs to be pulled to get the relevant information |
 |9. | POST | /logout | POST: In hopes of following MVC the logout button will be implemented as a form to keep separation between the view and the model. On form submission the current *host* will be logged out and will be redirected back to the index page. |
+|10. | POST | /open_challenge/&lt;challenge_id&gt; | POST: This will open a single *challenge* from the *host* perspective now allowing for *challengers* to join the *challenge* to participate</br>ChallengeId: The challenge id is going to be used to route the *challenge* so that the correct thing is opened |
+|11. | POST | /close_challenge/&lt;challenge_id&gt; | POST: This will close a single *challenge* from the *host* perspective disabling *challengers* from being able to join the *challenge* to participate</br>ChallengeId: The challenge id is going to be used to route the *challenge* so that the correct thing is closed | 
 
 ### 2.2.3 View and User Interface Design 
 
