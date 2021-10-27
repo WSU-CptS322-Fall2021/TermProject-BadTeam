@@ -73,7 +73,7 @@ def createChallenge():
         #Create a new challenge with the random code
         #TODO: The value of the host is currently hardcoded because we do not have a currently logged in user to set the value of host id to
         #TODO: Currently, we are allowing for individuals to make challenges with the same name, we should fix this when we have the user logged in
-        newChallenge = Challenge(joincode=code, open=True, host_id=1, title=form.title.data)
+        newChallenge = Challenge(joincode=code, open=False, host_id=1, title=form.title.data)
         
         # Scan through all prompts and append them if there is text
         for promptForm in form.prompts.data:
@@ -84,9 +84,9 @@ def createChallenge():
         print("Created Challenge: Room Code {}".format(newChallenge.joincode))
         db.session.add(newChallenge)
         db.session.commit()
-        #TODO: This is currently not going to be displayed in the UI, some thought should go into how we want this to look
-        flash('Challenge created!')
-        return redirect(url_for('routes.index'))
+        #TODO: Consider whether flash messages are desire or needed at all.
+        #flash('Challenge created!')
+        return redirect(url_for('routes.viewchallenges'))
     return render_template('createChallenge.html', challengeForm = form)
     
 @bp_routes.route('/takechallenge/<guid>', methods=['GET', 'POST'])
@@ -95,3 +95,27 @@ def takechallenge(guid):
     challenge = Challenge.query.filter_by(id=challengeId).first()
     nickname = session[guid][1]
     return render_template("takechallenge.html", challenge=challenge, nickname=nickname)
+
+@bp_routes.route('/viewchallenges', methods=['GET', 'POST'])
+def viewchallenges():
+    #TODO: Once we have authentication we need to integrate it in here to load in only current use
+    challenges = Challenge.query.all()
+    return render_template("viewchallenges.html", challenges=challenges)
+
+@bp_routes.route('/openchallenge/<challengeid>', methods=['POST'])
+def openChallenge(challengeid):
+    challenge = Challenge.query.filter_by(id = challengeid).first()
+    if not challenge == None:
+        challenge.open = True;
+        db.session.add(challenge)
+        db.session.commit()
+        return redirect(url_for('routes.viewchallenges'))
+
+@bp_routes.route('/closeChallenge/<challengeid>', methods=['POST'])
+def closeChallenge(challengeid):
+    challenge = Challenge.query.filter_by(id = challengeid).first()
+    if not challenge == None:
+        challenge.open = False;
+        db.session.add(challenge)
+        db.session.commit()
+        return redirect(url_for('routes.viewchallenges'))

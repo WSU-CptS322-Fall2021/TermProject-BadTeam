@@ -1,0 +1,34 @@
+﻿{% extends "base.html" %}
+
+{% block content %}
+
+<div id="viewpage-header">
+    <h3 class="logo">[poly_type]</h3>
+    <p class="header-text">log_out</p>
+</div>
+
+<div id="viewpage-body">
+    <!--This loop adds all the active and inactive challenges. Later we WILL replace some of the with JS that switches the classes at runtime.-->
+    {%for challenge in challenges%}
+        {%if challenge.open%}
+            {%with isactive="isactive"%}
+                {%include 'challenge.html'%}
+            {%endwith%}
+        {%else%}
+            {%with isactive=""%}
+                {%include 'challenge.html'%}
+            {%endwith%}
+        {%endif%}
+    {%endfor%}
+
+    <a class="viewpage-addchallenge" href="{{url_for('routes.createChallenge')}}">
+        <span class="addchallenge-icon">
+        [+]
+        </span>
+        <span class="addchallenge-tooltip">
+        Create a New Challenge
+        </span>
+    </a>
+</div>
+    
+{% endblock %}
