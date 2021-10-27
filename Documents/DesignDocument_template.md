@@ -120,14 +120,27 @@ In our database we are going to have 4 main tables:
 
 Briefly explain the role of the controller. If your controller is decomposed into smaller subsystems (similar to the Smile App design we discussed in class), list each of those subsystems as subsections. 
 
+Initialize App:
+  * Creates a Flask Instance and configures the folder locations.
+  * Initializes the database.
+  * Register Blueprints.
+
+Host Manager:
+  * Directs the host to the Host Management UI
+  * Manages the Host Log in operations.
+  * Manages the Host Operations.
+
+Challenge Manager:
+  * Directs the host to the Challenge Participation UI
+    * Located in View/Templates/createChallenge.html
+  * Manages the Challenge Operations.
+
 For each subsystem:
  * Explain the role of the subsystem (component) and its responsibilities.
  * 	Provide a detailed description of the subsystem interface, i.e., 
     * which other subsystems does it interact with?  
     * what are the interdependencies between them? 
 
-**Note:** Some of your subsystems will interact with the Web clients (browsers). Make sure to include a detailed description of the  Web API interface (i.e. the set of routes) your application will implement. For each route specify its “methods”, “URL path”, and “a description of the operation it implements”.  
-You can use the following table template to list your route specifications. 
 
 (***in iteration-1***) Brainstorm with your team members and identify all routes you need to implement for the completed application and explain each route briefly. If you included most of the major routes but you missed only a few, it maybe still acceptable. 
 
@@ -135,12 +148,11 @@ You can use the following table template to list your route specifications.
 
 |   | Methods           | URL Path   | Description  |
 |:--|:------------------|:-----------|:-------------|
-|1. |                   |            |              |
-|2. |                   |            |              |
-|3. |                   |            |              |
-|4. |                   |            |              |
-|5. |                   |            |              |
-|6. |                   |            |              |
+|1. | createChallenge   | View/Templates/createChallenge.html | Allows the host to create a challenge with up to 5 specified prompts. |
+|2. | takeChallenge     | View/Templates/takeChallenge.html | Allows the user to take a challenge by inputing a 6 string code. |
+|3. | index             | View/Templates/index.html | Page where Words Per Minute test is timed. Also the default page. |
+|4. | editChallenge     | N/A        | Page for editing challenges. |
+|5. | editHost          | N/A        | Page for editing host settings. |
 
 
 ### 2.2.3 View and User Interface Design 
