@@ -40,8 +40,13 @@ def index():
             return redirect(url_for('routes.index'))
         
         if request.form["submit"] == "Register" and registrationForm.validate_on_submit():
+            host = Host(username = registrationForm.username.data)
+            host.set_password(registrationForm.password.data)
+            db.session.add(host)
+            db.session.commit()
             return redirect(url_for('routes.index'))
     return render_template('index.html', joinForm = joinForm, loginForm = loginForm, registrationForm = registrationForm)
+
 
 
 def createCode():
