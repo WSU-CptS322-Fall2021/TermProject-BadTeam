@@ -79,8 +79,6 @@ In the rest of this document...
 
 ## 2.2 Subsystem Design 
 
-(Note: This is just a suggested template. If you adopted a pattern other than MVC, you should revise this template and the list the major subsystems in your architectural design.)
-
 ### 2.2.1 Model
 
 The model defines the schema for our database and the 'plain old python objects' we are going to be using throughout our application.
