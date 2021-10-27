@@ -1,6 +1,7 @@
 # Design Document
 
-## Your Project Title
+## Poly Type
+
 --------
 Prepared by:
 
@@ -19,7 +20,7 @@ Prepared by:
 
 ## Table of Contents
 - [Design Document](#design-document)
-  - [## Your Project Title](#-your-project-title)
+  - [Poly Type](#poly-type)
   - [Table of Contents](#table-of-contents)
   - [Document Revision History](#document-revision-history)
 - [1. Introduction](#1-introduction)
@@ -43,30 +44,47 @@ Prepared by:
 |Revision 1 |2021-10-05 |Initial draft | 1.0        |
 |Database Model |2021-10-26 | Creation of the Database model entry |1.1 |
 | View Section | 2021-10-26 | Added info on the view | 1.2 |
+| General Information | 2021-10-26 | Added general information for the document | 1.3 |
 
 
 # 1. Introduction
 
-Explain the purpose for providing this design document. If this is a revision of an earlier document, please make sure to summarize what changes have been made during the revision (keep this discussion brief). 
+The over arching goal of this design document is not only to promote organization and communication between developers but with stakeholders as well, in a manor that is easy to understand regardless of background. Within the design process, gaining the stakeholder's approval - Professor Ay, and TAs - for the design implementation plans is crucial, using a design document helps clearly illustrate the thoughts and goals that the developers have for the project in order to fulfill the needs of the user and the goals of the business. Having a design document also serves as a universal design baseline for team members and allows for isolated and collaborative member(s) to align around the same goals.
 
-Then provide a brief description of your project and state your project goal.
 
-At the end of the introduction, provide an overview of the document outline.
 
-Section II includes …
+Our project, Poly type, is an interactive typing challenge application that allows for players to participate in challenges that hosts create. For players, they can enter a room code and username to join a typing challenge, participate in the pre-established challenges, and view their typing results (words per minutes, incorrect characters, rank).  For hosts, they can log in to their account and access their challenges (create, delete, modify, publish, review results). Our goal is to create a fun, easy to use, and collaborative way to learn and practice typing skills.
 
-Section III includes …
+
+
+**Section II** includes in-depth descriptions of the the architecture and component designs.
+
+**Section III** includes a report of our progress for Iteration 1.
+
+**Section IV** includes our plans for testing our designs.
+
+**Section V** includes our references.
+
+
+
+If this is a revision of an earlier document, please make sure to summarize what changes have been made during the revision (keep this discussion brief).
 
 # 2.	Architectural and Component-level Design
 ## 2.1 System Structure
 
-This section should describe the high-level architecture of your software:  i.e., the major subsystems and how they fit together. 
-If you adopted the application structure we used in the Smile App, your application would have the Model-View-Controller (MVC) pattern. If you adopted a different architectural pattern, mention the pattern you adopted in your software and briefly discuss the rationale for using the proposed architecture (i.e., why that pattern fits well for your system).
+**UML Component Diagram:**
 
-In this section:
- * Provide a UML component diagram that illustrates the architecture of your software.
- * Briefly explain the role of each subsystem in your architectural design and explain the dependencies between them. 
- * Discuss the rationale for the proposed decomposition in terms of cohesion and coupling.
+![](.\UMLComponentDiagram.png)
+
+**View:** The View handles displaying information and UI elements to the user, takes any input from the user, and conveys the given inputs and outputs to Controller. The View is dependent on the Controller for authenticating hosts and connecting players to open challenges (Host management to Host Manager, and Challenge Participation to Challenge Manager respectively).
+
+**Controller:** The Controller provides a layer of separation between the front end and the back end, handles complex business logic for the functionalities of the application, and facilitates communication between the View and the Model. The Controller is dependent on the Model for providing the data for authenticating hosts, accurately populating the Host's list of challenges, and displaying the prompts of an open challenge.
+
+**Model:** The Model stores raw data for hosts, challenges, prompts, and results, as well as handles database operations.
+
+
+
+**Rationale:** We chose to use MVC in order to create a clear distinction between the front end (View) and the back end (Model) to decrease coupling. Only the Controller has access to the Model so if the View needs data from the Model it must request it from the Controller. This architecture naturally groups elements that are similar in functionality together - for example, all the .html files for the website are contained within the View system - which encourages and enhances cohesion. Additionally, it allows us to easily update or modify the View without needing to change the Model. 
 
 ## 2.2 Subsystem Design 
 
@@ -76,6 +94,7 @@ In this section:
 
 The model defines the schema for our database and the 'plain old python objects' we are going to be using throughout our application
 In our database we are going to have 4 main tables:
+
 #### Host
 
 | Field | Description |
@@ -155,9 +174,9 @@ In our application specifically we are also setting up the CSS to enable the lat
 
 **Homepage**
 
-![](C:\Users\colli\Desktop\CPTS-322\Poly_Type\repo\TermProject-BadTeam\Documents\HomepageImage1.png)
+![](.\HomepageImage1.png)
 
-![](C:\Users\colli\Desktop\CPTS-322\Poly_Type\repo\TermProject-BadTeam\Documents\HomepageImage2.png)
+![](.\HomepageImage2.png)
 
 *The Homepage:* The homepage is the first page that the average first-time user will see upon using the application. It is an intentionally versatile view layout. The first screenshot is the default view that the player will see, with a minimalist design that highlights the join functionality. If one hovers towards the login button, however, a login/register window will appear to allow for a user to authenticate. **This multi-functional design is intentional,** as one of our non-functional design goals is to minimize page reloads.
 
@@ -165,7 +184,7 @@ In our application specifically we are also setting up the CSS to enable the lat
 
 **Create Challenge Page**
 
-![](C:\Users\colli\Desktop\CPTS-322\Poly_Type\repo\TermProject-BadTeam\Documents\CreateChallengeImage.png)
+![](.\CreateChallengeImage.png)
 
 *The Create Challenge Page:* The Create Challenge page has only a single major functionality, which is that it allows the user to create a challenge, with a title and a series of prompts that the challengers will have to copy. After entering at least one prompt and a title at the top, the user can post their challenge, and it will open that new challenge for challengers to join.
 
@@ -173,7 +192,7 @@ In our application specifically we are also setting up the CSS to enable the lat
 
 **Take Challenge Page:**
 
-![](C:\Users\colli\Desktop\CPTS-322\Poly_Type\repo\TermProject-BadTeam\Documents\TakeChallengeImage.png)
+![](.\TakeChallengeImage.png)
 
 *The Take Challenge Page:* The take challenge page will as of the later iterations become the main meat of our application. For now it allows you to type, and displays the first prompt of whatever challenge you've joined, as well as your chosen nickname in the top right corner. The original prompt is displayed in the *subtle* color and the letters you type are overlaid over this in the *primary* color.
 
@@ -181,7 +200,7 @@ In our application specifically we are also setting up the CSS to enable the lat
 
 # 3. Progress Report
 
-Write a short paragraph summarizing your progress in iteration1.
+In iteration one, for the Model, we implemented all the required database models for general functionality, for the Controller, we established basic routing, and for the View, we set up basic pages for user interaction.  
 
 # 4. Testing Plan
 
