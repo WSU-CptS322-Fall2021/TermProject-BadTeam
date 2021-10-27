@@ -65,7 +65,7 @@ In the rest of this document...
 
 **UML Component Diagram:**
 
-![](.\UMLComponentDiagram.png)
+![](https://github.com/WSU-CptS322-Fall2021/TermProject-BadTeam/blob/20cc6e1e9abeab44bcb0ee41f7b2880491775244/Documents/UMLComponentDiagram.png)
 
 **View:** The View handles displaying information and UI elements to the user, takes any input from the user, and conveys the given inputs and outputs to Controller. The View is dependent on the Controller for authenticating hosts and connecting players to open challenges (Host management to Host Manager, and Challenge Participation to Challenge Manager respectively).
 
@@ -184,9 +184,9 @@ In our application specifically we are also setting up the CSS to enable the lat
 
 **Homepage**
 
-![](.\HomepageImage1.png)
+![](https://github.com/WSU-CptS322-Fall2021/TermProject-BadTeam/blob/20cc6e1e9abeab44bcb0ee41f7b2880491775244/Documents/HomepageImage1.png)
 
-![](.\HomepageImage2.png)
+![](https://github.com/WSU-CptS322-Fall2021/TermProject-BadTeam/blob/20cc6e1e9abeab44bcb0ee41f7b2880491775244/Documents/HomepageImage2.png)
 
 *The Homepage:* The homepage is the first page that the average first-time user will see upon using the application. It is an intentionally versatile view layout. The first screenshot is the default view that the player will see, with a minimalist design that highlights the join functionality. If one hovers towards the login button, however, a login/register window will appear to allow for a user to authenticate. **This multi-functional design is intentional,** as one of our non-functional design goals is to minimize page reloads.
 
@@ -194,7 +194,7 @@ In our application specifically we are also setting up the CSS to enable the lat
 
 **Create Challenge Page**
 
-![](.\CreateChallengeImage.png)
+![](https://github.com/WSU-CptS322-Fall2021/TermProject-BadTeam/blob/20cc6e1e9abeab44bcb0ee41f7b2880491775244/Documents/CreateChallengeImage.png)
 
 *The Create Challenge Page:* The Create Challenge page has only a single major functionality, which is that it allows the user to create a challenge, with a title and a series of prompts that the challengers will have to copy. After entering at least one prompt and a title at the top, the user can post their challenge, and it will open that new challenge for challengers to join.
 
@@ -202,7 +202,7 @@ In our application specifically we are also setting up the CSS to enable the lat
 
 **Take Challenge Page:**
 
-![](.\TakeChallengeImage.png)
+![](https://github.com/WSU-CptS322-Fall2021/TermProject-BadTeam/blob/20cc6e1e9abeab44bcb0ee41f7b2880491775244/Documents/TakeChallengeImage.png)
 
 *The Take Challenge Page:* The take challenge page will as of the later iterations become the main meat of our application. For now it allows you to type, and displays the first prompt of whatever challenge you've joined, as well as your chosen nickname in the top right corner. The original prompt is displayed in the *subtle* color and the letters you type are overlaid over this in the *primary* color.
 
