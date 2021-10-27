@@ -118,7 +118,6 @@ In our database we are going to have 4 main tables:
 
 ### 2.2.2 Controller
 
-Briefly explain the role of the controller. If your controller is decomposed into smaller subsystems (similar to the Smile App design we discussed in class), list each of those subsystems as subsections. 
 
 Initialize App:
   * Creates a Flask Instance and configures the folder locations.
@@ -140,9 +139,6 @@ For each subsystem:
  * 	Provide a detailed description of the subsystem interface, i.e., 
     * which other subsystems does it interact with?  
     * what are the interdependencies between them? 
-
-
-(***in iteration-1***) Brainstorm with your team members and identify all routes you need to implement for the completed application and explain each route briefly. If you included most of the major routes but you missed only a few, it maybe still acceptable. 
 
 (***in iteration-2***) Revise your route specifications, add the missing routes to your list, and update the routes you modified. Make sure to provide sufficient detail for each route. In iteration-2, you will be deducted points if you don’t include all major routes needed for implementing the required use-cases or if you haven’t described them in detail.
 
