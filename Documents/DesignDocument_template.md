@@ -144,9 +144,9 @@ For each subsystem:
 
 |   | Methods           | URL Path   | Description  |
 |:--|:------------------|:-----------|:-------------|
-|1. | createChallenge   | View/Templates/createChallenge.html | Allows the host to create a challenge with up to 5 specified prompts. |
-|2. | takeChallenge     | View/Templates/takeChallenge.html | Allows the user to take a challenge by inputing a 6 string code. |
-|3. | index             | View/Templates/index.html | Page where Words Per Minute test is timed. Also the default page. |
+|1. | createChallenge   | /createChallenge.html | Allows the host to create a challenge with up to 5 specified prompts. Then generates a code for users to join challenge with. |
+|2. | takeChallenge     | /takeChallenge.html | Allows the user to take a challenge by inputing a 6 string code. |
+|3. | index             | /index.html | Default login page. Page where Words Per Minute test is timed. Holds login form and holds register form. |
 |4. | editChallenge     | N/A        | Page for editing challenges. |
 |5. | editHost          | N/A        | Page for editing host settings. |
 
