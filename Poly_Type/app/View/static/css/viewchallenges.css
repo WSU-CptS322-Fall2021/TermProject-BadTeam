@@ -1,0 +1,161 @@
+/*CREATE CHALLENGE PAGE STYLES*/
+#viewpage-header{
+	align-items: flex-start;
+	height: 32px;
+	width: 100%;
+	position: relative;
+	--login-transition: border 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+#viewpage-header .logo{
+	display: inline;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	margin-top: 0;
+	color: var(--contrast);
+	user-select: none;
+}
+
+#viewpage-header .header-text{
+	display: inline;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	margin-top: 0;
+	color: var(--subtle);
+	user-select: none;
+	opacity: 1;
+}
+
+#viewpage-header .header-text:hover{
+	color: var(--primary);
+}
+
+/*PAGE BODY STYLINGS*/
+#viewpage-body{
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	height: calc(100% - 132px);
+	margin-top: 100px;
+}
+
+/*CHALLENGE ENTRY STYLINGS*/
+.challengeEntry{
+	display: flex;
+	height: 30px;
+	border-bottom: 1px solid var(--subtle);
+	flex-direction: row-reverse;
+	width: 40%;
+	margin: 0;
+	margin-top: -20px;	
+	padding: 5px 30px 5px 30px;
+	position: relative;
+}
+
+.challengeEntry .challengetitle{
+	color: var(--subtle);
+	font-family: 'Trebuchet MS', sans-serif;
+	font-size: 20px;
+	font-weight: bold;
+	position: absolute;
+	left: 30px;
+	top: 10px;
+}
+
+.challengeEntry .challengeJoinCode{
+	display: none;
+	color: var(--contrast);
+	font-family: 'Trebuchet MS', sans-serif;
+	font-size: 20px;
+	font-weight: bold;
+	position: absolute;
+	right: calc(8% + 30px);
+	top: 10px;
+}
+
+.challengeEntry.isactive .challengeJoinCode{
+	display: initial;
+}
+
+.challenge-iconbutton {
+	background: transparent;
+	outline: none;
+	border: none;
+	position: relative;
+	height: 30px;
+	width: 30px;
+	margin-left: calc(4% - 15px);
+	margin-right: calc(4% - 15px);
+	color: var(--subtle);
+	font: bold 20px 'Trebuchet MS', sans-serif;
+	transition: color 0.2s ease-in-out;
+}
+
+.challenge-iconbutton:hover{
+	color: var(--primary);
+}
+
+.challenge-iconbutton.stopbutton{
+	position: absolute;
+	right: 28px;
+	display: none;
+}
+
+.challenge-iconbutton.deletebutton:hover{
+	color: var(--error);
+}
+
+/*ACTIVE CHALLENGE ENTRY*/
+
+.isactive.challengeEntry{
+	background: rgba(0, 0, 0, 0.1);
+}
+
+.isactive .challenge-iconbutton{
+	display: none;
+}
+
+.isactive .challenge-iconbutton.stopbutton{
+	display: initial;
+}
+
+/*ADD BUTTON*/
+.viewpage-addchallenge{
+	outline:none;
+	border:none;
+	height: 30px;
+	width: 30px;
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	position: relative;
+	margin-top: 10px;
+	background: transparent;
+	font: bold 20px 'Trebuchet MS', sans-serif;
+	color: var(--subtle);
+	transition: color 0.2s ease-in-out;
+	text-decoration: none;
+}
+
+.viewpage-addchallenge:hover{
+	color: var(--primary)
+}
+
+.viewpage-addchallenge .addchallenge-tooltip{
+	transition: opacity 0.2s ease-in-out;
+	position: absolute;
+	top: 40px;
+	left: -65px;
+	width: 160px;
+	font: normal 14px 'Trebuchet MS', sans-serif;
+	color: var(--primary);
+	opacity: 0;
+	pointer-events: none;
+}
+
+.viewpage-addchallenge:hover .addchallenge-tooltip{
+	opacity: 1;
+}
