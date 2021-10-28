@@ -43,12 +43,11 @@ def index():
                 flash('Invalid username or password')
                 return redirect(url_for('routes.index'))
             print("Logged in as {}".format(loginForm.username.data))
-            login_user(user, remember=loginForm.remember_me.data)
-            return redirect(url_for('routes.index'))
+            login_user(user)
+            return redirect(url_for('routes.createChallenge'))
         
         if request.form["submit"] == "Register" and registrationForm.validate_on_submit():
 
-            #TODO Fix login, not fully working
             host = Host(username = registrationForm.reg_username.data)
             host.set_password(registrationForm.reg_password.data)
             db.session.add(host)
@@ -73,7 +72,7 @@ def createCode():
     return code
 
 @bp_routes.route('/createchallenge', methods=['GET', 'POST'])
-#@login_required
+@login_required
 def createChallenge():
     form = CreateChallengeForm()
     if form.validate_on_submit():
