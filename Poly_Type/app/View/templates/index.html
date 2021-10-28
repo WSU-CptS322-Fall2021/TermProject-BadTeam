@@ -29,10 +29,6 @@
 
                     {{ loginForm.submit(class="login-submit") }}
                 {%endif%}
-
-                {% if loginForm.errors %}
-                {{ loginForm.errors }}
-                {% endif %}
             </div>
         </form>
         {%endif%}
@@ -68,11 +64,6 @@
 
                     {{ registrationForm.submit(class="login-submit") }}
                 {%endif%}
-
-
-                {% if registrationForm.errors %}
-                {{ registrationForm.errors }}
-                {% endif %}
             </div>
         </form>
         {%endif%}

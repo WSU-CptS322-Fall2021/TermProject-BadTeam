@@ -19,8 +19,11 @@ def create_app(config_class=Config):
     moment.init_app(app)
     login.init_app(app)
 
-    from app.Controller.routes import bp_routes as routes
-    app.register_blueprint(routes)
+    from app.Controller.challengerRoutes import challenger_routes as challenger
+    app.register_blueprint(challenger)
+
+    from app.Controller.hostRoutes import host_routes as host
+    app.register_blueprint(host)
 
     if not app.debug and not app.testing:
         pass

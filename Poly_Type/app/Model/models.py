@@ -27,6 +27,9 @@ class Host(UserMixin, db.Model):
     def get_host_challenges(self):
         return self.challenges
 
+    def get_host_id(self):
+        return self.id
+
 class Challenge(db.Model):
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     host_id = db.Column(db.Integer, db.ForeignKey('host.id'))

@@ -1,12 +1,12 @@
 ﻿<div class="challengeEntry {{isactive}}">
 	<span class="challengetitle">{{challenge.title}}</span>
 	<span class="challengeJoinCode">[{{challenge.joincode}}]</span>
-	<form action="{{url_for('routes.closeChallenge', challengeid=challenge.id)}}" method="post" class="challenge-iconbuttonform stopbutton">
+	<form action="{{url_for('host.close_challenge', challengeid=challenge.id)}}" method="post" class="challenge-iconbuttonform stopbutton">
 		<button type="submit" class="challenge-iconbutton stopbutton">
 			[S]
 		</button>
 	</form>
-	<form action="{{url_for('routes.openChallenge', challengeid=challenge.id)}}" method="post" class="challenge-iconbuttonform">
+	<form action="{{url_for('host.open_challenge', challengeid=challenge.id)}}" method="post" class="challenge-iconbuttonform">
 		<button type="submit" class="challenge-iconbutton">
 		[>]
 		</button>
