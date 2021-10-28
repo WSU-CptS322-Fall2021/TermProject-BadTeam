@@ -39,15 +39,18 @@ def index():
         if request.form["submit"] == "Login" and loginForm.validate_on_submit():
             user = Host.query.filter_by(username=loginForm.username.data).first()
             if user is None or not user.check_password(loginForm.password.data):
+                print("Invalid username or password")
                 flash('Invalid username or password')
                 return redirect(url_for('routes.index'))
+            print("Logged in as {}".format(loginForm.username.data))
             login_user(user, remember=loginForm.remember_me.data)
             return redirect(url_for('routes.index'))
         
         if request.form["submit"] == "Register" and registrationForm.validate_on_submit():
+
             #TODO Fix login, not fully working
-            host = Host(username = registrationForm.username.data)
-            host.set_password(registrationForm.password.data)
+            host = Host(username = registrationForm.reg_username.data)
+            host.set_password(registrationForm.reg_password.data)
             db.session.add(host)
             db.session.commit()
             return redirect(url_for('routes.index'))
