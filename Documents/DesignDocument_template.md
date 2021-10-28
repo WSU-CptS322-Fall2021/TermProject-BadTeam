@@ -209,6 +209,12 @@ In our application specifically we are also setting up the CSS to enable the lat
 
 *Use Cases:* This page specifically enables access to the *Take Challenge* Use Case.
 
+![](C:\Users\colli\Desktop\CPTS-322\Poly_Type\repo\TermProject-BadTeam\Documents\ViewChallengeImage.png)
+
+*The View Challenges Page:* The view challenges page shows the challenges created by the current user. It displays both open and closed challenges. For open challenges it displays a button to close and the room code. For closed challenges it allows for opening, deleting, editing, and viewing the results of challenges.
+
+*Use Cases:* *View Created Challenges, Initiate Challenge, Delete Challenge,* and *Stop Challenge*
+
 # 3. Progress Report
 
 In iteration one, for the Model, we implemented all the required database models for general functionality, for the Controller, we established basic routing, and for the View, we set up basic pages for user interaction. In terms of the more specific functionalities we have implemented, we have done: creation of host account, creation of challenge, login, viewing challenges, joining a challenge, and the most basic participation in a challenge. In addition, our group feels as though we are effectively using github and think the current process of using Github Issues as an effective way to track work that needs to be done. We are starting to discuss the requirements and the work that we are wanting to get done in iteration 2 which is most notably is going to include the core functionality in participating in a challenge.
