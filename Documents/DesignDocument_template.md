@@ -139,13 +139,13 @@ The Host Manager is a sub handler within the controller that facilitates authent
 
   * Directs the flow of information between the Host UI and the Host related entities in the database
   * Manages the numerous host-only functionalities
-    * Create Challenge
-    * Edit Challenge
-    * Delete Challenge
-    * Start Challenge
-    * End Challenge
-    * Edit Account Information
-    * Logout
+    * [Create Challenge](#create-challenge-entry)
+    * [Edit Challenge](#edit-challenge-entry)
+    * [Delete Challenge](#delete-challenge-entry)
+    * [Start Challenge](#open-challenge-entry)
+    * [End Challenge](#close-challenge-entry)
+    * [Edit Account Information](#edit-host-entry)
+    * [Logout](#logout-entry)
   * This component interacts with...
     * Host Management (UI), this provides the relevant interfaces required
     * Host Log In Operations, this component relies upon this system to make sure that the correct user is able to log in
@@ -157,28 +157,28 @@ The Challenge Manager is the other major sub handler within the Controller which
 
   * Directs the flow of information between the Challenger UI and the Challenger related entities in the database
   * Manages the functionalities only given to challengers (non-logged in users)
-    * Login
-    * Register
-    * Join Challenge
-    * Participate in Challenge
-    * View Challenger Specific Results
+    * [Login](#index-entry)
+    * [Register](#index-entry)
+    * [Join Challenge](#index-entry)
+    * [Participate in Challenge](#take-challenge-entry)
+    * [View Challenger Specific Results](#result-challenger-entry)
   * This component interacts with...
     * Challenge Participation (UI), this component provides the relevant interfaces required
     * Challenge Operations, this component relies upon the information and functionalities found within this given system
 
 |   | Methods           | URL Path   | Description  |
 |:--|:------------------|:-----------|:-------------|
-|1. | GET, POST | /create_challenge | GET: This will load an empty form for a host to then fill out with all of the necessary info to create a *challenge*, which they can then press the submit button to post the form.</br>POST: This is trigged on the completion of the create challenge form. After submitted a new *challenge* will be entered into the database with the current *host* associated. Additionally, during this process a random join code will be generated and given to the *challenge* |
-|2. | GET, POST | /take_challenge/&lt;guid&gt; | GET: This will be triggered after the *challenger* enters in a valid join code for a *challenge*. This page will then load with the given *challenge* that the *challenger* is participating in with its associated *prompts* being displayed for the *challenger* to type</br>POST: This post is going to collect the data associated with the *challenger* as they are participating in the *challenge*. After the *challenger* finishes typing in the final *prompt* a collection of information (elapsed time, # of correct characters, # of incorrect characters) will be sent to the result route to create a result.</br>Guid: This guid is a random identifier assigned to a *challenger* when they intially try to participate in a *challenge*. This guid will be used to access relevant information throughout the session. |
-|3. | GET, POST | /index | GET: Load the JoinChallenge form. This is the form a *challenger* can enter their username and join code into to then join a *challenge*</br>POST: After a JoinChallenge form is posted the *challenger* is routed to the take challenge route where they can participate in their *challenge*.</br>GET: Load the Login form. This is the form a *host* can enter their username and password into to login to their account.</br>POST: After a Login form is posted, assuming valid login information, the *host* will be redirected to their view challenges route where they can perform a myriad of *host* related operations.</br>GET: Load the registration form. This is the form where someone who does not have an account can enter a username and password to then create a *host* account.</br>POST: After a Registration form is posted, assuming valid input, a new *host* will be created and the newly created account will be redirected to the view challenges route similar to the login.</br>*IMPORTANT NOTE:* We intentionally include login and registration in this route to help acheive our design philosophy of reducing page redirects. This is not an attempt to reduce the overall work of routing our application. It should be noted that this change increased the overall complexity of our main page as we still needed to make it look nice |
-|4. | GET, POST | /edit_challenge/&lt;post_id&gt;| GET: After getting to this route a single *challenge* will be loaded allowing for a *host* to change the content of the title or the prompts of this given *challenge*.</br>POST: On submission of the form, the new content will replace the old content from the original *challenge* updating this entity.</br>PostId: This is going to be used to route the challenges so that the correct challenge gets updated. |
-|5. | POST | /delete_challenge/&lt;post_id&gt; | POST: On submission of this form the *host* will have deleted the relevant *challenge*</br>PostId: This is going to be used to route the challenges so that the correct challenge gets deleted. |
-|6. | GET, POST | /edit_host       | GET: This will load all of the currently known information for the give *host* onto the page where the logged in user can then update it</br>POST: On submission of the form, the new information will then be used to update the information currently associated with the current *host* |
-|7. | GET | /result/guid?&lt;guid&gt; | GET: This is the *result* page associated with a specific *challenger* after they finish their *challenge*</br>Guid: This is the same guid that is assigned to the *challenger* when they initially join the *challenge* |
-|8. | GET | /result/join_code?&lt;join_code&gt; | GET: On retrieval of the *result*, the information associated will be used to populate the page with relevant information allowing for both *hosts* and *challengers* to see the relevant rankings and results</br>Join Code: This is the join code of the *challenge* and will be used to query the database to know the exact enetity that needs to be pulled to get the relevant information |
-|9. | POST | /logout | POST: In hopes of following MVC the logout button will be implemented as a form to keep separation between the view and the model. On form submission the current *host* will be logged out and will be redirected back to the index page. |
-|10. | POST | /open_challenge/&lt;challenge_id&gt; | POST: This will open a single *challenge* from the *host* perspective now allowing for *challengers* to join the *challenge* to participate</br>ChallengeId: The challenge id is going to be used to route the *challenge* so that the correct thing is opened |
-|11. | POST | /close_challenge/&lt;challenge_id&gt; | POST: This will close a single *challenge* from the *host* perspective disabling *challengers* from being able to join the *challenge* to participate</br>ChallengeId: The challenge id is going to be used to route the *challenge* so that the correct thing is closed | 
+|<h5 id="create-challenge-entry">1.</h5> | GET, POST | /create_challenge | GET: This will load an empty form for a host to then fill out with all of the necessary info to create a *challenge*, which they can then press the submit button to post the form.</br>POST: This is trigged on the completion of the create challenge form. After submitted a new *challenge* will be entered into the database with the current *host* associated. Additionally, during this process a random join code will be generated and given to the *challenge* |
+|<h5 id="take-challenge-entry">2.</h5> | GET, POST | /take_challenge/&lt;guid&gt; | GET: This will be triggered after the *challenger* enters in a valid join code for a *challenge*. This page will then load with the given *challenge* that the *challenger* is participating in with its associated *prompts* being displayed for the *challenger* to type</br>POST: This post is going to collect the data associated with the *challenger* as they are participating in the *challenge*. After the *challenger* finishes typing in the final *prompt* a collection of information (elapsed time, # of correct characters, # of incorrect characters) will be sent to the result route to create a result.</br>Guid: This guid is a random identifier assigned to a *challenger* when they intially try to participate in a *challenge*. This guid will be used to access relevant information throughout the session. |
+|<h5 id="index-entry">3.</h5> | GET, POST | /index | GET: Load the JoinChallenge form. This is the form a *challenger* can enter their username and join code into to then join a *challenge*</br>POST: After a JoinChallenge form is posted the *challenger* is routed to the take challenge route where they can participate in their *challenge*.</br>GET: Load the Login form. This is the form a *host* can enter their username and password into to login to their account.</br>POST: After a Login form is posted, assuming valid login information, the *host* will be redirected to their view challenges route where they can perform a myriad of *host* related operations.</br>GET: Load the registration form. This is the form where someone who does not have an account can enter a username and password to then create a *host* account.</br>POST: After a Registration form is posted, assuming valid input, a new *host* will be created and the newly created account will be redirected to the view challenges route similar to the login.</br>*IMPORTANT NOTE:* We intentionally include login and registration in this route to help acheive our design philosophy of reducing page redirects. This is not an attempt to reduce the overall work of routing our application. It should be noted that this change increased the overall complexity of our main page as we still needed to make it look nice |
+|<h5 id="edit-challenge-entry">4.</h5> | GET, POST | /edit_challenge/&lt;post_id&gt;| GET: After getting to this route a single *challenge* will be loaded allowing for a *host* to change the content of the title or the prompts of this given *challenge*.</br>POST: On submission of the form, the new content will replace the old content from the original *challenge* updating this entity.</br>PostId: This is going to be used to route the challenges so that the correct challenge gets updated. |
+|<h5 id="delete-challenge-entry">5.</h5> | POST | /delete_challenge/&lt;post_id&gt; | POST: On submission of this form the *host* will have deleted the relevant *challenge*</br>PostId: This is going to be used to route the challenges so that the correct challenge gets deleted. |
+|<h5 id="edit-host-entry">6.</h5> | GET, POST | /edit_host       | GET: This will load all of the currently known information for the give *host* onto the page where the logged in user can then update it</br>POST: On submission of the form, the new information will then be used to update the information currently associated with the current *host* |
+|<h5 id="result-challenger-entry">7.</h5> | GET | /result/guid?&lt;guid&gt; | GET: This is the *result* page associated with a specific *challenger* after they finish their *challenge*</br>Guid: This is the same guid that is assigned to the *challenger* when they initially join the *challenge* |
+|<h5 id="result-joincode-entry">8.</h5> | GET | /result/join_code?&lt;join_code&gt; | GET: On retrieval of the *result*, the information associated will be used to populate the page with relevant information allowing for both *hosts* and *challengers* to see the relevant rankings and results</br>Join Code: This is the join code of the *challenge* and will be used to query the database to know the exact enetity that needs to be pulled to get the relevant information |
+|<h5 id="logout-entry">9.</h5> | POST | /logout | POST: In hopes of following MVC the logout button will be implemented as a form to keep separation between the view and the model. On form submission the current *host* will be logged out and will be redirected back to the index page. |
+|<h5 id="open-challenge-entry">10.</h5> | POST | /open_challenge/&lt;challenge_id&gt; | POST: This will open a single *challenge* from the *host* perspective now allowing for *challengers* to join the *challenge* to participate</br>ChallengeId: The challenge id is going to be used to route the *challenge* so that the correct thing is opened |
+|<h5 id="close-challenge-entry">11.</h5> | POST | /close_challenge/&lt;challenge_id&gt; | POST: This will close a single *challenge* from the *host* perspective disabling *challengers* from being able to join the *challenge* to participate</br>ChallengeId: The challenge id is going to be used to route the *challenge* so that the correct thing is closed | 
 
 ### 2.2.3 View and User Interface Design 
 
