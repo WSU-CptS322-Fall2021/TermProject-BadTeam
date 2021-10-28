@@ -209,7 +209,7 @@ In our application specifically we are also setting up the CSS to enable the lat
 
 *Use Cases:* This page specifically enables access to the *Take Challenge* Use Case.
 
-![](C:\Users\colli\Desktop\CPTS-322\Poly_Type\repo\TermProject-BadTeam\Documents\ViewChallengeImage.png)
+![](https://github.com/WSU-CptS322-Fall2021/TermProject-BadTeam/blob/b3abcb38369178a9f4cbfc6918c007ecf62e36cf/Documents/ViewChallengeImage.png)
 
 *The View Challenges Page:* The view challenges page shows the challenges created by the current user. It displays both open and closed challenges. For open challenges it displays a button to close and the room code. For closed challenges it allows for opening, deleting, editing, and viewing the results of challenges.
 
