@@ -49,6 +49,7 @@ Prepared by:
 | Initial Controller Specification | 2021-10-26 | Initial information regarding the controller | 1.4 |
 | Updated Controller Specification | 2021-10-26 | Rewrote the controller section to add more specific implementation details | 1.5 |
 | Updated UML Diagram | 2021-10-27 | Updated the UML Diagram and fixed minor spelling errors | 1.6 |
+| Feedback Revisions | 2021-10-27 | Additional revisions from Professor Ay's feedback | 1.7 |
 
 # 1. Introduction
 
@@ -75,7 +76,7 @@ In the rest of this document...
 
 **Model:** The Model stores raw data for hosts, challenges, prompts, and results, as well as handles database operations.
 
-**Rationale:** We chose to use MVC in order to create a clear distinction between the front end (View) and the back end (Model) to decrease coupling. Only the Controller has access to the Model so if the View needs data from the Model it must request it from the Controller. This architecture naturally groups elements that are similar in functionality together - for example, all the .html files for the website are contained within the View system - which encourages and enhances cohesion. Additionally, it allows us to easily update or modify the View without needing to change the Model. 
+**Rationale:** We chose to use MVC in order to create a clear distinction between the front end (View) and the back end (Model) to decrease coupling. Only the Controller has access to the Model so if the View needs data from the Model it must request it from the Controller. This architecture naturally groups elements that are similar in functionality together - for example, all the .html files for the website are contained within the View system - which encourages and enhances cohesion. Additionally, it allows us to easily update or modify the View without needing to change the Model. As illustrated in the UML component diagram, we create a distinction between the hosts and the players, where the host must be authenticated to access any of the internal data for their account and challenges, whereas the player (Challenge Participation) is only allowed to access the public published challenges. This design creates a layer of security for internal data from unauthenticated users, as well as reduces coupling and enables easier code maintainance.
 
 ## 2.2 Subsystem Design 
 
@@ -133,6 +134,9 @@ Initialize App:
   * Registers the blueprints for the routes we are using to divide up and organize our application
 
 Host Manager:
+
+The Host Manager is a sub handler within the controller that facilitates authenticated actions that are restricted to host users. It enables secure interaction between the View and the Model for Host Log In and General Host operations. 
+
   * Directs the flow of information between the Host UI and the Host related entities in the database
   * Manages the numerous host-only functionalities
     * Create Challenge
@@ -148,6 +152,9 @@ Host Manager:
     * Host Operations, this component relies upon this system to access the relevant operations related to a given host
 
 Challenge Manager:
+
+The Challenge Manager is the other major sub handler within the Controller which handles unauthenticated user interaction.  It also facilitates the primary typing challenge functionality for the program. 
+
   * Directs the flow of information between the Challenger UI and the Challenger related entities in the database
   * Manages the functionalities only given to challengers (non-logged in users)
     * Login
