@@ -1,23 +1,32 @@
 document.addEventListener("keydown", function(event) {
-    const wordsWrapper = 'takechallenge-body'
+    let wordsWrapper = 'prompt-0'
     const correctLetter = 'correct-letter'
     const incorrectLetter = 'incorrect-letter'
     const incompleteLetter = 'incomplete-letter'
     const incompleteWord = 'incomplete-word'
     const completeLetter = 'complete-word'
-    let promptFinished = false
-    
+    const continueHidden = 'continue-hidden'
+    const continueVisible = 'continue-visible'
+    const inactivePrompt = 'inactive-prompt'
+    const activePrompt = 'active-prompt'
+
+    let promptNumber = 0
+
     if(event.which == 8){
       backspace()
       return;
     }  
+    if(event.which == 13){
+        pressEnter()
+        return;
+    }
     if (invalidCode()) { return; }
     typingLetter()
   
     function backspace(){
       var div = document.getElementById(wordsWrapper);
       var words = div.getElementsByTagName('div')
-  
+      hideContinue()
       for(i = words.length - 1; i >= 0; i--){
         var letters = words[i].getElementsByTagName('div')
         console.log(letters)
@@ -34,7 +43,7 @@ document.addEventListener("keydown", function(event) {
     }
   
     function typingLetter(){
-      var div = document.getElementById('takechallenge-body');
+      var div = document.getElementById(wordsWrapper);
       var words = div.getElementsByTagName('div')
       for(i = 0; i < words.length; i++){
         var letters = words[i].getElementsByTagName('div')
@@ -56,7 +65,7 @@ document.addEventListener("keydown", function(event) {
           }
         }
       }
-        promptFinished = true// everything is typed
+      showContinue()
     }
   
     function invalidCode(){
@@ -70,5 +79,24 @@ document.addEventListener("keydown", function(event) {
         return event.which == 32
     }
   
+    function showContinue(){
+        document.getElementById('continue-prompt').className = continueVisible
+    }
+
+    function hideContinue(){
+        document.getElementById('continue-prompt').className = continueHidden
+    }
+
+    function pressEnter(){
+        if(document.getElementById('continue-prompt').className == continueVisible){
+            var div = document.getElementById(wordsWrapper);
+            div.className = inactivePrompt
+            promptNumber++;
+            wordsWrapper = `prompt-${promptNumber}`
+            var div = document.getElementById(wordsWrapper);
+            div.className = activePrompt
+            document.getElementById('continue-prompt').className == continueHidden
+        }
+    }
     });
   

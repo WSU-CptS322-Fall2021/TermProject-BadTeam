@@ -7,16 +7,11 @@
     <p class="header-text">{{ nickname }}</p>
 </div>
 
-<div id="hehe">
-    t
-</div>
-
-<div id="takechallenge-body">
-    <!-- <textarea class="takechallenge-text prompt" readonly = "true" spellcheck="false">{{ challenge.prompts[0].text }}</textarea>
-    <textarea class="takechallenge-text input" spellcheck="false"></textarea> -->
-    <!-- [u for x in challenge.prompts[0].text.split(' ') for u in (x, ' ')]  -->
+{% set count = namespace(value=0) %}
+{% for prompt in challenge.prompts %}
+<div id="prompt-{{count.value}}" class="active-prompt">
     
-    {% for word in challenge.prompts[0].text.split(' ') %}
+    {% for word in prompt.text.split(' ') %}
         <div class="incomplete-word">
             {% for letter in word%}
             <div class="incomplete-letter">
@@ -25,9 +20,17 @@
             {% endfor %}
         </div>
     {% endfor %}
+    {% set count.value = count.value + 1 %}
+
+    <div id="continue-prompt" class="continue-hidden">
+        Press ENTER to continue to the next prompt
+    </div>    
 </div>
+{% endfor %}
+
 {% endblock %}
 
 {% block footer %}
 <script type="text/javascript" src="{{ url_for('static', filename='typingFunctionality.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='pageLoad.js') }}"></script>
 {% endblock %}
