@@ -26,7 +26,7 @@ class CreateChallengeForm(FlaskForm):
 class RegistrationForm(FlaskForm):
     reg_username = StringField('Username', validators=[DataRequired()])
     reg_password = PasswordField('Password', validators=[DataRequired()])
-    reg_password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])
+    reg_password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('reg_password')])
     submit = SubmitField('Register')
 
     def validate_username(self, username):
