@@ -58,3 +58,31 @@
 .takechallenge-text.input{
 	color: var(--primary);
 }
+
+
+.incomplete-word{
+	color:white;
+	display:inline-block;
+	padding-inline-end: 1em;
+}
+
+.complete-word{
+	display:inline-block;
+	padding-inline-end: 1em;
+}
+
+.incomplete-letter{
+	color:var(--subtle);
+	display:inline-block;
+
+}
+
+.correct-letter{
+	color:var(--primary);
+	display:inline-block;
+}
+
+.incorrect-letter{
+	color:var(--error);
+	display:inline-block;
+}
