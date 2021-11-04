@@ -1,17 +1,20 @@
+let promptNumber = 0
+let wordsWrapper = `prompt-${promptNumber}`
+let continuePrompt = `continue-prompt-${promptNumber}`
+const correctLetter = 'correct-letter'
+const incorrectLetter = 'incorrect-letter'
+const incompleteLetter = 'incomplete-letter'
+const incompleteWord = 'incomplete-word'
+const completeLetter = 'complete-word'
+const continueHidden = 'continue-hidden'
+const continueVisible = 'continue-visible'
+const inactivePrompt = 'inactive-prompt'
+const activePrompt = 'active-prompt'
+
+
+
+
 document.addEventListener("keydown", function(event) {
-    let wordsWrapper = 'prompt-0'
-    const correctLetter = 'correct-letter'
-    const incorrectLetter = 'incorrect-letter'
-    const incompleteLetter = 'incomplete-letter'
-    const incompleteWord = 'incomplete-word'
-    const completeLetter = 'complete-word'
-    const continueHidden = 'continue-hidden'
-    const continueVisible = 'continue-visible'
-    const inactivePrompt = 'inactive-prompt'
-    const activePrompt = 'active-prompt'
-
-    let promptNumber = 0
-
     if(event.which == 8){
       backspace()
       return;
@@ -80,23 +83,23 @@ document.addEventListener("keydown", function(event) {
     }
   
     function showContinue(){
-        document.getElementById('continue-prompt').className = continueVisible
+        document.getElementById(continuePrompt).className = continueVisible
     }
 
     function hideContinue(){
-        document.getElementById('continue-prompt').className = continueHidden
+        document.getElementById(continuePrompt).className = continueHidden
     }
 
     function pressEnter(){
-        if(document.getElementById('continue-prompt').className == continueVisible){
+        if(document.getElementById(continuePrompt).className == continueVisible){
             var div = document.getElementById(wordsWrapper);
             div.className = inactivePrompt
             promptNumber++;
             wordsWrapper = `prompt-${promptNumber}`
+            continuePrompt = `continue-prompt-${promptNumber}`
             var div = document.getElementById(wordsWrapper);
             div.className = activePrompt
-            document.getElementById('continue-prompt').className == continueHidden
+            document.getElementById(continuePrompt).className == continueHidden
         }
     }
     });
-  

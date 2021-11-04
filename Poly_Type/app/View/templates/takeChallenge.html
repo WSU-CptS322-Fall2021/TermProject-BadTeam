@@ -20,11 +20,12 @@
             {% endfor %}
         </div>
     {% endfor %}
-    {% set count.value = count.value + 1 %}
+    
 
-    <div id="continue-prompt" class="continue-hidden">
+    <div id="continue-prompt-{{count.value}}" class="continue-hidden">
         Press ENTER to continue to the next prompt
     </div>    
+    {% set count.value = count.value + 1 %}
 </div>
 {% endfor %}
 

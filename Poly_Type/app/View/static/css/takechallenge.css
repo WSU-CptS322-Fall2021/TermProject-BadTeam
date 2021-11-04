@@ -108,6 +108,8 @@
 }
 
 .continue-hidden{
+	position: absolute;
+	left: 20000px;
 	padding-top: 5em;
 	display: flex;
 	justify-content: center;
