@@ -6,7 +6,7 @@
     <h3 class="logo">[poly_type]</h3>
     <p class="header-text">{{ nickname }}</p>
 </div>
-
+<p id="time" class="timer">0</p>
 {% set count = namespace(value=0) %}
 {% for prompt in challenge.prompts %}
 <div id="prompt-{{count.value}}" class="active-prompt">
@@ -34,4 +34,5 @@
 {% block footer %}
 <script type="text/javascript" src="{{ url_for('static', filename='typingFunctionality.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='pageLoad.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='timer.js') }}"></script>
 {% endblock %}
