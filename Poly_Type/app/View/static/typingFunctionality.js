@@ -11,7 +11,8 @@ const continueVisible = 'continue-visible'
 const inactivePrompt = 'inactive-prompt'
 const activePrompt = 'active-prompt'
 
-
+var correctLetters = 0
+var incorrectLetters = 0
 
 
 document.addEventListener("keydown", function(event) {
@@ -57,8 +58,10 @@ document.addEventListener("keydown", function(event) {
             if(letters[j].className == incompleteLetter){
               if(letters[j].innerText === event.key){
                 letters[j].className = correctLetter
+                correctLetters++
               } else{
                 letters[j].className = incorrectLetter
+                incorrectLetters++
               }
               return;
             }
@@ -99,7 +102,14 @@ document.addEventListener("keydown", function(event) {
     }
 
     function pressEnter(){
+
+        
         if(document.getElementById(continuePrompt).className == continueVisible){
+            // this is bad and needs to be refactored
+            if(promptNumber == 4){
+                finished()
+                return
+            }
             var div = document.getElementById(wordsWrapper);
             document.getElementById(continuePrompt).className = continueHidden
             div.className = inactivePrompt
@@ -109,6 +119,21 @@ document.addEventListener("keydown", function(event) {
             var div = document.getElementById(wordsWrapper);
             div.className = activePrompt
         }
+    }
+
+    function finished(){
+        let data = {
+            elapsedTime: timer.getTime().toString(),
+            correctLetters: correctLetters,
+            incorrectLetters: incorrectLetters
+        }
+        let url = document.URL
+        fetch(url, {
+            method: "POST", 
+            body: JSON.stringify(data)
+          }).then(res => {
+            console.log("Request complete! response:", res);
+          });
     }
     });
 

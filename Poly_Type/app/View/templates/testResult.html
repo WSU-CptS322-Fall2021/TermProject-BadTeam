@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div id="viewpage-header">
+    <h3 class="logo">[poly_type]</h3>
+</div>
+
+<div id="viewpage-body">
+    {{result.elapsedTime}}
+    {{result.correct}}
+    {{result.incorrect}}
+</div>
+    
+{% endblock %}
