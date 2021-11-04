@@ -4,7 +4,9 @@
 
 <div id="viewpage-header">
     <h3 class="logo">[poly_type]</h3>
-    <p class="header-text">log_out</p>
+    <a href="{{url_for('host.logout')}}">
+        <p class="header-text">log_out</p>
+    </a>
 </div>
 
 <div id="viewpage-body">
@@ -21,7 +23,7 @@
         {%endif%}
     {%endfor%}
 
-    <a class="viewpage-addchallenge" href="{{url_for('routes.createChallenge')}}">
+    <a class="viewpage-addchallenge" href="{{url_for('host.create_challenge')}}">
         <span class="addchallenge-icon">
         [+]
         </span>
