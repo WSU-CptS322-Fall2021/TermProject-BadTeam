@@ -5,15 +5,16 @@ const correctLetter = 'correct-letter'
 const incorrectLetter = 'incorrect-letter'
 const incompleteLetter = 'incomplete-letter'
 const incompleteWord = 'incomplete-word'
-const completeLetter = 'complete-word'
+const completeWord = 'complete-word'
 const continueHidden = 'continue-hidden'
 const continueVisible = 'continue-visible'
 const inactivePrompt = 'inactive-prompt'
 const activePrompt = 'active-prompt'
+const extraLetter = 'extra-letter'
 
 var correctLetters = 0
 var incorrectLetters = 0
-
+var promptFinished = false
 
 document.addEventListener("keydown", function(event) {
     if(event.which == 8){
@@ -25,7 +26,10 @@ document.addEventListener("keydown", function(event) {
         return;
     }
     if (invalidCode()) { return; }
-    typingLetter()
+    if(!promptFinished){
+      console.log("stupid tyler")
+      typingLetter()
+    }
   
     function backspace(){
       var div = document.getElementById(wordsWrapper);
@@ -36,7 +40,13 @@ document.addEventListener("keydown", function(event) {
         console.log(letters)
         for(j = letters.length - 1; j >= 0; j--){
           console.log(letters[j].innerText)
-          if(letters[j].className == correctLetter || letters[j].className == incorrectLetter){
+
+          if(letters[j].className == extraLetter){
+            extraDivs = document.getElementsByClassName(extraLetter)
+            extraDivs[extraDivs.length - 1].remove()
+            return
+          }
+          else if(letters[j].className == correctLetter || letters[j].className == incorrectLetter){
             letters[j].className = incompleteLetter
             words[i].className = incompleteWord
             promptFinished = false
@@ -47,15 +57,25 @@ document.addEventListener("keydown", function(event) {
     }
   
     function typingLetter(){
+      console.log("top tpying")
       hideContinue()
       var div = document.getElementById(wordsWrapper);
-      var words = div.getElementsByTagName('div')
+      //div = div.getElementsByTagName('div')
+      //var words = div.getElementsByTagName('div')
+      var words = div.getElementsByClassName(incompleteWord)
+      console.log(words.length)
+      console.log(words)
       for(i = 0; i < words.length; i++){
+        console.log("infinity")
         var letters = words[i].getElementsByTagName('div')
+        console.log(letters.length)
         if(words[i].className == incompleteWord){
+          
           for(j = 0; j < letters.length; j++){
-            console.log(letters[j].innerText)
+            //console.log(letters[j].innerText)
+            console.log("inner infinity")
             if(letters[j].className == incompleteLetter){
+              
               if(letters[j].innerText === event.key){
                 letters[j].className = correctLetter
                 correctLetters++
@@ -63,27 +83,43 @@ document.addEventListener("keydown", function(event) {
                 letters[j].className = incorrectLetter
                 incorrectLetters++
               }
+              if(i == words.length - 1 && j == letters.length - 1){
+                console.log("here")
+                words[words.length - 1].className = completeWord
+                showContinue()
+              }
+              
               return;
             }
           }
-          if(isSpace){
-            words[i].className = completeLetter
+          if(event.which == 32){
+            console.log("space")
+            words[i].className = completeWord
+            return
+          } else {
+            console.log("here")
+            var newDiv = document.createElement('div')
+            newDiv.className = extraLetter
+            newDiv.innerText = event.key
+            words[i].appendChild(newDiv)
             return
           }
         }
       }
-      showContinue()
+      // if(words[words.length - 1].className == completeWord){
+      //   showContinue()
+      // }
     }
   
     function invalidCode(){
-      return !isSpace() && event.which < 48 || (event.which > 90 && event.which < 186) || event.which > 192
+      return event.which != 32 && event.which != 222 && (event.which < 48 || (event.which > 90 && event.which < 186) || event.which > 192)
       // for reference https://css-tricks.com/snippets/javascript/javascript-keycodes/
     }
   
     function isSpace(){
         // Stop the space bar from scrolling the page down
-        event.preventDefault();
-        return event.which == 32
+        //event.preventDefault();
+        return event.which === 32
     }
   
     function showContinue(){
@@ -99,11 +135,10 @@ document.addEventListener("keydown", function(event) {
         if(!timer.isRunning){
             timer.start()
         }
+        promptFinished = false
     }
 
     function pressEnter(){
-
-        
         if(document.getElementById(continuePrompt).className == continueVisible){
             // this is bad and needs to be refactored
             if(promptNumber == 4){
@@ -119,6 +154,8 @@ document.addEventListener("keydown", function(event) {
             var div = document.getElementById(wordsWrapper);
             div.className = activePrompt
         }
+        hideContinue()
+        timer.stop()
     }
 
     function finished(){

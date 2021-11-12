@@ -107,6 +107,18 @@
 	resize: none;
 }
 
+.extra-letter{
+	color:var(--error);
+	display:inline-block;
+	font-size: 30px;
+	font-family: 'Trebuchet MS', sans-serif;
+	font-weight: bold;
+	background: transparent;
+	border: none;
+	outline: none;
+	resize: none;
+}
+
 .continue-hidden{
 	padding-top: 5em;
 	display: flex;
