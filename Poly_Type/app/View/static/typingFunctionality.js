@@ -17,6 +17,7 @@ var incorrectLetters = 0
 var promptFinished = false
 
 document.addEventListener("keydown", function(event) {
+    //checkEmptyPrompt()
     if(event.which == 8){
       backspace()
       return;
@@ -25,6 +26,10 @@ document.addEventListener("keydown", function(event) {
         pressEnter()
         return;
     }
+    if(event.which == 32){
+      event.preventDefault()
+    }
+
     if (invalidCode()) { return; }
     if(!promptFinished){
       console.log("stupid tyler")
@@ -141,10 +146,7 @@ document.addEventListener("keydown", function(event) {
     function pressEnter(){
         if(document.getElementById(continuePrompt).className == continueVisible){
             // this is bad and needs to be refactored
-            if(promptNumber == 4){
-                finished()
-                return
-            }
+
             var div = document.getElementById(wordsWrapper);
             document.getElementById(continuePrompt).className = continueHidden
             div.className = inactivePrompt
@@ -153,6 +155,14 @@ document.addEventListener("keydown", function(event) {
             continuePrompt = `continue-prompt-${promptNumber}`
             var div = document.getElementById(wordsWrapper);
             div.className = activePrompt
+            var words = div.getElementsByTagName('div')
+            var letters = words[0].getElementsByTagName('div')
+            console.log(letters.length)
+            if(letters.length <= 0){
+              console.log("Trying to post")
+              finished()
+              return
+          }
         }
         hideContinue()
         timer.stop()
