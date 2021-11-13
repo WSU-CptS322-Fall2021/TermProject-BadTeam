@@ -40,8 +40,8 @@ def close_challenge(challengeid):
         db.session.commit()
         return redirect(url_for('host.view_challenges'))
 
-@login_required
 @host_routes.route('/update_info', methods=['GET', 'POST'])
+@login_required
 def update_info(): #If the user is a host, allow them to update their information
     form = UpdateInfoForm()
     if form.validate_on_submit():
