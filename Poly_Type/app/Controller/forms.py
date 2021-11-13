@@ -34,6 +34,12 @@ class RegistrationForm(FlaskForm):
         if user is not None:
             raise ValidationError('The username already exists! Please use a different username')
 
+class UpdateInfoForm(FlaskForm):
+    reg_username = StringField('Username', validators=[DataRequired()])
+    reg_password = PasswordField('Password', validators=[DataRequired()])
+    reg_password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('reg_password')])
+    submit = SubmitField('Update')
+
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
