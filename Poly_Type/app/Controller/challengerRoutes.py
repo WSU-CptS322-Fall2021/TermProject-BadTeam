@@ -68,14 +68,14 @@ def take_challenge(guid):
         result = Result(elapsedTime = resultsDict["elapsedTime"], correct = resultsDict["correctLetters"], incorrect = resultsDict["incorrectLetters"], challenger = session[guid][1])
         currentChallenge.results.append(result)
         db.session.commit()
-        session[guid] = (result.id, session[guid][1])
+        session[guid] = (1, session[guid][1])
         return redirect(url_for('challenger.results', guid=guid))
     challengeId = session[guid][0]
     challenge = Challenge.query.filter_by(id=challengeId).first()
     nickname = session[guid][1]
     return render_template("takechallenge.html", challenge=challenge, nickname=nickname)
 
-@challenger_routes.route('/results/<guid>', methods=['GET'])
+@challenger_routes.route('/results/<guid>', methods=['GET', 'POST'])
 def results(guid):
     print("here")
     result = Result.query.filter_by(id = session[guid][0]).first()

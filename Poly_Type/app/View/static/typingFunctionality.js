@@ -181,6 +181,7 @@ document.addEventListener("keydown", function(event) {
           }).then(res => {
             console.log("Request complete! response:", res);
           });
+          window.location.replace(document.URL.replace("take_challenge", "results"));
     }
     });
 
