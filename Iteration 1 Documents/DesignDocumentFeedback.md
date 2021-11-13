@@ -1,0 +1,4 @@
+# Design Document Feedback
+
+## General Comments
+We believe you have this project relatively well thought out, but there are concerns about how this is going to be implemented, particularly in regards to certain routes responding to different get and posts. Flask as it is designed will return a given route for a given URL. How are you going to distinguish a get request to the index for a login versus a get request to the index to join a challenge? A lot places where Flask is used in a dynamic format is treating it like a backend, where the routes act as an API and a frontend JS library (like React) would be acting as the actual site. I know as you've detailed you're putting the front end implementation with JS back to at the earliest, iteration 2, but I believe it may be beneficial for your team to discuss how the front end is going to work before over-committing to your current design. Feel free to discuss with me, (Trevor Naze) during any office hours.
