@@ -3,13 +3,16 @@ import sys
 from flask import Blueprint
 from flask import render_template, flash, redirect, url_for, request, session
 from flask_login import current_user, login_user, login_required, logout_user
-from app.Model.models import Challenge, Host, Prompt
+from werkzeug.datastructures import ContentSecurityPolicy
+from werkzeug.routing import IntegerConverter
+from app.Model.models import Challenge, Host, Prompt, Result
 from app import db
 from config import Config
 from app.Controller.forms import CreateChallengeForm, RegistrationForm, JoinChallengeForm, LoginForm
 import random
 import string
 import uuid
+import json
 
 challenger_routes = Blueprint('challenger', __name__)
 challenger_routes.template_folder = Config.TEMPLATE_FOLDER #'..\\View\\templates'
@@ -56,9 +59,24 @@ def index():
 
 @challenger_routes.route('/take_challenge/<guid>', methods=['GET', 'POST'])
 def take_challenge(guid):
+
+    if request.method == "POST":
+        resultsDict = json.loads(request.data.decode('utf-8'))
+        currentChallenge = Challenge.query.filter_by(id = session[guid][0]).first()
+        print(resultsDict["elapsedTime"])
+        result = Result(elapsedTime = resultsDict["elapsedTime"], correct = resultsDict["correctLetters"], incorrect = resultsDict["incorrectLetters"], challenger = session[guid][1])
+        currentChallenge.results.append(result)
+        db.session.commit()
+        session[guid] = (1, session[guid][1])
+        print(result)
+        return redirect(url_for('challenger.results', guid=guid))
     challengeId = session[guid][0]
     challenge = Challenge.query.filter_by(id=challengeId).first()
     nickname = session[guid][1]
     return render_template("takechallenge.html", challenge=challenge, nickname=nickname)
 
+@challenger_routes.route('/results/<guid>', methods=['GET', 'POST'])
+def results(guid):
+    result = Result.query.filter_by(id = session[guid][0]).first()
+    return render_template("testResult.html", result = result, nickname = session[guid][1])
 
