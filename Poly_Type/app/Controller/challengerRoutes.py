@@ -31,9 +31,13 @@ def index():
             # have to use upper on the join code string because the UI doesn't force the form to send only uppercase letters
             challenge = Challenge.query.filter_by(joincode=joinForm.joincode.data.upper()).first()
             if challenge is not None and challenge.open:
-                session[guid] = (challenge.id, joinForm.nickname.data)
-                print("Joined Challenge {} with nickname {}".format(joinForm.joincode.data, joinForm.nickname.data))
-                return redirect(url_for('challenger.take_challenge', guid=guid))
+                for result in challenge.results:
+                    if joinForm.nickname.data == result.challenger:
+                        flash(f'That nickname has already been taken')
+                    else:
+                        session[guid] = (challenge.id, joinForm.nickname.data)
+                        print("Joined Challenge {} with nickname {}".format(joinForm.joincode.data, joinForm.nickname.data))
+                        return redirect(url_for('challenger.take_challenge', guid=guid))
             flash(f'The room {joinForm.joincode.data} is not open or does not exist')
             # this print statement is here so I can see if this hits correctly, currently flash messages are not set up
             print(f'The room {joinForm.joincode.data} is not open or does not exist')
@@ -65,7 +69,7 @@ def take_challenge(guid):
         resultsDict = json.loads(request.data.decode('utf-8'))
         currentChallenge = Challenge.query.filter_by(id = session[guid][0]).first()
         print(resultsDict["elapsedTime"])
-        result = Result(elapsedTime = resultsDict["elapsedTime"], correct = resultsDict["correctLetters"], incorrect = resultsDict["incorrectLetters"], challenger = session[guid][1])
+        result = Result(elapsedTime = resultsDict["elapsedTime"], correct = resultsDict["correctLetters"], incorrect = resultsDict["incorrectLetters"], extra = resultsDict["extraLetters"], challenger = session[guid][1])
         currentChallenge.results.append(result)
         db.session.commit()
         session[guid] = (1, session[guid][1])
