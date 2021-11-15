@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+    
+    <h1> Update Information</h1>
+    {% if form %}
+    <form action="" method="POST">
+        {{form.hidden_tag()}}
+
+        <p> {{form.reg_username.label}} </p>
+        <p> {{form.reg_username(class= 'forminput')}} </p>
+
+        {% for error in form.reg_username.errors %}
+            <span>[{{ error }}]</span>
+        {% endfor %}
+
+        <p> {{form.reg_password.label}} </p>
+        <p> {{form.reg_password(class= 'forminput')}} </p>
+
+        {% for error in form.reg_password.errors %}
+            <span>[{{ error }}]</span>
+        {% endfor %}
+
+        <p> {{form.reg_password2.label}} </p>
+        <p> {{form.reg_password2(class= 'forminput')}} </p>
+
+        {% for error in form.reg_password2.errors %}
+            <span>[{{ error }}]</span>
+        {% endfor %}
+
+            <p> {{form.submit}} </p>
+
+    </form>
+    {% endif %}
+{% endblock %}

@@ -49,7 +49,6 @@ def index():
             return redirect(url_for('host.view_challenges'))
         
         if request.form["submit"] == "Register" and registrationForm.validate_on_submit():
-
             host = Host(username = registrationForm.reg_username.data)
             host.set_password(registrationForm.reg_password.data)
             db.session.add(host)
