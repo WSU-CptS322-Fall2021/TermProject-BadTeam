@@ -92,3 +92,13 @@ def create_challenge():
         #flash('Challenge created!')
         return redirect(url_for('host.view_challenges'))
     return render_template('createChallenge.html', challengeForm = form)
+
+@host_routes.route('/aggregate_results/<joinCode>', methods=['GET'])
+@login_required
+def aggregate_results(joinCode):
+    results = Challenge.query.filter_by(joincode = joinCode).first().results
+    listResults = list(results)
+    listResults.sort(key = lambda x: x.elapsedTime)
+    #filter to top 10
+    listResults = listResults[:10]
+    return render_template('aggregateResults.html', results = listResults)
