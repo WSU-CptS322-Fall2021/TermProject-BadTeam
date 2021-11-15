@@ -5,9 +5,13 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/createchallenge.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/takechallenge.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/viewchallenges.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/testresult.css') }}">
     </head>
 
     <body class="solarized-dark">
         {% block content %} {% endblock %}
     </body>
+
+    {% block footer %} {% endblock %}
 </html>
+

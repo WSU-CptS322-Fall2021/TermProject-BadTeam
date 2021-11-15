@@ -6,9 +6,33 @@
     <h3 class="logo">[poly_type]</h3>
     <p class="header-text">{{ nickname }}</p>
 </div>
+<p id="time" class="timer">0</p>
+{% set count = namespace(value=0) %}
+{% for prompt in challenge.prompts %}
+<div id="prompt-{{count.value}}" class="active-prompt">
+    
+    {% for word in prompt.text.split(' ') %}
+        <div class="incomplete-word">
+            {% for letter in word%}
+            <div class="letter incomplete-letter">
+                {{letter}}
+            </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+    
 
-<div id="takechallenge-body">
-    <textarea class="takechallenge-text prompt" readonly = "true" spellcheck="false">{{ challenge.prompts[0].text }}</textarea>
-    <textarea class="takechallenge-text input" spellcheck="false"></textarea>
+    <div id="continue-prompt-{{count.value}}" class="continue continue-hidden">
+        [Press Enter]
+    </div>    
+    {% set count.value = count.value + 1 %}
 </div>
+{% endfor %}
+
+{% endblock %}
+
+{% block footer %}
+<script type="text/javascript" src="{{ url_for('static', filename='typingFunctionality.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='pageLoad.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='timer.js') }}"></script>
 {% endblock %}

@@ -79,7 +79,10 @@ def create_challenge():
         # Scan through all prompts and append them if there is text
         for promptForm in form.prompts.data:
             if promptForm["prompt"] is not None:
-                prompt = Prompt(text=promptForm["prompt"])
+                promptText = promptForm["prompt"].strip()
+                while "  " in promptText:
+                    promptText = promptText.replace("  ", " ")
+                prompt = Prompt(text=promptText)
                 newChallenge.prompts.append(prompt)
 
         print("Created Challenge: Room Code {}".format(newChallenge.joincode))
