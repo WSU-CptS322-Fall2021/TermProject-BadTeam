@@ -1,16 +1,16 @@
 let promptNumber = 0
 let wordsWrapper = `prompt-${promptNumber}`
 let continuePrompt = `continue-prompt-${promptNumber}`
-const correctLetter = 'correct-letter'
-const incorrectLetter = 'incorrect-letter'
-const incompleteLetter = 'incomplete-letter'
+const correctLetter = 'letter correct-letter'
+const incorrectLetter = 'letter incorrect-letter'
+const incompleteLetter = 'letter incomplete-letter'
 const incompleteWord = 'incomplete-word'
 const completeWord = 'complete-word'
-const continueHidden = 'continue-hidden'
-const continueVisible = 'continue-visible'
+const continueHidden = 'continue continue-hidden'
+const continueVisible = 'continue continue-visible'
 const inactivePrompt = 'inactive-prompt'
 const activePrompt = 'active-prompt'
-const extraLetter = 'extra-letter'
+const extraLetter = 'letter extra-letter'
 
 var correctLetters = 0
 var incorrectLetters = 0
