@@ -14,7 +14,7 @@
     {% for word in prompt.text.split(' ') %}
         <div class="incomplete-word">
             {% for letter in word%}
-            <div class="incomplete-letter">
+            <div class="letter incomplete-letter">
                 {{letter}}
             </div>
             {% endfor %}
@@ -22,8 +22,8 @@
     {% endfor %}
     
 
-    <div id="continue-prompt-{{count.value}}" class="continue-hidden">
-        Press ENTER to continue to the next prompt
+    <div id="continue-prompt-{{count.value}}" class="continue continue-hidden">
+        [Press Enter]
     </div>    
     {% set count.value = count.value + 1 %}
 </div>
