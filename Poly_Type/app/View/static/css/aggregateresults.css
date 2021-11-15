@@ -1,0 +1,127 @@
+/*CREATE CHALLENGE PAGE STYLES*/
+#aggregate-header{
+	align-items: flex-start;
+	height: 32px;
+	width: 100%;
+	position: relative;
+	--login-transition: border 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+#aggregate-header .logo{
+	display: inline;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	margin-top: 0;
+	color: var(--contrast);
+	user-select: none;
+}
+
+#aggregate-header .header-text{
+	display: inline;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	margin-top: 0;
+	color: var(--subtle);
+	user-select: none;
+	opacity: 1;
+}
+
+#aggregate-header .header-text:hover{
+	color: var(--primary);
+}
+
+/*PAGE BODY STYLINGS*/
+#aggregate-body{
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	height: calc(100% - 132px);
+	margin-top: 100px;
+}
+
+/*RESULT ROW*/
+#aggregate-body .result{
+	width: 600px;
+	border-bottom: 1px solid var(--subtle);
+	height: 30px;
+	display:flex;
+	align-items: center;
+	font-family: 'Trebuchet MS', sans-serif;
+	font-size: 16px;
+	color: var(--subtle);
+}
+
+#aggregate-body .result .nickname{
+	width: 200px;
+	text-align: right;
+}
+
+#aggregate-body .result .score{
+	color: var(--primary);
+	font-size: 25px;
+	width: 400px;
+	text-align: center;
+}
+
+#aggregate-body .leader-header{
+	font-family: 'Trebuchet MS', sans-serif;
+	font-size: 20px;
+	font-weight: bold;
+	color: var(--subtle);
+}
+
+/*AGGREGATE STATS*/
+.aggregate-stats{
+	display: flex;
+	height: 100px;
+	width: 100%;
+	justify-content: center;
+}
+
+.aggregate-stats .statblock{
+	display: flex;
+	width: 200px;
+	height: 100%;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.aggregate-stats .statblock .statvalue{
+	color: var(--contrast);
+	font-size: 80px;
+	font-weight: bold;
+}
+
+.aggregate-stats .statblock .statlabel{
+	color: var(--subtle);
+	font-size: 16px;
+	color: var(--subtle);
+	opacity: 0.7;
+}
+
+/*Button*/
+#aggregate-body .returnhome{
+	border: 1px solid var(--primary);
+	border-radius: 10px;
+	height: 30px;
+	width: 150px;
+	background: transparent;
+	color: var(--primary);
+	text-align: center;
+	padding-top: 10px;
+	text-decoration: none;
+	animation: fadeInAnimation ease 5s;
+	margin-top: 20px;
+}
+
+#aggregate-body .returnhome:hover{
+	background: rgba(255, 255, 255, 0.05);
+}
+
+#aggregate-body .returnhome:active{
+	background: rgba(0, 0, 0, 0.05);
+}

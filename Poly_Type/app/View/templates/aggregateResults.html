@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div id="aggregate-header">
+    <h3 class="logo">[poly_type]</h3>
+    <a href="{{url_for('host.logout')}}">
+        <p class="header-text">log_out</p>
+    </a>
+</div>
+
+<div id="aggregate-body">
+    <!--This loop adds all the active and inactive challenges. Later we WILL replace some of the with JS that switches the classes at runtime.-->
+    <div class="aggregate-stats">
+        <div class="statblock">
+            <span class="statvalue">42</span>
+            <span class="statlabel">[avg wpm]</span>
+        </div>
+        <div class="statblock">
+            <span class="statvalue">5</span>
+            <span class="statlabel">[avg mistakes]</span>
+        </div>
+    </div>
+    <p class="leader-header">[leaderboard]</p>
+    {%for result in results%}
+    <div class="result">
+        <span class="nickname">{{result.challenger}}</span>
+        <span class="score">{{result.elapsedTime}}ms</span>
+    </div>
+    {%endfor%}
+    <a href="{{url_for('host.view_challenges')}}" class="returnhome">Return Home</a>
+</div>
+    
+{% endblock %}
