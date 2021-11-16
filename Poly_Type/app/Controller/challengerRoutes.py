@@ -32,7 +32,7 @@ def index():
             challenge = Challenge.query.filter_by(joincode=joinForm.joincode.data.upper()).first()
             if challenge is not None and challenge.open:
                 session[guid] = (challenge.id, joinForm.nickname.data)
-                print("Joined Challenge {} with nickname {}".format(joinForm.joincode.data, joinForm.nickname.data))
+                #print("Joined Challenge {} with nickname {}".format(joinForm.joincode.data, joinForm.nickname.data))
                 return redirect(url_for('challenger.take_challenge', guid=guid))
             flash(f'The room {joinForm.joincode.data} is not open or does not exist')
             # this print statement is here so I can see if this hits correctly, currently flash messages are not set up
@@ -63,12 +63,14 @@ def take_challenge(guid):
     if request.method == "POST":
         resultsDict = json.loads(request.data.decode('utf-8'))
         currentChallenge = Challenge.query.filter_by(id = session[guid][0]).first()
-        print(resultsDict["elapsedTime"])
-        result = Result(elapsedTime = resultsDict["elapsedTime"], correct = resultsDict["correctLetters"], incorrect = resultsDict["incorrectLetters"], challenger = session[guid][1])
+        wpm = ((int(resultsDict["correctLetters"]) / 5) / (int(resultsDict["elapsedTime"]) / 6000))
+        result = Result(elapsedTime = resultsDict["elapsedTime"], correct = resultsDict["correctLetters"], 
+            incorrect = resultsDict["incorrectLetters"], extra = resultsDict["extraLetters"], 
+            challenger = session[guid][1], wpm = wpm)        
         currentChallenge.results.append(result)
         db.session.commit()
-        session[guid] = (1, session[guid][1])
-        print(result)
+        print(result.id)
+        session[guid] = (result.id, session[guid][1])
         return redirect(url_for('challenger.results', guid=guid))
     challengeId = session[guid][0]
     challenge = Challenge.query.filter_by(id=challengeId).first()
@@ -77,6 +79,7 @@ def take_challenge(guid):
 
 @challenger_routes.route('/results/<guid>', methods=['GET', 'POST'])
 def results(guid):
+    print(session[guid])
     result = Result.query.filter_by(id = session[guid][0]).first()
-    return render_template("testResult.html", result = result, nickname = session[guid][1])
+    return render_template("challengerResult.html", result = result, nickname = session[guid][1])
 

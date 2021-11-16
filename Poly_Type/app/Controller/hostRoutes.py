@@ -113,7 +113,15 @@ def create_challenge():
 def aggregate_results(joinCode):
     results = Challenge.query.filter_by(joincode = joinCode).first().results
     listResults = list(results)
-    listResults.sort(key = lambda x: x.elapsedTime)
+    listResults.sort(key = lambda x: x.wpm)
+    avgWpm = 0
+    avgMistakes = 0
+    for result in listResults:
+        avgWpm += result.wpm
+        avgMistakes += result.incorrect
+    if len(listResults) > 0:
+        avgWpm //= len(listResults)
+        avgMistakes //= len(listResults)
     #filter to top 10
     listResults = listResults[:10]
-    return render_template('aggregateResults.html', results = listResults)
+    return render_template('aggregateResults.html', results = listResults, avgWpm = avgWpm, avgMistakes = avgMistakes)

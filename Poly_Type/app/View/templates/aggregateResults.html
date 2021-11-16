@@ -13,19 +13,25 @@
     <!--This loop adds all the active and inactive challenges. Later we WILL replace some of the with JS that switches the classes at runtime.-->
     <div class="aggregate-stats">
         <div class="statblock">
-            <span class="statvalue">42</span>
+            <span class="statvalue">{{avgWpm}}</span>
             <span class="statlabel">[avg wpm]</span>
         </div>
         <div class="statblock">
-            <span class="statvalue">5</span>
+            <span class="statvalue">{{avgMistakes}}</span>
             <span class="statlabel">[avg mistakes]</span>
         </div>
     </div>
     <p class="leader-header">[leaderboard]</p>
+    <div class="result">
+        <span class="nickname">nickname</span>
+        <span class="nickname">wpm</span>
+        <span class="nickname">correct/incorrect/extra</span>
+    </div>
     {%for result in results%}
     <div class="result">
         <span class="nickname">{{result.challenger}}</span>
-        <span class="score">{{result.elapsedTime}}ms</span>
+        <span class="score">{{result.wpm|round|int}}</span>
+        <span class="accuracy">{{result.correct}}/{{result.incorrect}}/{{result.extra}}</span>
     </div>
     {%endfor%}
     <a href="{{url_for('host.view_challenges')}}" class="returnhome">Return Home</a>
