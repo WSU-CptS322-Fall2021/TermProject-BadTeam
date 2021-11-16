@@ -106,7 +106,6 @@ document.addEventListener("keydown", async function(event) {
           if(event.which == 32){
             
             words[i].className = completeWord
-            correctLetters++
             return
           } else {
             
@@ -159,15 +158,16 @@ document.addEventListener("keydown", async function(event) {
             document.getElementById(continuePrompt).className = continueHidden
             div.className = inactivePrompt
             promptNumber++
+            if(promptNumber > 4){
+              await finished()
+            }
             wordsWrapper = `prompt-${promptNumber}`
             continuePrompt = `continue-prompt-${promptNumber}`
             var div = document.getElementById(wordsWrapper)
             div.className = activePrompt
             var words = div.getElementsByTagName('div')
             var letters = words[0].getElementsByTagName('div')
-            
             if(letters.length <= 0){
-              
               await finished()
               return
           }
@@ -247,17 +247,11 @@ document.addEventListener("keydown", async function(event) {
 
 
 async function finished(){
-  console.log(correctLetters)
-  console.log(incorrectLetters)
-  console.log(extraLetters)
-  urlParts = document.URL.split("/")
-  guid = urlParts[urlParts.length - 1]
   let data = {
       elapsedTime: timer.getTime().toString(),
       correctLetters: correctLetters,
       incorrectLetters: incorrectLetters,
-      extraLetters: extraLetters,
-      guid: guid
+      extraLetters: extraLetters
   }
   let url = document.URL
   await fetch(url, {
