@@ -58,6 +58,8 @@ class Result(db.Model):
     elapsedTime = db.Column(db.Integer)
     correct = db.Column(db.Integer)
     incorrect = db.Column(db.Integer)
+    extra = db.Column(db.Integer)
+    wpm = db.Column(db.Integer)
     challenge_id =db.Column(db.Integer, db.ForeignKey('challenge.id'))
     #challenge exists as a backref to its challenge object
 

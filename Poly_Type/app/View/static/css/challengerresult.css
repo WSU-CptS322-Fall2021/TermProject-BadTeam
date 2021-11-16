@@ -43,13 +43,14 @@
 
 /*STATS STYLINGS*/
 #testresult-body .statcontainer{
-	width: 600px;
+	width: 400px;
 	display: flex;
 	justify-content: left;
 	align-items: center;
 	color: var(--subtle);
 	font-size: 16px;
 	animation: fadeInAnimation ease 5s;
+	margin-bottom: 30px;
 }
 
 .statcontainer .stat{
@@ -62,8 +63,13 @@
 	color: var(--error);
 }
 
+.statcontainer .stat.contrast{
+	color: var(--contrast);
+}
+
 .statcontainer .header{
-	width: 100px;
+	width: 175px;
+	font-size: 28px;
 }
 
 /*Button*/
