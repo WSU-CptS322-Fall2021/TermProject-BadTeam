@@ -17,14 +17,14 @@ var incorrectLetters = 0
 var extraLetters = 0
 var promptFinished = false
 
-document.addEventListener("keydown", function(event) {
+document.addEventListener("keydown", async function(event) {
     //checkEmptyPrompt()
     if(event.which == 8){
       backspace()
       return
     }  
     if(event.which == 13){
-        pressEnter()
+        await pressEnter()
         return
     }
     if(event.which == 32){
@@ -67,7 +67,7 @@ document.addEventListener("keydown", function(event) {
       }
     }
   
-    function typingLetter(){
+    async function typingLetter(){
       
       hideContinue()
       var div = document.getElementById(wordsWrapper)
@@ -151,7 +151,7 @@ document.addEventListener("keydown", function(event) {
         promptFinished = false
     }
 
-    function pressEnter(){
+    async function pressEnter(){
         if(document.getElementById(continuePrompt).className == continueVisible){
             // this is bad and needs to be refactored
 
@@ -168,33 +168,12 @@ document.addEventListener("keydown", function(event) {
             
             if(letters.length <= 0){
               
-              finished()
+              await finished()
               return
           }
         }
         hideContinue()
         timer.stop()
-    }
-
-    function finished(){
-
-        console.log(correctLetters)
-        console.log(incorrectLetters)
-        console.log(extraLetters)
-        let data = {
-            elapsedTime: timer.getTime().toString(),
-            correctLetters: correctLetters,
-            incorrectLetters: incorrectLetters,
-            extraLetters: extraLetters
-        }
-        let url = document.URL
-        fetch(url, {
-            method: "POST", 
-            body: JSON.stringify(data)
-          }).then(res => {
-            console.log("Request complete! response:", res)
-          });
-          window.location.replace(document.URL.replace("take_challenge", "results"))
     }
     });
 
@@ -264,3 +243,28 @@ document.addEventListener("keydown", function(event) {
         const timeInSeconds = Math.round(timer.getTime() / 1000)
         document.getElementById('time').innerText = timeInSeconds
       }, 100)
+
+
+
+async function finished(){
+  console.log(correctLetters)
+  console.log(incorrectLetters)
+  console.log(extraLetters)
+  urlParts = document.URL.split("/")
+  guid = urlParts[urlParts.length - 1]
+  let data = {
+      elapsedTime: timer.getTime().toString(),
+      correctLetters: correctLetters,
+      incorrectLetters: incorrectLetters,
+      extraLetters: extraLetters,
+      guid: guid
+  }
+  let url = document.URL
+  await fetch(url, {
+      method: "POST", 
+      body: JSON.stringify(data)
+    }).then(res => {
+      console.log("Request complete! response:", res)
+    });
+    window.location.replace(document.URL.replace("take_challenge", "results"))
+}

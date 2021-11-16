@@ -59,7 +59,6 @@ def index():
 
 @challenger_routes.route('/take_challenge/<guid>', methods=['GET', 'POST'])
 def take_challenge(guid):
-
     if request.method == "POST":
         resultsDict = json.loads(request.data.decode('utf-8'))
         currentChallenge = Challenge.query.filter_by(id = session[guid][0]).first()
@@ -72,12 +71,13 @@ def take_challenge(guid):
         print(result.id)
         session[guid] = (result.id, session[guid][1])
         return redirect(url_for('challenger.results', guid=guid))
+    
     challengeId = session[guid][0]
     challenge = Challenge.query.filter_by(id=challengeId).first()
     nickname = session[guid][1]
     return render_template("takechallenge.html", challenge=challenge, nickname=nickname)
 
-@challenger_routes.route('/results/<guid>', methods=['GET', 'POST'])
+@challenger_routes.route('/results/<guid>', methods=['GET'])
 def results(guid):
     print(session[guid])
     result = Result.query.filter_by(id = session[guid][0]).first()
