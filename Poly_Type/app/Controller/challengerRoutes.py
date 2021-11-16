@@ -68,7 +68,6 @@ def take_challenge(guid):
             challenger = session[guid][1], wpm = wpm)        
         currentChallenge.results.append(result)
         db.session.commit()
-        print(result.id)
         session[guid] = (result.id, session[guid][1])
         return redirect(url_for('challenger.results', guid=guid))
     
@@ -79,7 +78,6 @@ def take_challenge(guid):
 
 @challenger_routes.route('/results/<guid>', methods=['GET'])
 def results(guid):
-    print(session[guid])
     result = Result.query.filter_by(id = session[guid][0]).first()
     return render_template("challengerResult.html", result = result, nickname = session[guid][1])
 
