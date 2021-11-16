@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div id="testresult-header">
+    <h3 class="logo">[poly_type]</h3>
+    <p class="header-text">{{ nickname }}</p>
+</div>
+
+<div id="testresult-body">
+    <div class='statcontainer'>
+        <span class="header">wpm:</span> <span class="stat contrast">{{result.wpm|round|int}}</span>
+    </div>
+    <div class='statcontainer'>
+        <span class="header">correct:</span> <span class="stat">{{result.correct}}</span>
+    </div>
+    <div class='statcontainer'>
+        <span class="header">mistakes:</span> <span class="stat error">{{result.incorrect}}</span>
+    </div>
+    <div class='statcontainer'>
+        <span class="header">extras:</span> <span class="stat error">{{result.extra}}</span>
+    </div>
+
+    <a href="{{url_for('challenger.index')}}" class="returnhome">Return Home</a>
+</div>
+    
+{% endblock %}
