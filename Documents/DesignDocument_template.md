@@ -131,7 +131,7 @@ In our database we are going to have 4 main tables:
 | **Extra** | Total number of extra characters that the challenger typed while completing all prompts in the linked challenge |
 
 #### MODEL UML DIAGRAM
-![](https://github.com/WSU-CptS322-Fall2021/TermProject-BadTeam/blob/1899172c0e7166231d7ad2b49e193d62f849bf35/Documents/ModelUMLDiagram.png)
+![](https://github.com/WSU-CptS322-Fall2021/TermProject-BadTeam/blob/d639a13aad585da17f214d724b8d8b9445d5210d/Documents/ModelUMLDiagram.png)
 
 ### 2.2.2 Controller
 
