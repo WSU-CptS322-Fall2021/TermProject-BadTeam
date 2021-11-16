@@ -50,6 +50,7 @@ Prepared by:
 | Updated Controller Specification | 2021-10-26 | Rewrote the controller section to add more specific implementation details | 1.5 |
 | Updated UML Diagram | 2021-10-27 | Updated the UML Diagram and fixed minor spelling errors | 1.6 |
 | Feedback Revisions | 2021-10-27 | Additional revisions from Professor Ay's feedback | 1.7 |
+| Iteration 2 Revisions | 2021-11-15 | Added revised model UML diagram, testing methodology, revised model specifications, iteration summary | 1.8 |
 
 # 1. Introduction
 
@@ -68,7 +69,7 @@ In the rest of this document...
 
 **UML Component Diagram:**
 
-![](./UMLComponentDiagram.png)
+![](https://github.com/WSU-CptS322-Fall2021/TermProject-BadTeam/blob/b3abcb38369178a9f4cbfc6918c007ecf62e36cf/Documents/UMLComponentDiagram.png)
 
 **View:** The View handles displaying information and UI elements to the user, takes any input from the user, and conveys the given inputs and outputs to Controller. The View is dependent on the Controller for authenticating hosts and connecting players to open challenges (Host management to Host Manager, and Challenge Participation to Challenge Manager respectively).
 
@@ -76,7 +77,11 @@ In the rest of this document...
 
 **Model:** The Model stores raw data for hosts, challenges, prompts, and results, as well as handles database operations.
 
-**Rationale:** We chose to use MVC in order to create a clear distinction between the front end (View) and the back end (Model) to decrease coupling. Only the Controller has access to the Model so if the View needs data from the Model it must request it from the Controller. This architecture naturally groups elements that are similar in functionality together - for example, all the .html files for the website are contained within the View system - which encourages and enhances cohesion. Additionally, it allows us to easily update or modify the View without needing to change the Model. As illustrated in the UML component diagram, we create a distinction between the hosts and the players, where the host must be authenticated to access any of the internal data for their account and challenges, whereas the player (Challenge Participation) is only allowed to access the public published challenges. This design creates a layer of security for internal data from unauthenticated users, as well as reduces coupling and enables easier code maintainance.
+**Rationale:** We chose to use MVC in order to create a clear distinction between the front end (View) and the back end (Model) to decrease coupling. Only the Controller has access to the Model so if the View needs data from the Model it must request it from the Controller. This architecture naturally groups elements that are similar in functionality together - for example, all the .html files for the website are contained within the View system - which encourages and enhances cohesion. Additionally, it allows us to easily update or modify the View without needing to change the Model. As illustrated in the UML component diagram, we create a distinction between the hosts and the players, where the host must be authenticated to access any of the internal data for their account and challenges, whereas the player (Challenge Participation) is only allowed to access the public published challenges. This design creates a layer of security for internal data from unauthenticated users, as well as reduces coupling and enables easier code maintenance.
+
+**Revised Model UML Diagram**:
+
+![](https://github.com/WSU-CptS322-Fall2021/TermProject-BadTeam/blob/b3abcb38369178a9f4cbfc6918c007ecf62e36cf/Documents/ModelUMLDiagram.png)
 
 ## 2.2 Subsystem Design 
 
@@ -192,9 +197,9 @@ In our application specifically we are also setting up the CSS to enable the lat
 
 **Homepage**
 
-![](./HomepageImage1.png)
+![](https://github.com/WSU-CptS322-Fall2021/TermProject-BadTeam/blob/b3abcb38369178a9f4cbfc6918c007ecf62e36cf/Documents/HomepageImage1.png)
 
-![](./HomepageImage2.png)
+![](https://github.com/WSU-CptS322-Fall2021/TermProject-BadTeam/blob/b3abcb38369178a9f4cbfc6918c007ecf62e36cf/Documents/HomepageImage2.png)
 
 *The Homepage:* The homepage is the first page that the average first-time user will see upon using the application. It is an intentionally versatile view layout. The first screenshot is the default view that the player will see, with a minimalist design that highlights the join functionality. If one hovers towards the login button, however, a login/register window will appear to allow for a user to authenticate. **This multi-functional design is intentional,** as one of our non-functional design goals is to minimize page reloads.
 
@@ -202,7 +207,7 @@ In our application specifically we are also setting up the CSS to enable the lat
 
 **Create Challenge Page**
 
-![](./CreateChallengeImage.png)
+![](https://github.com/WSU-CptS322-Fall2021/TermProject-BadTeam/blob/b3abcb38369178a9f4cbfc6918c007ecf62e36cf/Documents/CreateChallengeImage.png)
 
 *The Create Challenge Page:* The Create Challenge page has only a single major functionality, which is that it allows the user to create a challenge, with a title and a series of prompts that the challengers will have to copy. After entering at least one prompt and a title at the top, the user can post their challenge, and it will open that new challenge for challengers to join.
 
@@ -210,7 +215,7 @@ In our application specifically we are also setting up the CSS to enable the lat
 
 **Take Challenge Page:**
 
-![](./TakeChallengeImage.png)
+![](https://github.com/WSU-CptS322-Fall2021/TermProject-BadTeam/blob/b3abcb38369178a9f4cbfc6918c007ecf62e36cf/Documents/TakeChallengeImage.png)
 
 *The Take Challenge Page:* The take challenge page will as of the later iterations become the main meat of our application. For now it allows you to type, and displays the first prompt of whatever challenge you've joined, as well as your chosen nickname in the top right corner. The original prompt is displayed in the *subtle* color and the letters you type are overlaid over this in the *primary* color.
 
@@ -225,3 +230,81 @@ In our application specifically we are also setting up the CSS to enable the lat
 # 3. Progress Report
 
 In iteration one, for the Model, we implemented all the required database models for general functionality, for the Controller, we established basic routing, and for the View, we set up basic pages for user interaction. In terms of the more specific functionalities we have implemented, we have done: creation of host account, creation of challenge, login, viewing challenges, joining a challenge, and the most basic participation in a challenge. In addition, our group feels as though we are effectively using github and think the current process of using Github Issues as an effective way to track work that needs to be done. We are starting to discuss the requirements and the work that we are wanting to get done in iteration 2 which is most notably is going to include the core functionality in participating in a challenge.
+
+
+
+In iteration two, for the UI portion, we finished implementing the layout for the different pages that can be accesses by users and hosts - the challenger index page, the host challenges page, the challenger results page, the host's challenge results page, the create a challenge page, the pages for prompts within a challenge. As we advanced through, iterations two, there were a few minor data base model changes - . We were also able to implement typing behaviors and functionalities - allowing a user to type along side with the prompt, highlight the character they inputted the primary color if correct, and if incorrect, highlight the character the contrast color. 
+
+# 4. Testing Plan
+
+In this section , provide a brief description of how you plan to test the system. Thought should be given to mostly how automatic testing can be carried out, so as to maximize the limited number of human hours you will have for testing your system. Consider the following kinds of testing:
+
+  * *Unit Testing*: Explain for what modules you plan to write unit tests, and what framework you plan to use.  (Each team should write automated tests (at least) for testing the API routes)
+  * *Functional Testing*: How will you test your system to verify that the use cases are implemented correctly? (Manual tests are OK)
+  * *UI Testing*: How do you plan to test the user interface?  (Manual tests are OK)
+
+**Unit Testing:**
+
+The major modules that we intend to test will will be the routes specific to Challenger and Host application. These modules are the core of our application with distinct roles and functionalities for the user as a challenger or as a host. In this section we also intend to test all of the major routes:  
+
+- /create_challenge - where a host user can create a challenge
+
+- /take_challenge/<guid> - where a challenger can take the challenge based on the specified guid
+
+- /index - which is our main page, where the user can sign in, register, or join a challenge
+
+- /edit_challenge/<post_id> - allows the user to edit the challenge with the correct post_id
+
+- /delete_challenge/<post_id> - allows the user to delete the challenge 
+
+- /edit_host - where a host can edit their profile
+
+- /result/guid?<guid> - the results page for a host to view
+
+- /result/join_code?<join_code> - the results page for a challenger to view
+
+- /logout - where the host can log out
+
+- /open_challenge/<challenge_id> - the host opens the challenge with the challenge_id
+
+- /close_challenge/<challenge_id> - the host closes the challenge with the challenge_id
+
+We will also plan to test the functionalities for logging in a register user (Host) and registering the user if they don't have an account yet. One thing we discussed as a groups is testing any where we have a post request - specifically in the index page as with our design goals we have 3 post requests from that page for ease of access. 
+
+The framework we decided to do for unit testing is the Unit Test framework for python which we will use for testing the aforementioned modules.
+
+**Functional Testing:**
+
+For the functional testing aspect - assuring we fulfill our use cases - we will specify a variety of manual check based sequences in order to demonstrate the application functionality. 
+
+Main sequences that we aim to test will be the *javascript typing behavior, creating a challenge, taking a challenge, creating, logging in, and updating a user, opening and closing a challenge*, and *using a challenge* 
+
+   - Javascript typing behavior
+        - The main idea for testing this behavior is for each prompt that is filled out during participation we are able to verify that the data was filled out.
+   - Test the sequence of creating a challenge
+        - The main idea for testing the creation of the challenge is to check if after creating the challenge the appropriate behavior ensues such as the prompt data is saved and the challenge is added to the list of challenges created by the host who created it.
+   - Test the sequence of taking a challenge
+        - The main idea for testing participating in a challenges is to verify that a user with the correct session id is able to join, is redirected to the first prompt, is able to participate in all the prompts with all typing functionalities, and once finished they will be redirected to a results page where they can view their results.
+   - Create and Login and update User
+        - The main idea for these behaviors is to check that a user is able to register their account (username and password), use their username and password to sign into their account, and change their user data (username and password).
+   - Opening, checking if joinable, closing, no longer joinable for challenges
+        - The main idea for this testing sequence is to verify the correct application behavior for opening and closing a challenge - specifically if a challenge is opened, it should be joinable and the inverse if the challenge is closed it should not be able to be joined.
+   - Join, Participate, View results
+        - The main idea for this testing sequence is to verify the typical user interaction functionality - typically a user will join in a challenge, participate in all of the prompts within the challenge, and once done see their results for that challenge. 
+
+**UI Testing:**
+
+Similar to Functional testing we concluded the best way to test the UI would be through manual testing of described behavioral sequences. We decided that the UI tests would cover: on hover and on click events, general and situational color scheme and layouts, and states for the open and closed challenges in the Host's main page. 
+
+   - CSS on hover and on click events
+        - The main goal with testing these events is to ensure the correct behavior with hovering and clicking certain elements, one of our design principles is to elevate user ease of access which we implemented with hidden forms that fade in on hover.
+   - Correct color scheme for the layout
+        - The main goal for testing this is to check that we are utilizing the correct colors for different sections of our application. We decided on a solarized dark theme which specified the primary, secondary, tertiary, highlight, and contrast colors which will be implemented by certain elements within our application depending on their behavior and role within the layout. 
+   - Check if something is wrong and is highlighted the error color
+        - The main goal for testing here is to verify that if a user inputs an incorrect entry (letter in challenges, code in index) the offending character(s) will be highlighted with the contrast color - in the solarized dark theme, it is a red-orange.
+   - Check for correct states for open and close test states (colors, buttons)
+        - The main goal for testing these states is to check if when a challenge is active the corresponding colors and arrangement of buttons are correct as well as the same check for if the challenge is closed.
+
+**Special Notes:**
+
+We briefly expressed our interest in using Selenium for testing however we don't have enough experience with it to justify choosing to use it at this moment but it is a point of interest for our team to research and potentially use within Iteration 3. 
