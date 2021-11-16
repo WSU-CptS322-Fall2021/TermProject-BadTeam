@@ -60,9 +60,16 @@
 }
 
 #aggregate-body .result .score{
-	color: var(--primary);
+	color: var(--contrast);
 	font-size: 25px;
 	width: 400px;
+	text-align: center;
+}
+
+#aggregate-body .result .accuracy{
+	color: var(--primary);
+	font-size: 25px;
+	width: 200px;
 	text-align: center;
 }
 
@@ -71,6 +78,15 @@
 	font-size: 20px;
 	font-weight: bold;
 	color: var(--subtle);
+}
+
+#aggregate-body .result .row-header{
+	font-family: 'Trebuchet MS', sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	color: var(--subtle);
+	width:200px;
+	text-align: center;
 }
 
 /*AGGREGATE STATS*/

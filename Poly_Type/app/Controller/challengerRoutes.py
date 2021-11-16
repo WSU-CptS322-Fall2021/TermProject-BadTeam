@@ -62,7 +62,7 @@ def take_challenge(guid):
     if request.method == "POST":
         resultsDict = json.loads(request.data.decode('utf-8'))
         currentChallenge = Challenge.query.filter_by(id = session[guid][0]).first()
-        wpm = ((int(resultsDict["correctLetters"]) / 5) / (int(resultsDict["elapsedTime"]) / 6000))
+        wpm = ((int(resultsDict["correctLetters"]) / 5) / (int(resultsDict["elapsedTime"]) / 60000))
         result = Result(elapsedTime = resultsDict["elapsedTime"], correct = resultsDict["correctLetters"], 
             incorrect = resultsDict["incorrectLetters"], extra = resultsDict["extraLetters"], 
             challenger = session[guid][1], wpm = wpm)        
