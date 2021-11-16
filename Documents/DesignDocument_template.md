@@ -127,8 +127,10 @@ In our database we are going to have 4 main tables:
 | **ChallengeId** | Foreign key that links a result back to its challenge |
 | **Challenger** | Username of challenger who took the challenge linked to this result |
 | **ElapsedTime** | Total elapsed time that it took for the challenger to complete all prompts in the linked challenge |
+| **Wpm** | The words per minute that results from the user typing, this is calculated by (correct / 5) / total minutes |
 | **Correct** | Total number of correct characters that the challenger typed while completing all prompts in the linked challenge |
 | **Incorrect** | Total number of incorrect characters that the challenger typed while completing all prompts in the linked challenge |
+| **Extra** | Total number of extra characters that the challenger typed whiile completing all prompts in the linked challenge |
 
 ### 2.2.2 Controller
 
@@ -175,7 +177,7 @@ The Challenge Manager is the other major sub handler within the Controller which
 |:--|:------------------|:-----------|:-------------|
 |<h5 id="create-challenge-entry">1.</h5> | GET, POST | /create_challenge | GET: This will load an empty form for a host to then fill out with all of the necessary info to create a *challenge*, which they can then press the submit button to post the form.</br>POST: This is trigged on the completion of the create challenge form. After submitted a new *challenge* will be entered into the database with the current *host* associated. Additionally, during this process a random join code will be generated and given to the *challenge* |
 |<h5 id="take-challenge-entry">2.</h5> | GET, POST | /take_challenge/&lt;guid&gt; | GET: This will be triggered after the *challenger* enters in a valid join code for a *challenge*. This page will then load with the given *challenge* that the *challenger* is participating in with its associated *prompts* being displayed for the *challenger* to type</br>POST: This post is going to collect the data associated with the *challenger* as they are participating in the *challenge*. After the *challenger* finishes typing in the final *prompt* a collection of information (elapsed time, # of correct characters, # of incorrect characters) will be sent to the result route to create a result.</br>Guid: This guid is a random identifier assigned to a *challenger* when they intially try to participate in a *challenge*. This guid will be used to access relevant information throughout the session. |
-|<h5 id="index-entry">3.</h5> | GET, POST | /index | GET: Load the JoinChallenge form. This is the form a *challenger* can enter their username and join code into to then join a *challenge*</br>POST: After a JoinChallenge form is posted the *challenger* is routed to the take challenge route where they can participate in their *challenge*.</br>GET: Load the Login form. This is the form a *host* can enter their username and password into to login to their account.</br>POST: After a Login form is posted, assuming valid login information, the *host* will be redirected to their view challenges route where they can perform a myriad of *host* related operations.</br>GET: Load the registration form. This is the form where someone who does not have an account can enter a username and password to then create a *host* account.</br>POST: After a Registration form is posted, assuming valid input, a new *host* will be created and the newly created account will be redirected to the view challenges route similar to the login.</br>*IMPORTANT NOTE:* We intentionally include login and registration in this route to help acheive our design philosophy of reducing page redirects. This is not an attempt to reduce the overall work of routing our application. It should be noted that this change increased the overall complexity of our main page as we still needed to make it look nice |
+|<h5 id="index-entry">3.</h5> | GET, POST | /index | GET: Load the JoinChallenge form. This is the form a *challenger* can enter their username and join code into to then join a *challenge*</br>POST: After a JoinChallenge form is posted the *challenger* is routed to the take challenge route where they can participate in their *challenge*.</br>GET: Load the Login form. This is the form a *host* can enter their username and password into to login to their account.</br>POST: After a Login form is posted, assuming valid login information, the *host* will be redirected to their view challenges route where they can perform a myriad of *host* related operations.</br>GET: Load the registration form. This is the form where someone who does not have an account can enter a username and password to then create a *host* account.</br>POST: After a Registration form is posted, assuming valid input, a new *host* will be created and the newly created account will be redirected to the view challenges route similar to the login.</br>*IMPORTANT NOTES:* We intentionally include login and registration in this route to help acheive our design philosophy of reducing page redirects. This is not an attempt to reduce the overall work of routing our application. It should be noted that this change increased the overall complexity of our main page as we still needed to make it look nice</br>Additionally, there was concerns in our original design document about the ability to differentiate between the separate use cases in our index route. We are able to accomplish this by filtering our post request to check which form was submitted and then provide the correct functionality depending on what form was submitted. Lastly, our GET request in our index route will display all three forms (join challenge, login, and register). |
 |<h5 id="edit-challenge-entry">4.</h5> | GET, POST | /edit_challenge/&lt;post_id&gt;| GET: After getting to this route a single *challenge* will be loaded allowing for a *host* to change the content of the title or the prompts of this given *challenge*.</br>POST: On submission of the form, the new content will replace the old content from the original *challenge* updating this entity.</br>PostId: This is going to be used to route the challenges so that the correct challenge gets updated. |
 |<h5 id="delete-challenge-entry">5.</h5> | POST | /delete_challenge/&lt;post_id&gt; | POST: On submission of this form the *host* will have deleted the relevant *challenge*</br>PostId: This is going to be used to route the challenges so that the correct challenge gets deleted. |
 |<h5 id="edit-host-entry">6.</h5> | GET, POST | /edit_host       | GET: This will load all of the currently known information for the give *host* onto the page where the logged in user can then update it</br>POST: On submission of the form, the new information will then be used to update the information currently associated with the current *host* |
@@ -232,16 +234,9 @@ In our application specifically we are also setting up the CSS to enable the lat
 In iteration one, for the Model, we implemented all the required database models for general functionality, for the Controller, we established basic routing, and for the View, we set up basic pages for user interaction. In terms of the more specific functionalities we have implemented, we have done: creation of host account, creation of challenge, login, viewing challenges, joining a challenge, and the most basic participation in a challenge. In addition, our group feels as though we are effectively using github and think the current process of using Github Issues as an effective way to track work that needs to be done. We are starting to discuss the requirements and the work that we are wanting to get done in iteration 2 which is most notably is going to include the core functionality in participating in a challenge.
 
 
-
 In iteration two, for the UI portion, we finished implementing the layout for the different pages that can be accesses by users and hosts - the challenger index page, the host challenges page, the challenger results page, the host's challenge results page, the create a challenge page, the pages for prompts within a challenge. As we advanced through, iterations two, there were a few minor data base model changes - . We were also able to implement typing behaviors and functionalities - allowing a user to type along side with the prompt, highlight the character they inputted the primary color if correct, and if incorrect, highlight the character the contrast color. 
 
 # 4. Testing Plan
-
-In this section , provide a brief description of how you plan to test the system. Thought should be given to mostly how automatic testing can be carried out, so as to maximize the limited number of human hours you will have for testing your system. Consider the following kinds of testing:
-
-  * *Unit Testing*: Explain for what modules you plan to write unit tests, and what framework you plan to use.  (Each team should write automated tests (at least) for testing the API routes)
-  * *Functional Testing*: How will you test your system to verify that the use cases are implemented correctly? (Manual tests are OK)
-  * *UI Testing*: How do you plan to test the user interface?  (Manual tests are OK)
 
 **Unit Testing:**
 
@@ -277,20 +272,18 @@ The framework we decided to do for unit testing is the Unit Test framework for p
 
 For the functional testing aspect - assuring we fulfill our use cases - we will specify a variety of manual check based sequences in order to demonstrate the application functionality. 
 
-Main sequences that we aim to test will be the *javascript typing behavior, creating a challenge, taking a challenge, creating, logging in, and updating a user, opening and closing a challenge*, and *using a challenge* 
+Main sequences that we aim to test will be the *typing behavior, host account operations, creating a challenge, taking a challenge*, and *challenge opening and closing operations*
 
-   - Javascript typing behavior
-        - The main idea for testing this behavior is for each prompt that is filled out during participation we are able to verify that the data was filled out.
+   - Typing behavior
+        - The main idea for testing this behavior is for each challenge we are able to verify that when the user types correct, incorrect, and extra characters that this is being registered and being stored so that it can be packaged into a Result object later.
    - Test the sequence of creating a challenge
-        - The main idea for testing the creation of the challenge is to check if after creating the challenge the appropriate behavior ensues such as the prompt data is saved and the challenge is added to the list of challenges created by the host who created it.
+        - The main idea for testing the creation of the challenge is to check if after a host logs in if they have the option to create a challenge. If they indicate that they want to create a challenge they should be redirected to a page that allows them to create a challenge. They should then be able to fill out the prompts and name of the challenge and submit it. After submitting they should be able to perform different operations on the challenge such as opening and viewing results.
+   - Register, Login and Update Host
+        - The main idea for these behaviors is to check that a user is able to register an account using a specific username and password. This newly created host should now, in future uses of our application, be able to use their username and password to sign into their account. Additionally, this host should also be able to change their username and password.
    - Test the sequence of taking a challenge
         - The main idea for testing participating in a challenges is to verify that a user with the correct session id is able to join, is redirected to the first prompt, is able to participate in all the prompts with all typing functionalities, and once finished they will be redirected to a results page where they can view their results.
-   - Create and Login and update User
-        - The main idea for these behaviors is to check that a user is able to register their account (username and password), use their username and password to sign into their account, and change their user data (username and password).
-   - Opening, checking if joinable, closing, no longer joinable for challenges
-        - The main idea for this testing sequence is to verify the correct application behavior for opening and closing a challenge - specifically if a challenge is opened, it should be joinable and the inverse if the challenge is closed it should not be able to be joined.
-   - Join, Participate, View results
-        - The main idea for this testing sequence is to verify the typical user interaction functionality - typically a user will join in a challenge, participate in all of the prompts within the challenge, and once done see their results for that challenge. 
+   - Challenge Opening and Closing Operations
+        - The main idea for this testing sequence is to verify the correct application behavior for opening and closing a challenge. After the creation of a challenge it should be in an unjoinable state, if the host were to open the challenge it should now be in a joinable state. Furthermore, after any period of time the host should be able to close the challenge and it should once again be in an unjoinable state.
 
 **UI Testing:**
 
@@ -300,10 +293,10 @@ Similar to Functional testing we concluded the best way to test the UI would be 
         - The main goal with testing these events is to ensure the correct behavior with hovering and clicking certain elements, one of our design principles is to elevate user ease of access which we implemented with hidden forms that fade in on hover.
    - Correct color scheme for the layout
         - The main goal for testing this is to check that we are utilizing the correct colors for different sections of our application. We decided on a solarized dark theme which specified the primary, secondary, tertiary, highlight, and contrast colors which will be implemented by certain elements within our application depending on their behavior and role within the layout. 
-   - Check if something is wrong and is highlighted the error color
-        - The main goal for testing here is to verify that if a user inputs an incorrect entry (letter in challenges, code in index) the offending character(s) will be highlighted with the contrast color - in the solarized dark theme, it is a red-orange.
+   - Input validation error should show error state
+        - The main goal for testing here is to verify that if a user inputs an incorrect entry (letter in challenges, code in index) the offending character(s) will be highlighted with the error color - in the solarized dark theme, it is a red-orange.
    - Check for correct states for open and close test states (colors, buttons)
-        - The main goal for testing these states is to check if when a challenge is active the corresponding colors and arrangement of buttons are correct as well as the same check for if the challenge is closed.
+        - The main goal for testing these states is to check if when a challenge is active the corresponding colors and arrangement of buttons are correct as well as the same check for if the challenge is closed, this will take place in the /view_challenges page.
 
 **Special Notes:**
 
