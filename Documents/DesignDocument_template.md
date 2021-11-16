@@ -79,10 +79,6 @@ In the rest of this document...
 
 **Rationale:** We chose to use MVC in order to create a clear distinction between the front end (View) and the back end (Model) to decrease coupling. Only the Controller has access to the Model so if the View needs data from the Model it must request it from the Controller. This architecture naturally groups elements that are similar in functionality together - for example, all the .html files for the website are contained within the View system - which encourages and enhances cohesion. Additionally, it allows us to easily update or modify the View without needing to change the Model. As illustrated in the UML component diagram, we create a distinction between the hosts and the players, where the host must be authenticated to access any of the internal data for their account and challenges, whereas the player (Challenge Participation) is only allowed to access the public published challenges. This design creates a layer of security for internal data from unauthenticated users, as well as reduces coupling and enables easier code maintenance.
 
-**Revised Model UML Diagram**:
-
-![](https://github.com/WSU-CptS322-Fall2021/TermProject-BadTeam/blob/b3abcb38369178a9f4cbfc6918c007ecf62e36cf/Documents/ModelUMLDiagram.png)
-
 ## 2.2 Subsystem Design 
 
 ### 2.2.1 Model
@@ -131,6 +127,9 @@ In our database we are going to have 4 main tables:
 | **Correct** | Total number of correct characters that the challenger typed while completing all prompts in the linked challenge |
 | **Incorrect** | Total number of incorrect characters that the challenger typed while completing all prompts in the linked challenge |
 | **Extra** | Total number of extra characters that the challenger typed whiile completing all prompts in the linked challenge |
+
+#### MODEL UML DIAGRAM
+![](https://github.com/WSU-CptS322-Fall2021/TermProject-BadTeam/blob/1899172c0e7166231d7ad2b49e193d62f849bf35/Documents/ModelUMLDiagram.png)
 
 ### 2.2.2 Controller
 
