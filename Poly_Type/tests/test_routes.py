@@ -65,12 +65,16 @@ def test_index(test_client):
     assert b'Register' in response.data
 
 def test_index_register(test_client, init_database):
-    # Test to see if the create challenge page loads
-    response = test_client.get('/index',data=dict(username='test3',password='1234', password2='1234'), follow_redirects=True)
+    registrationForm = RegistrationForm()
+
+    response = test_client.post('/index',data=dict(reg_username='testUser',reg_password='1234', reg_password2='1234', submit='Register'), follow_redirects=True)
     assert response.status_code == 200
 
-    s = db.session.query(Host).filter(Host.username=='test3').first()
-    assert s.username == 'test3'
+    s = db.session.query(Host).filter(Host.username=='testUser').first()
+    assert s.username == 'testUser'
+
+    #Check if the page is redirected to the createChallenge page
+    assert b'Create a New Challenge' in response.data
 
 '''
 class TestRoutes(unittest.TestCase):
