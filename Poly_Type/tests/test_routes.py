@@ -5,13 +5,16 @@ import sys
 from config import Config
 from app import create_app, db
 from app.Model.models import Host
-#from app.Controller.hostRoutes import createCode
-from app.Controller.hostRoutes import createCode, view_challenges
+from app.Controller.hostRoutes import *
+#from app.Controller.hostRoutes import createCode, view_challenges, create_challenge
+from app.Controller.challengerRoutes import *
 
 
 class TestConfig(Config):
     TESTING = True
     DEBUG = True
+    SECRET_KEY = 'bad-bad-key'
+    WTF_CSRF_ENABLED = False
     SQLALCHEMY_DATABASE_URI = 'sqlite://'
 
 @pytest.fixture(scope='module')
@@ -53,6 +56,22 @@ def init_database():
 
     db.drop_all()
 
+def test_index(test_client):
+    # Test to see if the create challenge page loads
+    response = test_client.get('/index')
+    assert response.status_code == 200
+    assert b'Join' in response.data
+    assert b'Login' in response.data
+    assert b'Register' in response.data
+
+def test_index_register(test_client, init_database):
+    # Test to see if the create challenge page loads
+    response = test_client.get('/index',data=dict(username='test3',password='1234', password2='1234'), follow_redirects=True)
+    assert response.status_code == 200
+
+    s = db.session.query(Host).filter(Host.username=='test3').first()
+    assert s.username == 'test3'
+
 '''
 class TestRoutes(unittest.TestCase):
     def test_createcode(self):
@@ -64,5 +83,5 @@ class TestRoutes(unittest.TestCase):
         print("test")
         #tester = view_challenges(self)x
         #response = tester.get('/view_challenges')
-        #self.assertTrue(response.status_code, 200)
+        #self.assertTrue(response.status_code,xzx 200)
 '''
