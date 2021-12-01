@@ -46,7 +46,7 @@ def init_database():
     db.create_all()
 
     #Create the test user
-    user = new_user('test', '1234')
+    user = new_user('test_login', '1234')
 
     #Add the user to the database
     db.session.add(user)
@@ -65,16 +65,32 @@ def test_index(test_client):
     assert b'Register' in response.data
 
 def test_index_register(test_client, init_database):
-    registrationForm = RegistrationForm()
 
-    response = test_client.post('/index',data=dict(reg_username='testUser',reg_password='1234', reg_password2='1234', submit='Register'), follow_redirects=True)
+    #IMPORTANT - If you want to specify the form make sure to set the submit value to the name of the button
+    response = test_client.post('/index',data=dict(reg_username='test_register',reg_password='12345', reg_password2='12345', submit='Register'), follow_redirects=True)
     assert response.status_code == 200
 
-    s = db.session.query(Host).filter(Host.username=='testUser').first()
-    assert s.username == 'testUser'
+    s = db.session.query(Host).filter(Host.username=='test_register').first()
+    assert s.username == 'test_register'
+    assert s.check_password('12345')
 
     #Check if the page is redirected to the createChallenge page
     assert b'Create a New Challenge' in response.data
+def test_login_logout(test_client, init_database):
+    #First login
+    response = test_client.post('/index',data=dict(username='test_login', password='1234', submit='Login'), follow_redirects=True)
+    assert response.status_code == 200
+
+    s = db.session.query(Host).filter(Host.username=='test_login').first()
+    assert s.username == 'test_login'
+    assert s.check_password('1234')
+
+    #Then log out the user
+    response = test_client.get('/logout', follow_redirects=True)
+    assert response.status_code == 200
+    assert b'Join' in response.data
+    assert b'Login' in response.data
+    assert b'Register' in response.data
 
 '''
 class TestRoutes(unittest.TestCase):
