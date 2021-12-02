@@ -2,12 +2,13 @@ from __future__ import print_function
 from flask import Blueprint
 from flask import render_template, flash, redirect, url_for
 from flask_login import current_user, login_required, logout_user
+from app import db, login
 from app.Model.models import Challenge, Host, Prompt
-from app import db
 from config import Config
 from app.Controller.forms import CreateChallengeForm, UpdateInfoForm
 import random
 import string
+
 
 host_routes = Blueprint('host', __name__)
 host_routes.template_folder = Config.TEMPLATE_FOLDER #'..\\View\\templates'
@@ -43,11 +44,13 @@ def close_challenge(challengeid):
 @login_required
 def edit_host():
     form = UpdateInfoForm()
+    print(form.validate_on_submit())
     if form.validate_on_submit():
+        print("inside")
         host = Host.query.filter_by(id = current_user.id).first()
         host.username = form.reg_username.data
         db.session.commit()
-        flash('Your information has been updated!')
+        print('Your information has been updated!')
         return redirect(url_for('host.view_challenges'))
     return render_template('editHost.html', form=form)
 
@@ -122,3 +125,8 @@ def aggregate_results(joinCode):
     #filter to top 10
     listResults = listResults[:10]
     return render_template('aggregateResults.html', results = listResults, avgWpm = round(avgWpm,1), avgMistakes = round(avgMistakes, 0))
+
+@host_routes.route('/not_allowed', methods=['GET'])
+#@login.unauthorized_handler
+def not_allowed():
+    return "not allowed"

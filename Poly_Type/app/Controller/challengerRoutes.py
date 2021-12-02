@@ -8,9 +8,7 @@ from werkzeug.routing import IntegerConverter
 from app.Model.models import Challenge, Host, Prompt, Result
 from app import db, login
 from config import Config
-from app.Controller.forms import CreateChallengeForm, RegistrationForm, JoinChallengeForm, LoginForm
-import random
-import string
+from app.Controller.forms import RegistrationForm, JoinChallengeForm, LoginForm
 import uuid
 import json
 
@@ -19,7 +17,7 @@ challenger_routes.template_folder = Config.TEMPLATE_FOLDER #'..\\View\\templates
 
 @challenger_routes.route('/', methods=['GET', 'POST'])
 @challenger_routes.route('/index', methods=['GET', 'POST'])
-@login.unauthorized_handler
+#@login.unauthorized_handler
 def index():
     joinForm = JoinChallengeForm()
     loginForm = LoginForm()
