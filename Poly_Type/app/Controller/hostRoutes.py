@@ -126,7 +126,7 @@ def aggregate_results(joinCode):
     listResults = listResults[:10]
     return render_template('aggregateResults.html', results = listResults, avgWpm = round(avgWpm,1), avgMistakes = round(avgMistakes, 0))
 
-@host_routes.route('/not_allowed', methods=['GET'])
-#@login.unauthorized_handler
+@host_routes.route('/no_access', methods=['GET'])
+@login.unauthorized_handler
 def not_allowed():
-    return "not allowed"
+    return redirect(url_for("challenger.index"))
