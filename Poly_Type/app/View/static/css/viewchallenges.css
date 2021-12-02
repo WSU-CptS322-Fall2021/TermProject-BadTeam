@@ -17,6 +17,16 @@
 	user-select: none;
 }
 
+#viewpage-header .name{
+	display: flex;
+	justify-content: center;
+	margin-top: 0;
+	color: var(--contrast);
+	user-select: none;
+	opacity: 1;
+	font-size: 22px;
+}
+
 #viewpage-header .header-text{
 	display: inline;
 	position: absolute;
@@ -28,7 +38,22 @@
 	opacity: 1;
 }
 
+#viewpage-header .subheader-text{
+	display: inline;
+	position: absolute;
+	right: 0px;
+	top: 30px;
+	margin-top: 0;
+	color: var(--subtle);
+	user-select: none;
+	opacity: 1;
+}
+
 #viewpage-header .header-text:hover{
+	color: var(--primary);
+}
+
+#viewpage-header .subheader-text:hover{
 	color: var(--primary);
 }
 

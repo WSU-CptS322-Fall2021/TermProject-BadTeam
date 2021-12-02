@@ -84,7 +84,7 @@
                 {{ joinForm.joincode(class=("join-challenge-input"), placeholder="[ join_code ]", autocomplete="off", maxlength="6", style="text-transform: uppercase") }}
             {%endif%}    
 
-             {% if joinForm.nickname.errors | length > 0%}
+            {% if joinForm.nickname.errors | length > 0%}
                 {{ joinForm.nickname(class="join-challenge-input error", placeholder="[ nickname ]", autocomplete="off") }}
             {%else%}
                 {{ joinForm.nickname(class="join-challenge-input", placeholder="[ nickname ]", autocomplete="off") }}

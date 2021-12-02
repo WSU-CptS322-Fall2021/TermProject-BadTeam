@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+    
+<div id="viewpage-header">
+    <h3 class="logo">[poly_type]</h3>
+    <a href="{{url_for('host.logout')}}">
+        <p class="header-text">log_out</p>
+    </a>
+    <a href="{{url_for('host.view_challenges')}}">
+        <p class="subheader-text">view_challenges</p>
+    </a>
+</div>
+
+    <!-- <h1> Update Information</h1> -->
+    {% if form %}
+    <form action="" method="POST">
+        <div id="homepage-body">        
+            <!-- {{form.hidden_tag()}} -->
+
+            {% if form.reg_username.errors | length > 0%}
+                {{ form.reg_username(class="join-challenge-input error", placeholder="[ new_username ]", autocomplete="off") }}
+            {%else%}
+                {{ form.reg_username(class="join-challenge-input", placeholder="[ new_username ]", autocomplete="off") }}
+            {%endif%}
+    
+            <p> {{form.submit(class="join-challenge-submit")}} </p>
+        </div>
+    </form>
+    {% endif %}
+{% endblock %}

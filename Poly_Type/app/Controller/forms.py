@@ -31,22 +31,20 @@ class RegistrationForm(FlaskForm):
     reg_password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('reg_password')])
     submit = SubmitField('Register')
 
-    def validate_username(self, username):
+    def validate_reg_username(self, username):
         user = Host.query.filter_by(username=username.data).first()
         if user is not None:
             raise ValidationError('The username already exists! Please use a different username')
 
 class UpdateInfoForm(FlaskForm):
-    def validate_username_update(self, username):
-        user = Host.query.filter_by(username=username.data).first()
-        print(current_user.username)
-        if user is not None and user.username != current_user.username: #Check to see if name is already used and not current_user's username
-                raise ValidationError('The username already exists! Please use a different username')
-
-    reg_username = StringField('Username', validators=[DataRequired(), validate_username_update])
-    reg_password = PasswordField('Password', validators=[DataRequired()])
-    reg_password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('reg_password')])
+    reg_username = StringField('Username', validators=[DataRequired()])
     submit = SubmitField('Update')
+    
+    def validate_reg_username(self, username):
+        user = Host.query.filter_by(username=username.data).first()
+        #Check to see if name is already used and not current_user's username
+        if user is not None and user.username != current_user.username:
+                raise ValidationError('The username already exists! Please use a different username')
 
 
 
