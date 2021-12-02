@@ -16,7 +16,7 @@
     {% if form %}
     <form action="" method="POST">
         <div id="homepage-body">        
-            <!-- {{form.hidden_tag()}} -->
+            {{form.hidden_tag()}}
 
             {% if form.reg_username.errors | length > 0%}
                 {{ form.reg_username(class="join-challenge-input error", placeholder="[ new_username ]", autocomplete="off") }}
