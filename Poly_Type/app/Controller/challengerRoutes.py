@@ -6,7 +6,7 @@ from flask_login import current_user, login_user, login_required, logout_user
 from werkzeug.datastructures import ContentSecurityPolicy
 from werkzeug.routing import IntegerConverter
 from app.Model.models import Challenge, Host, Prompt, Result
-from app import db
+from app import db, login
 from config import Config
 from app.Controller.forms import CreateChallengeForm, RegistrationForm, JoinChallengeForm, LoginForm
 import random
@@ -19,6 +19,7 @@ challenger_routes.template_folder = Config.TEMPLATE_FOLDER #'..\\View\\templates
 
 @challenger_routes.route('/', methods=['GET', 'POST'])
 @challenger_routes.route('/index', methods=['GET', 'POST'])
+@login.unauthorized_handler
 def index():
     joinForm = JoinChallengeForm()
     loginForm = LoginForm()
