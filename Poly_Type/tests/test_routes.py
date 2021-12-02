@@ -67,7 +67,7 @@ def test_index(test_client):
 def test_index_register(test_client, init_database):
 
     #IMPORTANT - If you want to specify the form make sure to set the submit value to the name of the button
-    response = test_client.post('/index',data=dict(reg_username='test_register',reg_password='12345', reg_password2='12345', submit='Register'), follow_redirects=True)
+    response = test_client.post('/index', data=dict(reg_username='test_register',reg_password='12345', reg_password2='12345', submit='Register'), follow_redirects=True)
     assert response.status_code == 200
 
     s = db.session.query(Host).filter(Host.username=='test_register').first()
@@ -78,7 +78,7 @@ def test_index_register(test_client, init_database):
     assert b'Create a New Challenge' in response.data
 def test_login_logout(test_client, init_database):
     #First login
-    response = test_client.post('/index',data=dict(username='test_login', password='1234', submit='Login'), follow_redirects=True)
+    response = test_client.post('/index', data=dict(username='test_login', password='1234', submit='Login'), follow_redirects=True)
     assert response.status_code == 200
 
     s = db.session.query(Host).filter(Host.username=='test_login').first()
@@ -92,6 +92,21 @@ def test_login_logout(test_client, init_database):
     assert b'Login' in response.data
     assert b'Register' in response.data
 
+def test_create_challenge(test_client, init_database):
+    #First login
+    response = test_client.post('/index', data=dict(username='test_login', password='1234', submit='Login'), follow_redirects=True)
+    assert response.status_code == 200
+
+    s = db.session.query(Host).filter(Host.username=='test_login').first()
+    assert s.username == 'test_login'
+    assert s.check_password('1234')
+    #Then create a challenge
+    test_prompt = [Prompt(text="The brown foxed jumped over the white fence"), Prompt(text="Please take your dog, Cali, out for a walk – he really needs some exercise!"), Prompt(text="When do you think they will get back from their adventure in Cairo, Egypt?")]
+    
+    response = test_client.post('/create_challenge', data=dict(title='test_challenge', prompts=test_prompt), follow_redirects=True)
+    assert response.status_code == 200
+    c = db.session.query(Challenge).filter(Challenge.title=='test_challenge').first()
+    assert c.host_id == s.id
 '''
 class TestRoutes(unittest.TestCase):
     def test_createcode(self):
