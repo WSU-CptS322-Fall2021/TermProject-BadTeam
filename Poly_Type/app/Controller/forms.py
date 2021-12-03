@@ -22,7 +22,7 @@ class PromptForm(FlaskForm):
 
 class CreateChallengeForm(FlaskForm):
     title = StringField('title', validators=[DataRequired()])
-    prompts = FieldList(FormField(PromptForm), min_entries=5, max_entries=5)
+    prompts = FieldList(FormField(PromptForm), min_entries=3, max_entries=3)
     submit = SubmitField('Post')
 
 class RegistrationForm(FlaskForm):

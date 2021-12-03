@@ -67,8 +67,8 @@
 	background: transparent;
 	border: none;
 	outline: none;
-	border-bottom: 1px solid var(--primary);
-	color: var(--primary);
+	border-bottom: 1px solid var(--subtle);
+	color: var(--subtle);
 	font-size: 25px;
 	padding: 10px;
 }
@@ -85,29 +85,23 @@
 
 #createpage-body .createform-prompt{
 	background: transparent;
-	width: 600px;
-	height: 100px;
+	width: 800px;
+	height: 150px;
 	margin: 10px;
-	border: none;
 	outline: none;
 	resize: none;
-	color: var(--subtle);
+	color: var(--primary);
 	padding: 10px;
 	font-family: 'Trebuchet MS', sans-serif;
-	border-left: 1px solid var(--subtle);
-}
-
-#createpage-body .createform-prompt:hover{
-	background: rgba(255, 255, 255, 0.05);
-}
-
-#createpage-body .createform-prompt:focus, #createpage-body .createform-prompt:active{
-	background: rgba(0, 0, 0, 0.05);
+	background: rgba(127, 127, 127, 0.05);
+	border: none;
+	font-weight: bold;
+	font-size: 20px;
 }
 
 #createpage-body .createform-prompt::placeholder{
 	color: var(--subtle);
-	opacity: 0.3;
+	opacity: 0.5;
 }
 
 #createpage-body .createform-prompt:focus::placeholder{
@@ -115,16 +109,18 @@
 }
 
 #createpage-body .create-challenge-submit{
-	border: 1px solid var(--primary);
+	border: 1px solid var(--subtle);
 	border-radius: 10px;
 	height: 30px;
 	width: 75px;
 	background: transparent;
-	color: var(--primary);
+	color: var(--subtle);
 }
 
 #createpage-body .create-challenge-submit:hover{
 	background: rgba(255, 255, 255, 0.05);
+	color: var(--primary);
+	border-color: var(--primary);
 }
 
 #createpage-body .create-challenge-submit:active{
