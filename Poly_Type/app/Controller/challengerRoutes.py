@@ -25,7 +25,7 @@ def index():
 
     if request.method == 'POST':
         #If statements confirm the form that was submitted, and then validate it. Redirect behavior is temporary until routes are further developed. 
-        if request.form["submit"] == "Join" and joinForm.validate_on_submit():
+        if request.form.get("join_challenge") is not None and joinForm.validate_on_submit():
             guid = uuid.uuid4().hex
             # have to use upper on the join code string because the UI doesn't force the form to send only uppercase letters
             challenge = Challenge.query.filter_by(joincode=joinForm.joincode.data.upper()).first()
@@ -37,7 +37,7 @@ def index():
             # this print statement is here so I can see if this hits correctly, currently flash messages are not set up
             print(f'The room {joinForm.joincode.data} is not open or does not exist')
         
-        if request.form["submit"] == "Login" and loginForm.validate_on_submit():
+        if request.form.get("login") is not None and loginForm.validate_on_submit():
             user = Host.query.filter_by(username=loginForm.username.data).first()
             if user is None or not user.check_password(loginForm.password.data):
                 print("Invalid username or password")
@@ -47,7 +47,7 @@ def index():
             login_user(user)
             return redirect(url_for('host.view_challenges'))
         
-        if registrationForm.validate_on_submit() and request.form["submit"] == "Register":
+        if registrationForm.validate_on_submit() and request.form.get("register") is not None:
             host = Host(username = registrationForm.reg_username.data)
             host.set_password(registrationForm.reg_password.data)
             db.session.add(host)

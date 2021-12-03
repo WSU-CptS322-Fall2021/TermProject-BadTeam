@@ -1,8 +1,10 @@
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.keys import Keys
 from app import create_app, db
 from config import TestConfig
+from time import sleep
 
 @pytest.fixture(scope='module')
 def test_client():
@@ -43,9 +45,9 @@ def browser():
     CHROME_PATH = "c:\\test"
     print(CHROME_PATH)
     opts = Options()
-    opts.headless = False
+    opts.headless = True
     driver = webdriver.Chrome(options=opts, executable_path = CHROME_PATH + '/chromedriver.exe')
-    driver.implicitly_wait(10)
+    driver.implicitly_wait(5)
     
     yield driver
 
@@ -54,8 +56,42 @@ def browser():
 
 def test_registration(browser):
     browser.get('http://localhost:5000/')
-    content = browser.page_source
-    assert 'Join' in content
+    browser.find_element_by_name("reg_username").send_keys("test user")
+    browser.find_element_by_name("reg_password").send_keys("123")
+    browser.find_element_by_name("reg_password2").send_keys("123")
+    browser.find_element_by_name("register").click()
+    sleep(3)
+    url = browser.current_url
+    name = browser.find_element_by_id("name")
+    assert 'view_challenges' in url
+    assert 'test user' == name.text
+
+def test_login(browser):
+    browser.get('http://localhost:5000/')
+    browser.find_element_by_name("username").send_keys("test user")
+    browser.find_element_by_name("password").send_keys("123")
+    browser.find_element_by_name("login").click()
+    sleep(2)
+    url = browser.current_url
+    name = browser.find_element_by_id("name")
+    assert 'view_challenges' in url
+    assert 'test user' == name.text
+
+def test_logout(browser):
+    browser.get('http://localhost:5000/')
+    browser.find_element_by_name("username").send_keys("test user")
+    browser.find_element_by_name("password").send_keys("123")
+    browser.find_element_by_name("login").click()
+    sleep(3)
+    url = browser.current_url
+    name = browser.find_element_by_id("name")
+    assert 'view_challenges' in url
+    assert 'test user' == name.text
+
+    browser.find_element_by_id("logout").click()
+    sleep(2)
+    assert 'http://localhost:5000/index' == browser.current_url
+    
 
 if __name__ == "__main__":
     pytest.main()

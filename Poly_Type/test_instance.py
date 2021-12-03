@@ -5,6 +5,7 @@ app = create_app(TestConfig)
 
 @app.before_first_request
 def initDB(*args, **kwargs):
+    db.drop_all()
     db.create_all()
 
 if __name__ == "__main__":
