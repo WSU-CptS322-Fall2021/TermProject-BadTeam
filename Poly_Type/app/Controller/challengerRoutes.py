@@ -27,16 +27,14 @@ def index():
         #If statements confirm the form that was submitted, and then validate it. Redirect behavior is temporary until routes are further developed. 
         if request.form.get("join_challenge") is not None and joinForm.validate_on_submit():
             guid = uuid.uuid4().hex
-            # have to use upper on the join code string because the UI doesn't force the form to send only uppercase letters
             challenge = Challenge.query.filter_by(joincode=joinForm.joincode.data.upper()).first()
             if challenge is not None and challenge.open:
                 session[guid] = (challenge.id, joinForm.nickname.data)
                 #print("Joined Challenge {} with nickname {}".format(joinForm.joincode.data, joinForm.nickname.data))
                 return redirect(url_for('challenger.take_challenge', guid=guid))
-            flash(f'the room {joinForm.joincode.data.upper()} is not open or does not exist')
-            # this print statement is here so I can see if this hits correctly, currently flash messages are not set up
-            print(f'The room {joinForm.joincode.data.upper()} is not open or does not exist')
-        
+            else:
+                flash(f'the room {joinForm.joincode.data.upper()} is not open or does not exist')
+
         if request.form.get("login") is not None and loginForm.validate_on_submit():
             user = Host.query.filter_by(username=loginForm.username.data).first()
             if user is None or not user.check_password(loginForm.password.data):
@@ -54,7 +52,7 @@ def index():
             db.session.commit()
             login_user(host)
             return redirect(url_for('host.view_challenges'))
-        elif request.form["submit"] == "Register" and not registrationForm.validate_on_submit():
+        elif request.form.get("register") is not None and not registrationForm.validate_on_submit():
             flash("invalid registration information")
     return render_template('index.html', joinForm = joinForm, loginForm = loginForm, registrationForm = registrationForm)
 
