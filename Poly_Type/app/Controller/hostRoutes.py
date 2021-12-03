@@ -50,7 +50,11 @@ def edit_host():
         host = Host.query.filter_by(id = current_user.id).first()
         host.username = form.reg_username.data
         db.session.commit()
+<<<<<<< HEAD
         print('Your information has been updated!')
+=======
+        flash('your information has been updated')
+>>>>>>> origin/Iteration3
         return redirect(url_for('host.view_challenges'))
     return render_template('editHost.html', form=form)
 

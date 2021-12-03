@@ -7,10 +7,14 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/viewchallenges.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/challengerresult.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/aggregateresults.css') }}">
+        <script type="text/javascript" src="{{ url_for('static', filename='themeSwitch.js') }}"></script>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/edithost.css') }}">
     </head>
 
-    <body class="solarized-dark" spellcheck="false">
+    <body id="themeContainer" class="solarized_dark" onload="initThemes()" spellcheck="false">
+        {% for message in get_flashed_messages() %}
+          <p class="flash">[ {{ message }} ]</p>
+        {% endfor %}
         {% block content %} {% endblock %}
     </body>
 

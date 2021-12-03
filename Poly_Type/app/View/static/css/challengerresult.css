@@ -31,6 +31,22 @@
 	color: var(--primary);
 }
 
+#testresult-header .themeName{
+	transition: color 0.2s ease-in-out;
+	display: inline;
+	position: absolute;
+	left: 120px;
+	top: 3px;
+	margin-top: 0;
+	color: var(--subtle);
+	user-select: none;
+	font-size: 15px;
+}
+
+#testresult-header .themeName:hover{
+	color: var(--primary);
+}
+
 /*PAGE BODY STYLINGS*/
 #testresult-body{
 	display: flex;
@@ -92,16 +108,4 @@
 
 #testresult-body .returnhome:active{
 	background: rgba(0, 0, 0, 0.05);
-}
-
-@keyframes fadeInAnimation {
-    0% {
-        opacity: 0;
-    }
-	10%{
-		opacity: 0;
-	}
-    100% {
-        opacity: 1;
-     }
 }

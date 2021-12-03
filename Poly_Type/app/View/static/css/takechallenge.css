@@ -35,6 +35,22 @@
 	margin-top: 50px;
 }
 
+#takechallenge-header .themeName{
+	transition: color 0.2s ease-in-out;
+	display: inline;
+	position: absolute;
+	left: 120px;
+	top: 3px;
+	margin-top: 0;
+	color: var(--subtle);
+	user-select: none;
+	font-size: 15px;
+}
+
+#takechallenge-header .themeName:hover{
+	color: var(--primary);
+}
+
 /*TAKE CHALLENGE TEXT STYLINGS*/
 
 .incomplete-word{

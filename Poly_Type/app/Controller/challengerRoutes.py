@@ -33,15 +33,15 @@ def index():
                 session[guid] = (challenge.id, joinForm.nickname.data)
                 #print("Joined Challenge {} with nickname {}".format(joinForm.joincode.data, joinForm.nickname.data))
                 return redirect(url_for('challenger.take_challenge', guid=guid))
-            flash(f'The room {joinForm.joincode.data} is not open or does not exist')
+            flash(f'the room {joinForm.joincode.data.upper()} is not open or does not exist')
             # this print statement is here so I can see if this hits correctly, currently flash messages are not set up
-            print(f'The room {joinForm.joincode.data} is not open or does not exist')
+            print(f'The room {joinForm.joincode.data.upper()} is not open or does not exist')
         
         if request.form.get("login") is not None and loginForm.validate_on_submit():
             user = Host.query.filter_by(username=loginForm.username.data).first()
             if user is None or not user.check_password(loginForm.password.data):
-                print("Invalid username or password")
-                flash('Invalid username or password')
+                print("invalid username or password")
+                flash('invalid username or password')
                 return redirect(url_for('challenger.index'))
             print("Logged in as {}".format(loginForm.username.data))
             login_user(user)
@@ -54,6 +54,8 @@ def index():
             db.session.commit()
             login_user(host)
             return redirect(url_for('host.view_challenges'))
+        elif request.form["submit"] == "Register" and not registrationForm.validate_on_submit():
+            flash("invalid registration information")
     return render_template('index.html', joinForm = joinForm, loginForm = loginForm, registrationForm = registrationForm)
 
 @challenger_routes.route('/take_challenge/<guid>', methods=['GET', 'POST'])
