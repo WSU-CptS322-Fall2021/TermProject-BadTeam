@@ -39,6 +39,16 @@ def new_user(uname, passwd):
     user.set_password(passwd)
     return user
 
+# Used for testing challenges.
+def new_challenge(user):
+    title = 'test_challenge'
+    prompts = [Prompt(text="The brown fox jumped over the white fence")]
+    code = createCode()
+    while Challenge.query.filter_by(joincode=code).first() != None:
+        code = createCode()
+    testChallenge = Challenge(title=title, joincode=code, prompts=prompts, host_id=user.id)
+
+    return testChallenge
 # Function to intialize the database
 @pytest.fixture
 def init_database():
@@ -50,6 +60,7 @@ def init_database():
 
     #Add the user to the database
     db.session.add(user)
+    db.session.add(new_challenge(user))
     db.session.commit()
 
     yield
@@ -101,12 +112,18 @@ def test_create_challenge(test_client, init_database):
     assert s.username == 'test_login'
     assert s.check_password('1234')
     #Then create a challenge
-    test_prompt = [Prompt(text="The brown foxed jumped over the white fence"), Prompt(text="Please take your dog, Cali, out for a walk – he really needs some exercise!"), Prompt(text="When do you think they will get back from their adventure in Cairo, Egypt?")]
+    test_prompt = [Prompt(text="The brown fox jumped over the white fence"), Prompt(text="Please take your dog, Cali, out for a walk – he really needs some exercise!"), Prompt(text="When do you think they will get back from their adventure in Cairo, Egypt?")]
     
     response = test_client.post('/create_challenge', data=dict(title='test_challenge', prompts=test_prompt), follow_redirects=True)
     assert response.status_code == 200
     c = db.session.query(Challenge).filter(Challenge.title=='test_challenge').first()
     assert c.host_id == s.id
+
+def test_take_challenge(test_client, init_database):
+    test_challenge = db.session.query(Challenge).filter(Challenge.title=='test_challenge').first()
+    pass
+    #reponse = test_client.post('/take_challenge', )
+
 '''
 class TestRoutes(unittest.TestCase):
     def test_createcode(self):
