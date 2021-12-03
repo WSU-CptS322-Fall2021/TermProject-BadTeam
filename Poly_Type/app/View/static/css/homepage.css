@@ -43,6 +43,22 @@
 	height: calc(100% - 32px);
 }
 
+#homepage-header .themeName{
+	transition: color 0.2s ease-in-out;
+	display: inline;
+	position: absolute;
+	left: 120px;
+	top: 3px;
+	margin-top: 0;
+	color: var(--subtle);
+	user-select: none;
+	font-size: 15px;
+}
+
+#homepage-header .themeName:hover{
+	color: var(--primary);
+}
+
 /*JOIN CHALLENGE FORM STYLINGS*/
 #homepage-body .join-challenge-input{
 	width: 400px;

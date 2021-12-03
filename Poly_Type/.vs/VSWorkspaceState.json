@@ -10,6 +10,6 @@
     "\\app\\View\\static\\img",
     "\\app\\View\\templates"
   ],
-  "SelectedNode": "\\app\\Controller\\routes.py",
+  "SelectedNode": "\\app\\Controller\\hostRoutes.py",
   "PreviewInSolutionExplorer": false
 }
