@@ -158,12 +158,15 @@ document.addEventListener("keydown", async function(event) {
             document.getElementById(continuePrompt).className = continueHidden
             div.className = inactivePrompt
             promptNumber++
-            if(promptNumber > 4){
+            if(promptNumber > 2){
               await finished()
             }
             wordsWrapper = `prompt-${promptNumber}`
             continuePrompt = `continue-prompt-${promptNumber}`
             var div = document.getElementById(wordsWrapper)
+            if(div == null){
+              await finished()
+            }
             div.className = activePrompt
             var words = div.getElementsByTagName('div')
             var letters = words[0].getElementsByTagName('div')

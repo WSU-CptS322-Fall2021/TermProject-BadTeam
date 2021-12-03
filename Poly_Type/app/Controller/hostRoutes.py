@@ -50,11 +50,7 @@ def edit_host():
         host = Host.query.filter_by(id = current_user.id).first()
         host.username = form.reg_username.data
         db.session.commit()
-<<<<<<< HEAD
-        print('Your information has been updated!')
-=======
         flash('your information has been updated')
->>>>>>> origin/Iteration3
         return redirect(url_for('host.view_challenges'))
     return render_template('editHost.html', form=form)
 
@@ -91,25 +87,24 @@ def create_challenge():
         while Challenge.query.filter_by(joincode=code).first() != None:
             code = createCode()
         
-        #Create a new challenge with the random code
-        #TODO: Currently, we are allowing for individuals to make challenges with the same name, we should fix this when we have the user logged in
-        newChallenge = Challenge(joincode=code, open=False, host_id=current_user.get_host_id(), title=form.title.data)
-        
-        # Scan through all prompts and append them if there is text
         for promptForm in form.prompts.data:
-            if promptForm["prompt"] is not None or promptForm["prompt"] is not "":
-                promptText = promptForm["prompt"].strip()
-                while "  " in promptText:
-                    promptText = promptText.replace("  ", " ")
-                prompt = Prompt(text=promptText)
-                newChallenge.prompts.append(prompt)
+            if promptForm["prompt"] is not "":
+                newChallenge = Challenge(joincode=code, open=False, host_id=current_user.get_host_id(), title=form.title.data)
+                
+                # Scan through all prompts and append them if there is text
+                for promptForm in form.prompts.data:
+                    if promptForm["prompt"] is not None and promptForm["prompt"] is not "":
+                        promptText = promptForm["prompt"].strip()
+                        while "  " in promptText:
+                            promptText = promptText.replace("  ", " ")
+                        prompt = Prompt(text=promptText)
+                        newChallenge.prompts.append(prompt)
 
-        print("Created Challenge: Room Code {}".format(newChallenge.joincode))
-        db.session.add(newChallenge)
-        db.session.commit()
-        #TODO: Consider whether flash messages are desire or needed at all.
-        #flash('Challenge created!')
-        return redirect(url_for('host.view_challenges'))
+                print("Created Challenge: Room Code {}".format(newChallenge.joincode))
+                db.session.add(newChallenge)
+                db.session.commit()
+                return redirect(url_for('host.view_challenges'))
+        flash("can't have empty challenge")
     return render_template('createChallenge.html', challengeForm = form)
 
 @host_routes.route('/aggregate_results/<joinCode>', methods=['GET'])
