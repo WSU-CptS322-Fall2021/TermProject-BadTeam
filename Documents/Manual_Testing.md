@@ -120,3 +120,44 @@
 
 
 # User Interface Testing
+
+### On Hover
+
+- Log In Text Box
+  - Hover over or near the Log in text in the index page
+  - Confirm that the register/log in form fades
+  - Confirm that the register/log in form has a darker background shade, and a blue border
+  - Confirm that the register/log in form has the register and log in text has turned to the primary blue color
+- Buttons
+  - Hover over a button
+  - Confirm that the button's background turns a darker shade
+- Input Field Boxes
+  - Hover over an input field box
+  - Confirm that the box turns a different shade of the background color (lighter or darker based on theme)
+
+### On Click
+
+- Buttons
+  - Click on a button
+  - Confirm that you are redirected to the correct page
+    - Join, if possible, redirects to the 1st prompt of the challenge 
+    - [+] redirects to the challenge creation page
+    - Post redirects to the host homepage
+    - Log in, if with correct credentials, redirects to the host homepage
+    - Register, if with all the inputs fields filled out, redirects to the host homepage
+- Input Field Boxes
+  - Click on an input field box
+  - Confirm that you are able to add text to the field and that it is saved there when clicked off
+
+### Color Scheme
+
+- Solarized Dark
+  - Confirm that the title [poly_type] is the secondary color
+- Monochrome
+- Strawberry
+
+### Input Validation
+
+### Open Challenge
+
+### Close Challenge
