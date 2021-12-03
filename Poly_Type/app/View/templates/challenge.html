@@ -2,22 +2,22 @@
 	<span class="challengetitle">{{challenge.title}}</span>
 	<span class="challengeJoinCode">[{{challenge.joincode}}]</span>
 	<form action="{{url_for('host.close_challenge', challengeid=challenge.id)}}" method="post" class="challenge-iconbuttonform stopbutton">
-		<button type="submit" class="challenge-iconbutton stopbutton">
+		<button id="close" type="submit" class="challenge-iconbutton stopbutton">
 			[S]
 		</button>
 	</form>
 	<form action="{{url_for('host.open_challenge', challengeid=challenge.id)}}" method="post" class="challenge-iconbuttonform">
-		<button type="submit" class="challenge-iconbutton">
+		<button id="open" type="submit" class="challenge-iconbutton">
 		[>]
 		</button>
 	</form>
-	<button class="challenge-iconbutton deletebutton margin">
+	<button id="delete" class="challenge-iconbutton deletebutton margin">
 		[D]
 	</button>
-	<button class="challenge-iconbutton margin">
+	<button id="edit" class="challenge-iconbutton margin">
 		[E]
 	</button>
-	<a href="{{url_for('host.aggregate_results', joinCode=challenge.joincode)}}" class="challenge-iconbutton margin">
+	<a id="results" href="{{url_for('host.aggregate_results', joinCode=challenge.joincode)}}" class="challenge-iconbutton margin">
 		[R]
 	</a>
 </div>

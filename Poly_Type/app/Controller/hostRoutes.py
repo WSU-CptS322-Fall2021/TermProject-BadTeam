@@ -93,7 +93,7 @@ def create_challenge():
         
         # Scan through all prompts and append them if there is text
         for promptForm in form.prompts.data:
-            if promptForm["prompt"] is not None:
+            if promptForm["prompt"] is not None or promptForm["prompt"] is not "":
                 promptText = promptForm["prompt"].strip()
                 while "  " in promptText:
                     promptText = promptText.replace("  ", " ")

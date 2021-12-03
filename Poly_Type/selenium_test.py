@@ -6,6 +6,8 @@ from app import create_app, db
 from config import TestConfig
 from time import sleep
 
+test_joincode = ""
+
 @pytest.fixture(scope='module')
 def test_client():
     # create the flask application ; configure the app for tests
@@ -45,7 +47,7 @@ def browser():
     CHROME_PATH = "c:\\test"
     print(CHROME_PATH)
     opts = Options()
-    opts.headless = True
+    opts.headless = False
     driver = webdriver.Chrome(options=opts, executable_path = CHROME_PATH + '/chromedriver.exe')
     driver.implicitly_wait(5)
     
@@ -66,32 +68,86 @@ def test_registration(browser):
     assert 'view_challenges' in url
     assert 'test user' == name.text
 
-def test_login(browser):
-    browser.get('http://localhost:5000/')
-    browser.find_element_by_name("username").send_keys("test user")
-    browser.find_element_by_name("password").send_keys("123")
-    browser.find_element_by_name("login").click()
-    sleep(2)
-    url = browser.current_url
-    name = browser.find_element_by_id("name")
-    assert 'view_challenges' in url
-    assert 'test user' == name.text
+# def test_login(browser):
+#     browser.get('http://localhost:5000/')
+#     browser.find_element_by_name("username").send_keys("test user")
+#     browser.find_element_by_name("password").send_keys("123")
+#     browser.find_element_by_name("login").click()
+#     sleep(2)
+#     url = browser.current_url
+#     name = browser.find_element_by_id("name")
+#     assert 'view_challenges' in url
+#     assert 'test user' == name.text
 
-def test_logout(browser):
-    browser.get('http://localhost:5000/')
-    browser.find_element_by_name("username").send_keys("test user")
-    browser.find_element_by_name("password").send_keys("123")
-    browser.find_element_by_name("login").click()
-    sleep(3)
-    url = browser.current_url
-    name = browser.find_element_by_id("name")
-    assert 'view_challenges' in url
-    assert 'test user' == name.text
+# def test_logout(browser):
+#     browser.get('http://localhost:5000/')
+#     browser.find_element_by_name("username").send_keys("test user")
+#     browser.find_element_by_name("password").send_keys("123")
+#     browser.find_element_by_name("login").click()
+#     sleep(3)
+#     url = browser.current_url
+#     name = browser.find_element_by_id("name")
+#     assert 'view_challenges' in url
+#     assert 'test user' == name.text
 
-    browser.find_element_by_id("logout").click()
-    sleep(2)
-    assert 'http://localhost:5000/index' == browser.current_url
+#     browser.find_element_by_id("logout").click()
+#     sleep(2)
+#     assert 'http://localhost:5000/index' == browser.current_url
     
+
+def test_create_challenge(browser):
+    browser.get('http://localhost:5000/')
+    browser.find_element_by_name("username").send_keys("test user")
+    browser.find_element_by_name("password").send_keys("123")
+    browser.find_element_by_name("login").click()
+    sleep(2)
+    url = browser.current_url
+    name = browser.find_element_by_id("name")
+    assert 'view_challenges' in url
+    assert 'test user' == name.text
+
+    browser.find_element_by_id("create_challenge").click()
+    sleep(2)
+    browser.find_element_by_id("title").send_keys("test challenge")
+    browser.find_element_by_id("prompts-0-prompt").send_keys("test prompt zero")
+    browser.find_element_by_id("prompts-1-prompt").send_keys("test prompt one")
+    browser.find_element_by_id("create_challenge").click()
+    sleep(2)
+    assert 'view_challenges' in url
+    assert "test challenge" in browser.page_source
+
+def test_open_challenge(browser):
+    browser.get('http://localhost:5000/')
+    browser.find_element_by_name("username").send_keys("test user")
+    browser.find_element_by_name("password").send_keys("123")
+    browser.find_element_by_name("login").click()
+    sleep(2)
+    browser.find_element_by_id("open").click()
+    joinCode = browser.find_element_by_class_name("challengeJoinCode").text
+    global test_joincode 
+    test_joincode = joinCode[1:-1]
+    # "[123456]" => "123456"
+
+    assert joinCode[0] == '['
+    assert joinCode[-1] == ']'
+
+
+def test_join_challenge(browser):
+    browser.get('http://localhost:5000/')
+    browser.find_element_by_id("joincode").send_keys(test_joincode)
+    browser.find_element_by_id("nickname").send_keys("test challenger")
+    browser.find_element_by_id("join_challenge").click()
+    sleep(2)
+    assert 'take_challenge' in browser.current_url
+    assert 'test challenger' in browser.page_source
+
+def test_take_challenge(browser):
+    browser.get('http://localhost:5000/')
+    browser.find_element_by_id("joincode").send_keys(test_joincode)
+    browser.find_element_by_id("nickname").send_keys("test challenger")
+    browser.find_element_by_id("join_challenge").click()
+    sleep(2)
+    browser.send_ke
 
 if __name__ == "__main__":
     pytest.main()
