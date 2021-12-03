@@ -19,7 +19,7 @@ body.monochrome{
 	--primary: rgb(73,80,84);
 	--subtle: rgb(112,122,126);
 	--contrast: rgb(0, 0, 0);
-	--error: rgb(205, 103, 63);
+	--error: rgb(255, 103, 63);
 }
 
 body{
@@ -28,7 +28,7 @@ body{
 	padding-right: 20px;
 	font-family: 'Trebuchet MS', sans-serif;
 	background: var(--background);
-	overflow: auto;
+	overflow: hidden;
 }
 
 body::-webkit-scrollbar{
@@ -49,4 +49,33 @@ body::-webkit-scrollbar-track {
     100% {
         opacity: 1;
      }
+}
+
+body .flash{
+	color: var(--error);
+	font-family: 'Trebuchet MS', sans-serif;
+	font-size: 15px;
+	width: 100%;
+	text-align: center;
+	position:absolute;
+	top:20px;
+	left:0;
+	display: inline;
+	animation: flashAnimation ease 3s;
+	opacity: 0;
+}
+
+@keyframes flashAnimation{
+	0%{
+		opacity: 0%
+	}
+	10%{
+		opacity: 100%
+	}
+	80%{
+		opacity: 100%
+	}
+	100%{
+		opacity: 0%
+	}
 }

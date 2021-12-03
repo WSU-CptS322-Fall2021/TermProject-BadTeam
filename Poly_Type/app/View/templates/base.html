@@ -11,6 +11,9 @@
     </head>
 
     <body id="themeContainer" class="solarized_dark" onload="initThemes()">
+        {% for message in get_flashed_messages() %}
+          <p class="flash">[ {{ message }} ]</p>
+        {% endfor %}
         {% block content %} {% endblock %}
     </body>
 
