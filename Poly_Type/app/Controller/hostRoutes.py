@@ -50,7 +50,7 @@ def update_info(): #If the user is a host, allow them to update their informatio
         host.set_password(form.reg_password.data)
         db.session.merge(host)
         db.session.commit()
-        flash('Your information has been updated!')
+        flash('your information has been updated')
         return redirect(url_for('host.view_challenges'))
     return render_template('updateinfo.html', form=form)
 
