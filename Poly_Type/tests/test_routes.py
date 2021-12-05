@@ -132,6 +132,39 @@ def test_take_challenge(test_client, init_database):
     assert tc.open == True
 
 '''
+def test_close_open_challenge(test_client, init_database):
+    tc = db.session.query(Challenge).filter(Challenge.title=='test_challenge').first() #Get the challenge
+
+    response = test_client.post('/index', data=dict(nickname='test', joincode=tc.joincode, submit='Join'), follow_redirects=True)
+    #Check you got the challenge page
+    assert response.status_code == 200
+    assert tc.open == True
+
+    #Get the challengeid
+    c_id = tc.id
+
+    #Test closing the challenge
+    response = test_client.post('/close_challenge/<challengeid>', challengeid=c_id, data=dict(joincode=tc.joincode), follow_redirects=True)
+    #Check if you were redirected to the challenge page and if the challenge is open
+    assert response.status_code == 200
+    assert tc.open == False
+'''
+
+def test_edit_host(test_client, init_database):
+    response = test_client.post('/index', data=dict(username='test_login', password='1234', submit='Login'), follow_redirects=True)
+    
+    s = db.session.query(Host).filter(Host.username=='test_login').first()
+    assert s.username == 'test_login'
+    #Change username
+    response2 = test_client.post('/update_info', data=dict(reg_username='test_login_new', reg_password='1234', reg_password2='1234'), follow_redirects=True)
+    assert response2.status_code == 200
+
+    #Then check if the username was changed
+    s = db.session.query(Host).filter(Host.username=='test_login_new').first()
+    assert s.username == 'test_login_new'
+
+
+'''
 class TestRoutes(unittest.TestCase):
     def test_createcode(self):
         code = createCode()
