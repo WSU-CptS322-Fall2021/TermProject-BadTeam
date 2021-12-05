@@ -46,8 +46,9 @@ def new_challenge(user):
     code = createCode()
     while Challenge.query.filter_by(joincode=code).first() != None:
         code = createCode()
-    testChallenge = Challenge(title=title, joincode=code, prompts=prompts, host_id=user.id)
-
+    testChallenge = Challenge(title=title, joincode=code, prompts=prompts, host_id=user.id, open=True)
+    for prompt in prompts:
+        testChallenge.prompts.append(prompt)
     return testChallenge
 # Function to intialize the database
 @pytest.fixture
@@ -57,10 +58,12 @@ def init_database():
 
     #Create the test user
     user = new_user('test_login', '1234')
+    test_challenge = new_challenge(user)
 
     #Add the user to the database
     db.session.add(user)
-    db.session.add(new_challenge(user))
+    db.session.commit()
+    db.session.add(test_challenge)
     db.session.commit()
 
     yield
@@ -114,15 +117,19 @@ def test_create_challenge(test_client, init_database):
     #Then create a challenge
     test_prompt = [Prompt(text="The brown fox jumped over the white fence"), Prompt(text="Please take your dog, Cali, out for a walk – he really needs some exercise!"), Prompt(text="When do you think they will get back from their adventure in Cairo, Egypt?")]
     
-    response = test_client.post('/create_challenge', data=dict(title='test_challenge', prompts=test_prompt), follow_redirects=True)
+    response = test_client.post('/create_challenge', data=dict(title='test_challenge_create', prompts=test_prompt), follow_redirects=True)
     assert response.status_code == 200
-    c = db.session.query(Challenge).filter(Challenge.title=='test_challenge').first()
+    c = db.session.query(Challenge).filter(Challenge.title=='test_challenge_create').first()
     assert c.host_id == s.id
 
 def test_take_challenge(test_client, init_database):
-    test_challenge = db.session.query(Challenge).filter(Challenge.title=='test_challenge').first()
-    pass
-    #reponse = test_client.post('/take_challenge', )
+    tc = db.session.query(Challenge).filter(Challenge.title=='test_challenge').first() #Get the challenge
+
+    #Use the index page to join the challenge
+    response = test_client.post('/index', data=dict(nickname='test', joincode=tc.joincode, submit='Join'), follow_redirects=True)
+    #Check if you were redirected to the challenge page and if the challenge is open
+    assert response.status_code == 200
+    assert tc.open == True
 
 '''
 class TestRoutes(unittest.TestCase):
