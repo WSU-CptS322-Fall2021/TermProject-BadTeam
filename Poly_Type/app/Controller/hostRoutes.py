@@ -40,6 +40,16 @@ def close_challenge(challengeid):
         db.session.commit()
         return redirect(url_for('host.view_challenges'))
 
+@host_routes.route('/delete_challenge/<challengeid>', methods=['POST'])
+@login_required
+def delete_challenge(challengeid):
+    challenge = Challenge.query.filter_by(id = challengeid).first()
+    if not challenge == None:
+        challenge.open = True
+        db.session.delete(challenge)
+        db.session.commit()
+        return redirect(url_for('host.view_challenges'))
+
 @host_routes.route('/edit_host', methods=['GET', 'POST'])
 @login_required
 def edit_host():

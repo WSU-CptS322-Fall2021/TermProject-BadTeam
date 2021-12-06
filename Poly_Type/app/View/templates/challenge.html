@@ -11,9 +11,11 @@
 		[>]
 		</button>
 	</form>
-	<button id="delete" class="challenge-iconbutton deletebutton margin">
-		[D]
-	</button>
+	<form action="{{url_for('host.delete_challenge', challengeid=challenge.id)}}" method="post" class="challenge-iconbuttonform">
+		<button id="delete" class="challenge-iconbutton deletebutton margin">
+			[D]
+		</button>
+	</form>
 	<button id="edit" class="challenge-iconbutton margin">
 		[E]
 	</button>
