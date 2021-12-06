@@ -59,19 +59,22 @@ def edit_challenge(challengeid):
     challenge = Challenge.query.filter_by(id=challengeid).first()
     if request.method == 'POST':
         if form.validate_on_submit():
-            challenge.title = form.firstname.data
+            challenge.title = form.title.data
             prompts = collectChallengeData(form.prompts.data)
-            db.session.add(current_user)
+            challenge.prompts = []
+            for propmt in prompts:
+                cleansedPrompt = cleansePrompt(propmt)
+                prompt = Prompt(text=cleansedPrompt)
+                challenge.prompts.append(prompt)
+            db.session.add(challenge)
             db.session.commit()
-            flash("Your changes have been saved")
-            return redirect(url_for('routes.display_profile'))
+            return redirect(url_for('host.view_challenges'))
     elif request.method == 'GET':
         form.title.data = challenge.title
         prompts = []
         for prompt in challenge.prompts:
-            # print(prompt.text)
             prompts.append(prompt.text)
-        promptForm = PromptForm()
+        
         for i in range(3):
             form.prompts.pop_entry()
 
@@ -81,7 +84,6 @@ def edit_challenge(challengeid):
             if i < len(prompts):                
                 promptForm.prompt = prompts[i]
             form.prompts.append_entry(promptForm)
-        pass
     return render_template('createChallenge.html', challengeForm=form)
 
 @host_routes.route('/edit_host', methods=['GET', 'POST'])
@@ -128,6 +130,12 @@ def collectChallengeData(challenge):
         return data
     return None
 
+def cleansePrompt(prompt):
+    cleansedPrompt = prompt.strip()
+    while "  " in cleansedPrompt:
+        cleansedPrompt = cleansedPrompt.replace("  ", " ") 
+    return cleansedPrompt
+
 @host_routes.route('/create_challenge', methods=['GET', 'POST'])
 @login_required
 def create_challenge():
@@ -147,9 +155,7 @@ def create_challenge():
             
             # Scan through all prompts and append them if there is text
             for prompt in prompts:
-                cleansedPrompt = prompt.strip()
-                while "  " in cleansedPrompt:
-                    cleansedPrompt = cleansedPrompt.replace("  ", " ")
+                cleansedPrompt = cleansePrompt(prompt)
                 prompt = Prompt(text=cleansedPrompt)
                 newChallenge.prompts.append(prompt)
 
