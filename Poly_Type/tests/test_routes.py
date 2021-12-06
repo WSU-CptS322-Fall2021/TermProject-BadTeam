@@ -163,7 +163,19 @@ def test_edit_host(test_client, init_database):
     s = db.session.query(Host).filter(Host.username=='test_login_new').first()
     assert s.username == 'test_login_new'
 
+def test_result(test_client, init_database):
+    #Login
+    response = test_client.post('/index', data=dict(username='test_login', password='1234', submit='Login'), follow_redirects=True)
+    s = db.session.query(Host).filter(Host.username=='test_login').first()
+    assert s.username == 'test_login'
 
+    #Check the challenge is in the test database
+    tc = db.session.query(Challenge).filter(Challenge.title=='test_challenge').first()
+    assert tc.open == True
+
+    #Then reroute to the result page
+    response2 = test_client.post('/view_challenges', data=dict(submit='challengerresult'), follow_redirects=True)
+    assert response2.status_code == 200
 '''
 class TestRoutes(unittest.TestCase):
     def test_createcode(self):
