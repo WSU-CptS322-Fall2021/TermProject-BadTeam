@@ -151,13 +151,38 @@
 
 ### Color Scheme
 
-- Solarized Dark
-  - Confirm that the title [poly_type] is the secondary color
-- Monochrome
-- Strawberry
+- Click the name of the color theme in the upper left hand corner
+- Confirm that once clicked the website's theme switches
 
 ### Input Validation
 
+- Incorrect Challenge Code
+  - Click join or press enter with a username and an incorrect challenge code
+  - Confirm that a flash message fades in that says "the room <challenge code> is not open or does not exist"
+- Submit A Challenge Without A Title
+  - Click the Post button for the form
+  - Confirm that there is a small pop up tag that says "Please fill out this field" (the title) before posting
+- Sign In With Incorrect Credentials
+  - Click Log In with incorrect credentials
+  - Confirm that a flash message fades in saying "Invalid Username or Password" in the error color of the theme
+- Register with different Passwords
+  - Enter in a username and two different passwords then click register in the lower section
+  - Confirm the flash message reads "Invalid registration information"
+
 ### Open Challenge
 
+- Open Challenge
+  - Click the [>] button in the tool suite
+  - Confirm that the tool suite switches to just a challenge code and a [S] (stop button)
+- Join Challenge
+  - Note the challenge code (copy), Log out, enter challenge code and username in correct fields, and Click Join
+  - Confirm that you are redirected to the first prompt of the correct challenge 
+
 ### Close Challenge
+
+- Close Challenge
+  - Click the [S] button in the tool suite
+  - Confirm that the tool suite switches to the original "[R]  [D]  [>]" 
+- Join Challenge
+  - Note the challenge code (copy), Log out, enter challenge code and username in correct fields, and Click Join
+  - Confirm that you get the flash message "the room <challenge code> is not open or does not exist"
