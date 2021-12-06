@@ -182,7 +182,7 @@
 
 - Close Challenge
   - Click the [S] button in the tool suite
-  - Confirm that the tool suite switches to the original "[R]  [D]  [>]" 
+  - Confirm that the tool suite switches to the original "[R]  [E]  [D]  [>]" 
 - Join Challenge
   - Note the challenge code (copy), Log out, enter challenge code and username in correct fields, and Click Join
   - Confirm that you get the flash message "the room <challenge code> is not open or does not exist"
