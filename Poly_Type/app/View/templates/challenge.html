@@ -16,9 +16,9 @@
 			[D]
 		</button>
 	</form>
-	<button id="edit" class="challenge-iconbutton margin">
+	<a id="edit" href="{{url_for('host.edit_challenge', challengeid=challenge.id)}}" class="challenge-iconbutton margin">
 		[E]
-	</button>
+	</a>
 	<a id="results" href="{{url_for('host.aggregate_results', joinCode=challenge.joincode)}}" class="challenge-iconbutton margin">
 		[R]
 	</a>

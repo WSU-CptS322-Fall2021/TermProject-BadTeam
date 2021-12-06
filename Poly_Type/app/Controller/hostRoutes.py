@@ -1,11 +1,11 @@
 from __future__ import print_function
 from flask import Blueprint
-from flask import render_template, flash, redirect, url_for
+from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_required, logout_user
 from app import db, login
 from app.Model.models import Challenge, Host, Prompt
 from config import Config
-from app.Controller.forms import CreateChallengeForm, UpdateInfoForm
+from app.Controller.forms import CreateChallengeForm, UpdateInfoForm, PromptForm
 import random
 import string
 
@@ -50,6 +50,40 @@ def delete_challenge(challengeid):
         db.session.commit()
         return redirect(url_for('host.view_challenges'))
 
+@host_routes.route('/edit_challenge/<challengeid>', methods=['GET', 'POST'])
+@login_required
+def edit_challenge(challengeid):
+    form = CreateChallengeForm()
+    testPropmt = PromptForm()
+    testPropmt.prompt = "test"
+    challenge = Challenge.query.filter_by(id=challengeid).first()
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            challenge.title = form.firstname.data
+            prompts = collectChallengeData(form.prompts.data)
+            db.session.add(current_user)
+            db.session.commit()
+            flash("Your changes have been saved")
+            return redirect(url_for('routes.display_profile'))
+    elif request.method == 'GET':
+        form.title.data = challenge.title
+        prompts = []
+        for prompt in challenge.prompts:
+            # print(prompt.text)
+            prompts.append(prompt.text)
+        promptForm = PromptForm()
+        for i in range(3):
+            form.prompts.pop_entry()
+
+        for i in range(3):
+            promptForm = PromptForm()
+            promptForm.prompt = None
+            if i < len(prompts):                
+                promptForm.prompt = prompts[i]
+            form.prompts.append_entry(promptForm)
+        pass
+    return render_template('createChallenge.html', challengeForm=form)
+
 @host_routes.route('/edit_host', methods=['GET', 'POST'])
 @login_required
 def edit_host():
@@ -85,6 +119,15 @@ def createCode():
 
     return code
 
+def collectChallengeData(challenge):
+    data = []
+    for prompt in challenge:
+        if prompt["prompt"] is not "":
+            data.append(prompt["prompt"])
+    if len(data) > 0:
+        return data
+    return None
+
 @host_routes.route('/create_challenge', methods=['GET', 'POST'])
 @login_required
 def create_challenge():
@@ -97,23 +140,22 @@ def create_challenge():
         while Challenge.query.filter_by(joincode=code).first() != None:
             code = createCode()
         
-        for promptForm in form.prompts.data:
-            if promptForm["prompt"] is not "":
-                newChallenge = Challenge(joincode=code, open=False, host_id=current_user.get_host_id(), title=form.title.data)
-                
-                # Scan through all prompts and append them if there is text
-                for promptForm in form.prompts.data:
-                    if promptForm["prompt"] is not None and promptForm["prompt"] is not "":
-                        promptText = promptForm["prompt"].strip()
-                        while "  " in promptText:
-                            promptText = promptText.replace("  ", " ")
-                        prompt = Prompt(text=promptText)
-                        newChallenge.prompts.append(prompt)
+        prompts = collectChallengeData(form.prompts.data)
 
-                print("Created Challenge: Room Code {}".format(newChallenge.joincode))
-                db.session.add(newChallenge)
-                db.session.commit()
-                return redirect(url_for('host.view_challenges'))
+        if prompts is not None:
+            newChallenge = Challenge(joincode=code, open=False, host_id=current_user.get_host_id(), title=form.title.data)
+            
+            # Scan through all prompts and append them if there is text
+            for prompt in prompts:
+                cleansedPrompt = prompt.strip()
+                while "  " in cleansedPrompt:
+                    cleansedPrompt = cleansedPrompt.replace("  ", " ")
+                prompt = Prompt(text=cleansedPrompt)
+                newChallenge.prompts.append(prompt)
+
+            db.session.add(newChallenge)
+            db.session.commit()
+            return redirect(url_for('host.view_challenges'))
         flash("can't have empty challenge")
     return render_template('createChallenge.html', challengeForm = form)
 
