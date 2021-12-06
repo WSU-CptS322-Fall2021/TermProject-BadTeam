@@ -8,6 +8,8 @@
     <p class="header-text">{{ nickname }}</p>
 </div>
 <p id="time" class="timer">0</p>
+
+{% set letter_counter = namespace(value=0) %}
 {% set count = namespace(value=0) %}
 {% for prompt in challenge.prompts %}
 <div id="prompt-{{count.value}}" class="active-prompt">
@@ -15,9 +17,10 @@
     {% for word in prompt.text.split(' ') %}
         <div class="incomplete-word">
             {% for letter in word%}
-            <div class="letter incomplete-letter">
+            <div id="letter-{{letter_counter.value}}" class="letter incomplete-letter">
                 {{letter}}
             </div>
+            {% set letter_counter.value = letter_counter.value + 1 %}
             {% endfor %}
         </div>
     {% endfor %}
