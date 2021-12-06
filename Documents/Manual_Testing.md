@@ -17,13 +17,13 @@
 
 - Type a correct character
   - In the text editor for the prompt, while in the middle of a word, type the character that you see in the underlying prompt
-  - Confirm the character you typed highlighted blue and overlays the underlying matching character
+  - Confirm the character you typed highlighted is the primary color and overlays the underlying matching character
 - Type an incorrect character in the middle of a word
   - In the text editor for the prompt, while in the middle of a word, type a character other than that you see in the underlying prompt
-  - Confirm that the correct underlying character turned orange-red and that you do not see the character you typed. You should be able to continue typing or backspace. 
+  - Confirm that the correct underlying character turned the error color and that you do not see the character you typed. You should be able to continue typing or backspace. 
 - Type an incorrect character at the end of the word
   - In the text editor for the prompt, while at the end of a word, type a character other than that you see in the underlying prompt
-  - Confirm that the character you typed was inserted into the underlying text in a orange-red color. You will not be able to proceed unless you press space.
+  - Confirm that the character you typed was inserted into the underlying text is in the error color. You will not be able to proceed unless you press space.
 - Type an incorrect space in the middle of a word
   - In the text editor for the prompt, while in the middle of a word, type a space 
   - Confirm that the same behavior as typing an incorrect character in the middle of a word occurs. 
@@ -32,7 +32,7 @@
   - Confirm that you are allowed to proceed to the first character of the next word in the prompt.
 - Type a backspace
   - Type a backspace anywhere 
-  - Confirm that this allows you to undo the last character, returning to the grey underlying text or empty space.
+  - Confirm that this allows you to undo the last character, returning to the subtle underlying text or empty space.
 
 
 ------
@@ -67,10 +67,14 @@
 - Register
   - Hover near the log_in text in the index page, and enter in your new username and new password in the lower section denotated by the register text header then click the register button. 
   - Confirm that after clicking the register button, you are redirected into the Host homepage
-
 - Login
   - Hover near the log_in text in the index page, and enter in your username and password into the upper section and click the log in button. 
   - Confirm that you are redirected to the Host homepage.
+- Update
+  - Click Edit_Account button in the top right corner
+  - Confirm that you are redirected to the edit account page
+  - Click on edit account text field and enter new name, click update button (which will redirect you to the host homepage)
+  - Confirm that the new username is the name at the top of the host homepage
 
 
 ------
@@ -126,8 +130,8 @@
 - Log In Text Box
   - Hover over or near the Log in text in the index page
   - Confirm that the register/log in form fades
-  - Confirm that the register/log in form has a darker background shade, and a blue border
-  - Confirm that the register/log in form has the register and log in text has turned to the primary blue color
+  - Confirm that the register/log in form has a darker background shade, and a primary color border
+  - Confirm that the register/log in form has the register and log in text has turned to the primary color
 - Buttons
   - Hover over a button
   - Confirm that the button's background turns a darker shade
@@ -145,16 +149,18 @@
     - Post redirects to the host homepage
     - Log in, if with correct credentials, redirects to the host homepage
     - Register, if with all the inputs fields filled out, redirects to the host homepage
+    - Log out, redirect to the index page
+
 - Input Field Boxes
   - Click on an input field box
   - Confirm that you are able to add text to the field and that it is saved there when clicked off
 
 ### Color Scheme
 
-- Solarized Dark
-  - Confirm that the title [poly_type] is the secondary color
-- Monochrome
-- Strawberry
+- Rotating Color Wheel
+  - Click on the name of the current theme up in the right hand color
+  - Confirm that the program's colors have changed and correspond to the new theme palette.
+
 
 ### Input Validation
 
