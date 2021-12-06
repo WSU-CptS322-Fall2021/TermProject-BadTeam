@@ -4,6 +4,7 @@
 
 <div id="createpage-header">
     <h3 class="logo">[poly_type]</h3>
+    <p id="themeName" class="themeName" onclick="switchThemes">solarized_dark</p>
     <p class="header-text">log_out</p>
 </div>
 
@@ -19,7 +20,7 @@
                 {{ nested.prompt(class="createform-prompt", placeholder="Enter your prompt text here...", spellcheck="false") }}
             </div>
         {% endfor %}
-        {{ challengeForm.submit(class="create-challenge-submit") }}
+        {{ challengeForm.create_challenge(class="create-challenge-submit") }}
         </div>
     </form>
 {% endif %}

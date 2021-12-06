@@ -1,9 +1,25 @@
-body.solarized-dark{
+body.solarized_dark{
 	--background: rgb(5, 42, 50);
 	--primary: rgb(48, 128, 199);
 	--subtle: rgb(80, 99, 106);
 	--contrast: rgb(179, 205, 78);
 	--error: rgb(205, 103, 63);
+}
+
+body.strawberry{
+	--background: #fce5e5;
+	--primary: #ff7474;
+	--subtle: rgb(240, 100, 10);
+	--contrast: #c64242;
+	--error: #541616;
+}
+
+body.monochrome{
+	--background: rgb(227,232,234);
+	--primary: rgb(73,80,84);
+	--subtle: rgb(112,122,126);
+	--contrast: rgb(0, 0, 0);
+	--error: rgb(255, 103, 63);
 }
 
 body{
@@ -12,7 +28,7 @@ body{
 	padding-right: 20px;
 	font-family: 'Trebuchet MS', sans-serif;
 	background: var(--background);
-	overflow: auto;
+	overflow: hidden;
 }
 
 body::-webkit-scrollbar{
@@ -21,4 +37,45 @@ body::-webkit-scrollbar{
 
 body::-webkit-scrollbar-track {
 	display: none;
+}
+
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+	10%{
+		opacity: 0;
+	}
+    100% {
+        opacity: 1;
+     }
+}
+
+body .flash{
+	color: var(--error);
+	font-family: 'Trebuchet MS', sans-serif;
+	font-size: 15px;
+	width: 100%;
+	text-align: center;
+	position:absolute;
+	top:20px;
+	left:0;
+	display: inline;
+	animation: flashAnimation ease 3s;
+	opacity: 0;
+}
+
+@keyframes flashAnimation{
+	0%{
+		opacity: 0%
+	}
+	10%{
+		opacity: 100%
+	}
+	80%{
+		opacity: 100%
+	}
+	100%{
+		opacity: 0%
+	}
 }
