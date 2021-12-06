@@ -35,6 +35,7 @@ Prepared by:
     - [2.2.2 Controller](#222-controller)
     - [2.2.3 View and User Interface Design](#223-view-and-user-interface-design)
 - [3. Progress Report](#3-progress-report)
+- [4. Testing Plan](#4. Testing Plan)
 
 <a name="revision-history"> </a>
 
@@ -52,6 +53,7 @@ Prepared by:
 | Feedback Revisions | 2021-10-27 | Additional revisions from Professor Ay's feedback | 1.7 |
 | Iteration 2 Revisions | 2021-11-15 | Added revised model UML diagram, testing methodology, revised model specifications, iteration summary | 1.8 |
 | Class Diagram/General Revisions | 2021-11-15 | Added the most up to date model UML diagram, revised testing methodology, revised routes section | 1.9 |
+| Iteration 3 Update | 2021-12-3 | Added a description for iteration 3 work | 2.0 |
 
 # 1. Introduction
 
@@ -234,8 +236,9 @@ In our application specifically we are also setting up the CSS to enable the lat
 
 In iteration one, for the Model, we implemented all the required database models for general functionality, for the Controller, we established basic routing, and for the View, we set up basic pages for user interaction. In terms of the more specific functionalities we have implemented, we have done: creation of host account, creation of challenge, login, viewing challenges, joining a challenge, and the most basic participation in a challenge. In addition, our group feels as though we are effectively using github and think the current process of using Github Issues as an effective way to track work that needs to be done. We are starting to discuss the requirements and the work that we are wanting to get done in iteration 2 which is most notably is going to include the core functionality in participating in a challenge.
 
-
 In iteration two, for the UI portion, we finished implementing the layout for the different pages that can be accesses by users and hosts - the challenger index page, the host challenges page, the challenger results page, the host's challenge results page, the create a challenge page, the pages for prompts within a challenge. As we advanced through, iterations two, there were a few minor data base model changes - . We were also able to implement typing behaviors and functionalities - allowing a user to type along side with the prompt, highlight the character they inputted the primary color if correct, and if incorrect, highlight the character the contrast color. 
+
+In iteration three, we mainly focused on Unit, Functional, UI, and Selenium testing for our routes, and UI functionality. The Unit tests validate that the correct routes are follow during redirection and check that only hosts can access host routes. The Functional tests describe the manual testing for the functionality of the application - detailing how to access a state of the program and describing how it should be or behave. Additionally, the Selenium tests will simulate inputs to automate functional testing. The UI tests detail the behavior that should occur during user actions like hovering and clicking as well as describing the theming of the application. In combination with testing we added two more themes and update user account functionality, as well as revised the challenge creation page. 
 
 # 4. Testing Plan
 
@@ -293,7 +296,7 @@ Similar to Functional testing we concluded the best way to test the UI would be 
    - CSS on hover and on click events
         - The main goal with testing these events is to ensure the correct behavior with hovering and clicking certain elements, one of our design principles is to elevate user ease of access which we implemented with hidden forms that fade in on hover.
    - Correct color scheme for the layout
-        - The main goal for testing this is to check that we are utilizing the correct colors for different sections of our application. We decided on a solarized dark theme which specified the primary, secondary, tertiary, highlight, and contrast colors which will be implemented by certain elements within our application depending on their behavior and role within the layout. 
+        - The main goal for testing this is to check that we are utilizing the correct colors for different sections of our application. We decided on a solarized dark theme which specified the primary, subtle, contrast, background, and error colors which will be implemented by certain elements within our application depending on their behavior and role within the layout. 
    - Input validation error should show error state
         - The main goal for testing here is to verify that if a user inputs an incorrect entry (letter in challenges, code in index) the offending character(s) will be highlighted with the error color - in the solarized dark theme, it is a red-orange.
    - Check for correct states for open and close test states (colors, buttons)
