@@ -1,0 +1,20 @@
+#update-host{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: calc(100% - 32px);
+}
+
+#update-host .input{
+	width: 400px;
+	height: 40px;
+	margin: 10px;
+	background: transparent;
+	border: none;
+	outline: none;
+	border-bottom: 1px solid var(--subtle);
+	color: var(--subtle);
+	font-size: 20px;
+	text-align: center;
+}

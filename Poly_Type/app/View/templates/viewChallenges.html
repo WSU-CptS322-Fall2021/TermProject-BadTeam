@@ -5,8 +5,12 @@
 <div id="viewpage-header">
     <h3 class="logo">[poly_type]</h3>
     <p id="themeName" class="themeName" onclick="switchThemes">solarized_dark</p>
-    <a href="{{url_for('host.logout')}}">
-        <p class="header-text">log_out</p>
+    <h4 id="name" class="name">{{host.username}}</h4>
+    <a  href="{{url_for('host.logout')}}">
+        <p id="logout" class="header-text">log_out</p>
+    </a>
+    <a href="{{url_for('host.edit_host')}}">
+        <p id="edit_info" class="subheader-text">edit_account</p>
     </a>
 </div>
 
@@ -24,7 +28,7 @@
         {%endif%}
     {%endfor%}
 
-    <a class="viewpage-addchallenge" href="{{url_for('host.create_challenge')}}">
+    <a id="create_challenge" class="viewpage-addchallenge" href="{{url_for('host.create_challenge')}}">
         <span class="addchallenge-icon">
         [+]
         </span>
@@ -33,5 +37,4 @@
         </span>
     </a>
 </div>
-    
 {% endblock %}

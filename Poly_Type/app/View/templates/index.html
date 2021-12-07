@@ -28,7 +28,7 @@
                         {{ loginForm.password(class="login-input", placeholder="[ password ]", autocomplete="off") }}
                     {%endif%}
 
-                    {{ loginForm.submit(class="login-submit") }}
+                    {{ loginForm.login(class="login-submit") }}
                 {%endif%}
             </div>
         </form>
@@ -63,7 +63,7 @@
                         {{ registrationForm.reg_password2(class="login-input", placeholder="[ repeat_password ]", autocomplete="off") }}
                     {%endif%}
 
-                    {{ registrationForm.submit(class="login-submit") }}
+                    {{ registrationForm.register(class="login-submit") }}
                 {%endif%}
             </div>
         </form>
@@ -85,13 +85,13 @@
                 {{ joinForm.joincode(class=("join-challenge-input"), placeholder="[ join_code ]", autocomplete="off", maxlength="6", style="text-transform: uppercase") }}
             {%endif%}    
 
-             {% if joinForm.nickname.errors | length > 0%}
+            {% if joinForm.nickname.errors | length > 0%}
                 {{ joinForm.nickname(class="join-challenge-input error", placeholder="[ nickname ]", autocomplete="off") }}
             {%else%}
                 {{ joinForm.nickname(class="join-challenge-input", placeholder="[ nickname ]", autocomplete="off") }}
             {%endif%}
 
-            {{ joinForm.submit(class="join-challenge-submit") }}
+            {{ joinForm.join_challenge(class="join-challenge-submit") }}
         {%endif%}
     </div>
 </form>
