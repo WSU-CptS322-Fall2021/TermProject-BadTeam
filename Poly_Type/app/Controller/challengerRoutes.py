@@ -38,10 +38,8 @@ def index():
         if request.form.get("login") is not None and loginForm.validate_on_submit():
             user = Host.query.filter_by(username=loginForm.username.data).first()
             if user is None or not user.check_password(loginForm.password.data):
-                print("invalid username or password")
                 flash('invalid username or password')
                 return redirect(url_for('challenger.index'))
-            print("Logged in as {}".format(loginForm.username.data))
             login_user(user)
             return redirect(url_for('host.view_challenges'))
         

@@ -52,7 +52,6 @@ https://chromedriver.storage.googleapis.com/index.html?path=96.0.4664.45/
 @pytest.fixture
 def browser():
     CHROME_PATH = "c:\\test"
-    print(CHROME_PATH)
     opts = Options()
     opts.headless = False
     driver = webdriver.Chrome(options=opts, executable_path = CHROME_PATH + '/chromedriver.exe')

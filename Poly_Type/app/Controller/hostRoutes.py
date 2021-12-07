@@ -91,14 +91,14 @@ def edit_challenge(challengeid):
 @login_required
 def edit_host():
     form = UpdateInfoForm()
-    print(form.validate_on_submit())
     if form.validate_on_submit():
-        print("inside")
         host = Host.query.filter_by(id = current_user.id).first()
-        host.username = form.reg_username.data
-        db.session.commit()
-        flash('your information has been updated')
-        return redirect(url_for('host.view_challenges'))
+        changedHost = Host.query.filter_by(username = form.reg_username.data).first()
+        if changedHost is None:
+            host.username = form.reg_username.data
+            db.session.commit()
+            return redirect(url_for('host.view_challenges'))
+        flash('username is currently taken')
     return render_template('editHost.html', form=form)
 
 
