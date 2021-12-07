@@ -13,6 +13,7 @@ import string
 host_routes = Blueprint('host', __name__)
 host_routes.template_folder = Config.TEMPLATE_FOLDER #'..\\View\\templates'
 
+
 @host_routes.route('/view_challenges', methods=['GET', 'POST'])
 @login_required
 def view_challenges():

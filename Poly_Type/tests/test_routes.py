@@ -148,6 +148,23 @@ def test_take_challenge(test_client, init_database):
     #Check if you were redirected to the challenge page and if the challenge is open
     assert response.status_code == 200
     assert tc.open == True
+def test_delete_challenge(test_client, init_database):
+    #Login with the test login
+    response = test_client.post('/index', data=dict(username='test_login', password='1234', login='Login'), follow_redirects=True)
+    assert response.status_code == 200
+
+    s = db.session.query(Host).filter(Host.username=='test_login').first()
+    assert s.username == 'test_login'
+    assert s.check_password('1234')
+    assert s.is_active == True
+    
+    #Get the challenge id.
+    tc = db.session.query(Challenge).filter(Challenge.title=='test_challenge').first()
+    response = test_client.post('/delete_challenge/'+str(tc.id), data=dict(challengeid=tc.id), follow_redirects=True)
+    assert response.status_code == 200
+    #Refetch the test challenge because it should be deleted.
+    tc = db.session.query(Challenge).filter(Challenge.title=='test_challenge').first()
+    assert tc == None
 
 def test_edit_host(test_client, init_database):
     response = test_client.post('/index', data=dict(username='test_login', password='1234', login='Login'), follow_redirects=True)
