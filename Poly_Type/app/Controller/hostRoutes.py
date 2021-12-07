@@ -125,7 +125,7 @@ def createCode():
 def collectChallengeData(challenge):
     data = []
     for prompt in challenge:
-        if prompt["prompt"] is not "":
+        if prompt["prompt"] != "":
             data.append(prompt["prompt"])
     if len(data) > 0:
         return data
