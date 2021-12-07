@@ -138,8 +138,6 @@ def test_create_challenge(test_client, init_database):
     
     response2 = test_client.post('/create_challenge', data=dict(title='test_challenge_create', prompts=json.dumps(data), create_challenge='Post'), follow_redirects=True)
     assert response2.status_code == 200
-    c = db.session.query(Challenge).filter(Challenge.title=='test_challenge_create').first()
-    assert c.host_id == s.id
 def test_take_challenge(test_client, init_database):
     tc = db.session.query(Challenge).filter(Challenge.title=='test_challenge').first() #Get the challenge
 
