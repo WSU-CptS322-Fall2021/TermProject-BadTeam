@@ -58,7 +58,7 @@ def edit_challenge(challengeid):
     testPropmt = PromptForm()
     testPropmt.prompt = "test"
     challenge = Challenge.query.filter_by(id=challengeid).first()
-    if request.method == 'POST':
+    if request.method == 'POST' and challenge.host_id == current_user.id:
         if form.validate_on_submit():
             challenge.title = form.title.data
             prompts = collectChallengeData(form.prompts.data)
@@ -70,7 +70,7 @@ def edit_challenge(challengeid):
             db.session.add(challenge)
             db.session.commit()
             return redirect(url_for('host.view_challenges'))
-    elif request.method == 'GET':
+    elif request.method == 'GET' and challenge.host_id == current_user.id:
         form.title.data = challenge.title
         prompts = []
         for prompt in challenge.prompts:
