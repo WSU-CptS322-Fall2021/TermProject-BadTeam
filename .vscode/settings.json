@@ -1,7 +1,14 @@
 {
-    "python.testing.pytestArgs": [
-        "Poly_Type"
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        "./Poly_Type",
+        "-p",
+        "test_*.py"
     ],
+    "python.testing.pytestEnabled": true,
     "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true
+    "python.testing.pytestArgs": [
+        "."
+    ]
 }

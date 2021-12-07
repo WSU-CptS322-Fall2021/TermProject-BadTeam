@@ -13,6 +13,7 @@ import string
 host_routes = Blueprint('host', __name__)
 host_routes.template_folder = Config.TEMPLATE_FOLDER #'..\\View\\templates'
 
+
 @host_routes.route('/view_challenges', methods=['GET', 'POST'])
 @login_required
 def view_challenges():
@@ -57,7 +58,7 @@ def edit_challenge(challengeid):
     testPropmt = PromptForm()
     testPropmt.prompt = "test"
     challenge = Challenge.query.filter_by(id=challengeid).first()
-    if request.method == 'POST':
+    if request.method == 'POST' and challenge.host_id == current_user.id:
         if form.validate_on_submit():
             challenge.title = form.title.data
             prompts = collectChallengeData(form.prompts.data)
@@ -69,7 +70,7 @@ def edit_challenge(challengeid):
             db.session.add(challenge)
             db.session.commit()
             return redirect(url_for('host.view_challenges'))
-    elif request.method == 'GET':
+    elif request.method == 'GET' and challenge.host_id == current_user.id:
         form.title.data = challenge.title
         prompts = []
         for prompt in challenge.prompts:
@@ -90,13 +91,14 @@ def edit_challenge(challengeid):
 @login_required
 def edit_host():
     form = UpdateInfoForm()
-    print(form.validate_on_submit())
     if form.validate_on_submit():
-        print("inside")
         host = Host.query.filter_by(id = current_user.id).first()
-        host.username = form.reg_username.data
-        db.session.commit()
-        return redirect(url_for('host.view_challenges'))
+        changedHost = Host.query.filter_by(username = form.reg_username.data).first()
+        if changedHost is None:
+            host.username = form.reg_username.data
+            db.session.commit()
+            return redirect(url_for('host.view_challenges'))
+        flash('username is currently taken')
     return render_template('editHost.html', form=form)
 
 
@@ -142,7 +144,6 @@ def create_challenge():
     if form.validate_on_submit():
         #Creates a random join code
         code = createCode()
-        
         #If random code is already used keep looping until it finds one that is not used
         while Challenge.query.filter_by(joincode=code).first() != None:
             code = createCode()
