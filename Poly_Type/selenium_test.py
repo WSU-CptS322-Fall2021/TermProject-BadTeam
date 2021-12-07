@@ -5,8 +5,14 @@ from selenium.webdriver.common.keys import Keys
 from app import create_app, db
 from config import TestConfig
 from time import sleep
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
 
-test_joincode = ""
+from app.Model.models import Host, Challenge, Prompt
+
+test_joincode = "AAAAAA"
+
+
 
 @pytest.fixture(scope='module')
 def test_client():
@@ -21,7 +27,8 @@ def test_client():
     # Establish an application context before running the tests.
     ctx = flask_app.app_context()
     ctx.push()
- 
+
+
     yield  testing_client 
     # this is where the testing happens!
  
@@ -30,8 +37,8 @@ def test_client():
 @pytest.fixture
 def init_database():
     # Create the database and the database table
+    # db.drop_all()
     db.create_all()
-
     yield  # this is where the testing happens!
 
     db.drop_all()
@@ -68,31 +75,31 @@ def test_registration(browser):
     assert 'view_challenges' in url
     assert 'test user' == name.text
 
-# def test_login(browser):
-#     browser.get('http://localhost:5000/')
-#     browser.find_element_by_name("username").send_keys("test user")
-#     browser.find_element_by_name("password").send_keys("123")
-#     browser.find_element_by_name("login").click()
-#     sleep(2)
-#     url = browser.current_url
-#     name = browser.find_element_by_id("name")
-#     assert 'view_challenges' in url
-#     assert 'test user' == name.text
+def test_login(browser):
+    browser.get('http://localhost:5000/')
+    browser.find_element_by_name("username").send_keys("test user")
+    browser.find_element_by_name("password").send_keys("123")
+    browser.find_element_by_name("login").click()
+    sleep(2)
+    url = browser.current_url
+    name = browser.find_element_by_id("name")
+    assert 'view_challenges' in url
+    assert 'test user' == name.text
 
-# def test_logout(browser):
-#     browser.get('http://localhost:5000/')
-#     browser.find_element_by_name("username").send_keys("test user")
-#     browser.find_element_by_name("password").send_keys("123")
-#     browser.find_element_by_name("login").click()
-#     sleep(3)
-#     url = browser.current_url
-#     name = browser.find_element_by_id("name")
-#     assert 'view_challenges' in url
-#     assert 'test user' == name.text
+def test_logout(browser):
+    browser.get('http://localhost:5000/')
+    browser.find_element_by_name("username").send_keys("test user")
+    browser.find_element_by_name("password").send_keys("123")
+    browser.find_element_by_name("login").click()
+    sleep(3)
+    url = browser.current_url
+    name = browser.find_element_by_id("name")
+    assert 'view_challenges' in url
+    assert 'test user' == name.text
 
-#     browser.find_element_by_id("logout").click()
-#     sleep(2)
-#     assert 'http://localhost:5000/index' == browser.current_url
+    browser.find_element_by_id("logout").click()
+    sleep(2)
+    assert 'http://localhost:5000/index' == browser.current_url
     
 
 def test_create_challenge(browser):
@@ -147,7 +154,62 @@ def test_take_challenge(browser):
     browser.find_element_by_id("nickname").send_keys("test challenger")
     browser.find_element_by_id("join_challenge").click()
     sleep(2)
-    browser.send_ke
+
+    actions = ActionChains(browser)
+    #test prompt zero
+    #test incorrect zero [ENTER]
+    actions.send_keys('test incorrect zero')
+    actions.perform()
+    sleep(1)
+    correctLetter = browser.find_element_by_id("letter-0")
+    assert correctLetter.get_attribute("class") == "letter correct-letter"
+    incorrectLetter = browser.find_element_by_id("letter-4")
+    assert incorrectLetter.get_attribute("class") == "letter incorrect-letter"
+
+    actions.send_keys(Keys.ENTER)
+    actions.perform()
+    sleep(2)
+
+    actions.send_keys("test prompt one")
+    actions.perform()
+
+    actions.send_keys(Keys.ENTER)
+    actions.perform()
+
+    sleep(2)
+    assert "21" == browser.find_element_by_id("correct").text
+    assert "6" == browser.find_element_by_id("incorrect").text
+    assert "3" ==browser.find_element_by_id("extra").text
+
+def test_close_challenge(browser):
+    browser.get('http://localhost:5000/')
+    browser.find_element_by_name("username").send_keys("test user")
+    browser.find_element_by_name("password").send_keys("123")
+    browser.find_element_by_name("login").click()
+    sleep(2)
+    browser.find_element_by_id("close").click()
+    sleep(2)
+    className = browser.find_element_by_class_name("challengeEntry ").get_attribute("class")
+    assert "isActive" not in className
+
+def test_edit_account(browser):
+    browser.get('http://localhost:5000/')
+    browser.find_element_by_name("username").send_keys("test user")
+    browser.find_element_by_name("password").send_keys("123")
+    browser.find_element_by_name("login").click()
+    sleep(2)
+    url = browser.current_url
+    name = browser.find_element_by_id("name")
+    assert 'view_challenges' in url
+    assert 'test user' == name.text
+
+    browser.find_element_by_id("edit_info").click()
+    sleep(2)
+    browser.find_element_by_name("reg_username").send_keys("updated user")
+    browser.find_element_by_name("update_info").click()
+    sleep(2)
+    name = browser.find_element_by_id("name")
+    assert 'updated user' == name.text
 
 if __name__ == "__main__":
     pytest.main()

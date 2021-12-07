@@ -28,6 +28,21 @@
 	opacity: 1;
 }
 
+#createpage-header .subheader-text{
+	display: inline;
+	position: absolute;
+	right: 0px;
+	top: 30px;
+	margin-top: 0;
+	color: var(--subtle);
+	user-select: none;
+	opacity: 1;
+}
+
+#createpage-header .subheader-text:hover{
+	color: var(--primary);
+}
+
 #createpage-header .header-text:hover{
 	color: var(--primary);
 }

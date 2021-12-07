@@ -11,12 +11,14 @@
 		[>]
 		</button>
 	</form>
-	<button id="delete" class="challenge-iconbutton deletebutton margin">
-		[D]
-	</button>
-	<button id="edit" class="challenge-iconbutton margin">
+	<form action="{{url_for('host.delete_challenge', challengeid=challenge.id)}}" method="post" class="challenge-iconbuttonform">
+		<button id="delete" class="challenge-iconbutton deletebutton margin">
+			[D]
+		</button>
+	</form>
+	<a id="edit" href="{{url_for('host.edit_challenge', challengeid=challenge.id)}}" class="challenge-iconbutton margin">
 		[E]
-	</button>
+	</a>
 	<a id="results" href="{{url_for('host.aggregate_results', joinCode=challenge.joincode)}}" class="challenge-iconbutton margin">
 		[R]
 	</a>

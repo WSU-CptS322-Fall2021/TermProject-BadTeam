@@ -1,4 +1,4 @@
-const themes = ["solarized_dark", "monochrome", "strawberry"];
+const themes = ["solarized_dark", "insolate_dusk", "strawberry", "monochrome" ];
 var currentTheme = localStorage['currentTheme'] || "solarized_dark";
 
 function switchThemes() {

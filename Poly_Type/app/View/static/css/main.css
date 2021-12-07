@@ -22,6 +22,14 @@ body.monochrome{
 	--error: rgb(255, 103, 63);
 }
 
+body.insolate_dusk {
+	--background: rgb(50, 50, 50);
+	--primary: rgb(0, 146, 204);
+	--subtle: rgb(126, 69, 184);
+	--contrast: rgb(119, 153, 51);
+	--error: rgb(255, 51, 51);
+}
+
 body{
 	padding: 20px;
 	padding-left: 20px;
