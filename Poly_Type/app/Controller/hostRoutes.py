@@ -82,7 +82,6 @@ def create_challenge():
     if form.validate_on_submit():
         #Creates a random join code
         code = createCode()
-        
         #If random code is already used keep looping until it finds one that is not used
         while Challenge.query.filter_by(joincode=code).first() != None:
             code = createCode()

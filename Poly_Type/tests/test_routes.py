@@ -123,17 +123,16 @@ def test_create_challenge(test_client, init_database):
     
     #test_prompt = [Prompt(text="The brown fox jumped over the white fence"), Prompt(text="Please take your dog, Cali, out for a walk – he really needs some exercise!"), Prompt(text="When do you think they will get back from their adventure in Cairo, Egypt?")]
     #test_prompt = FieldList(FormField(PromptForm(data=dict(prompt=TextAreaField("The brown fox jumped over the white fence")))), FormField(PromptForm(data=dict(prompt=TextAreaField("Please take your dog, Cali, out for a walk – he really needs some exercise!")))), FormField(PromptForm(data=dict(prompt=TextAreaField("When do you think they will get back from their adventure in Cairo, Egypt?")))))
-    prompts = [{'prompt': 'The brown fox jumped over the white fence'}, {'prompt': 'Please take your dog, Cali, out for a walk – he really needs some exercise!'}, {'prompt': 'When do you think they will get back from their adventure in Cairo, Egypt?'}]
-    #prompts = data=dict(prompt='The brown fox jumped over the white fence')
+    #prompts = [{'prompt': 'The brown fox jumped over the white fence'}, {'prompt': 'Please take your dog, Cali, out for a walk – he really needs some exercise!'}, {'prompt': 'When do you think they will get back from their adventure in Cairo, Egypt?'}]
+    prompts = dict(prompt='The brown fox jumped over the white fence')
     #prompts = PromptForm(data=dict(prompt='The brown fox jumped over the white fence'))
     #prompts = FieldList(FormField(prompt="The brown fox jumped over the white fence"), FormField(prompt="Please take your dog, Cali, out for a walk – he really needs some exercise!"), FormField(prompt="When do you think they will get back from their adventure in Cairo, Egypt?"))
     #prompts = FieldList(FormField(PromptForm(prompt="The brown fox jumped over the white fence")), FormField(PromptForm(prompt="Please take your dog, Cali, out for a walk – he really needs some exercise!")), FormField(PromptForm(prompt="When do you think they will get back from their adventure in Cairo, Egypt?")))
     #prompt1 = ["The brown fox jumped over the white fence", "Please take your dog, Cali, out for a walk – he really needs some exercise!", "When do you think they will get back from their adventure in Cairo, Egypt?", "When do you think they will get back from their adventure in Cairo, Egypt?"]
-    response2 = test_client.post('/create_challenge', data=dict(title='test_challenge_create', prompts=prompts, create_challenge='Post'), follow_redirects=True)
+    response2 = test_client.post('/create_challenge', data=dict(title='test_challenge_create', prompts=PromptForm('Prompt'), create_challenge='Post'), follow_redirects=True)
     assert response2.status_code == 200
     c = db.session.query(Challenge).filter(Challenge.title=='test_challenge_create').first()
     assert c.host_id == s.id
-
 def test_take_challenge(test_client, init_database):
     tc = db.session.query(Challenge).filter(Challenge.title=='test_challenge').first() #Get the challenge
 
