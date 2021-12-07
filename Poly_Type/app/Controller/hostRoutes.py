@@ -96,7 +96,6 @@ def edit_host():
         host = Host.query.filter_by(id = current_user.id).first()
         host.username = form.reg_username.data
         db.session.commit()
-        flash('your information has been updated')
         return redirect(url_for('host.view_challenges'))
     return render_template('editHost.html', form=form)
 
@@ -124,7 +123,7 @@ def createCode():
 def collectChallengeData(challenge):
     data = []
     for prompt in challenge:
-        if prompt["prompt"] is not "":
+        if prompt["prompt"] != "":
             data.append(prompt["prompt"])
     if len(data) > 0:
         return data
