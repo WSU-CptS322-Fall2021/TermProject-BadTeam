@@ -9,7 +9,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 
 from app.Model.models import Host, Challenge, Prompt
-
+import os
 test_joincode = "AAAAAA"
 
 
@@ -51,7 +51,8 @@ https://chromedriver.storage.googleapis.com/index.html?path=96.0.4664.45/
 """
 @pytest.fixture
 def browser():
-    CHROME_PATH = "c:\\test"
+    basedir = os.path.abspath(os.path.dirname(__file__))
+    CHROME_PATH = basedir
     opts = Options()
     opts.headless = False
     driver = webdriver.Chrome(options=opts, executable_path = CHROME_PATH + '/chromedriver.exe')
